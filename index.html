@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boda Irene & Nacho - Invitación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=IM+Fell+English:ital@0;1&family=Montserrat:wght@300;400;500;600&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-parchment: #FDFBF7;
+            --ink-turquoise: #38b0cf;
+            --ink-turquoise-light: #35a7cc;
+            --ink-charcoal: #1A1A1A;
+        }
+
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-fell { font-family: 'IM Fell English', serif; }
+        .font-sans { font-family: 'Montserrat', sans-serif; }
+        .font-tolkien-title { font-family: 'Cinzel Decorative', 'Cinzel', serif; letter-spacing: 0.06em; }
+        .font-tolkien-milestone { font-family: 'Uncial Antiqua', 'Cinzel Decorative', serif; letter-spacing: 0.04em; }
+        .font-tolkien-date { font-family: 'Cinzel', serif; letter-spacing: 0.14em; font-weight: 600; }
+        .font-elvish { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+
+        /* 1. Tema Día: "Estrellas de Varda" (Evenstar) sobre blanco puro luminoso (#ffffff) */
+        .embossed-paper-bg {
+            background-color: #ffffff;
+            background-image: var(--embossed-pattern-url, radial-gradient(rgba(56, 176, 207, 0.075) 1px, transparent 0));
+            background-repeat: repeat;
+            background-size: 320px 320px;
+            transition: background-color 0.6s ease, color 0.6s ease;
+        }
+
+        /* 2. Tema Noche: "Noche Estrellada en Valinor" (#0e2439 con constelaciones brillantes) */
+        body.valinor-dark,
+        body.valinor-dark .embossed-paper-bg,
+        body.valinor-dark #full-website {
+            background-color: #0e2439 !important;
+            background-image:
+                radial-gradient(circle at 18% 22%, rgba(125, 211, 252, 0.85) 1px, transparent 1.6px),
+                radial-gradient(circle at 74% 14%, rgba(255, 255, 255, 0.9) 1.2px, transparent 1.8px),
+                radial-gradient(circle at 42% 38%, rgba(56, 176, 207, 0.75) 1px, transparent 1.5px),
+                radial-gradient(circle at 86% 48%, rgba(186, 230, 253, 0.85) 1.3px, transparent 2px),
+                radial-gradient(circle at 28% 66%, rgba(255, 255, 255, 0.8) 1px, transparent 1.6px),
+                radial-gradient(circle at 65% 79%, rgba(56, 176, 207, 0.85) 1.4px, transparent 2px),
+                radial-gradient(circle at 12% 88%, rgba(186, 230, 253, 0.75) 1px, transparent 1.6px),
+                radial-gradient(circle at 91% 84%, rgba(255, 255, 255, 0.85) 1.1px, transparent 1.7px),
+                radial-gradient(ellipse at top, #153554 0%, #0e2439 65%, #091826 100%) !important;
+            background-size: 340px 340px, 420px 420px, 290px 290px, 380px 380px, 310px 310px, 450px 450px, 270px 270px, 390px 390px, 100% 100% !important;
+            background-attachment: fixed;
+            color: #e2e8f0 !important;
+        }
+
+        body.valinor-dark .bg-white,
+        body.valinor-dark .bg-white\/95,
+        body.valinor-dark .bg-\[\#fcfbf9\],
+        body.valinor-dark .bg-\[\#FDFBF7\] {
+            background-color: rgba(17, 42, 66, 0.92) !important;
+            border-color: rgba(56, 176, 207, 0.32) !important;
+            color: #e2e8f0 !important;
+        }
+
+        body.valinor-dark .text-slate-900,
+        body.valinor-dark .text-slate-800,
+        body.valinor-dark .text-slate-700,
+        body.valinor-dark .text-slate-600,
+        body.valinor-dark .text-\[\#1A1A1A\] {
+            color: #f1f5f9 !important;
+        }
+
+        body.valinor-dark .text-slate-500,
+        body.valinor-dark .text-slate-400 {
+            color: #94a3b8 !important;
+        }
+
+        body.valinor-dark .border-slate-200,
+        body.valinor-dark .border-slate-200\/80,
+        body.valinor-dark .border-slate-200\/90,
+        body.valinor-dark .border-slate-200\/60,
+        body.valinor-dark .border-slate-100,
+        body.valinor-dark .border-slate-300 {
+            border-color: rgba(56, 176, 207, 0.28) !important;
+        }
+
+        body.valinor-dark input,
+        body.valinor-dark select {
+            background-color: #0b1d2e !important;
+            color: #f8fafc !important;
+            border-color: rgba(56, 176, 207, 0.4) !important;
+        }
+
+        body.valinor-dark .map-ink-white-fill {
+            fill: #112a42;
+            stroke: #38b0cf;
+        }
+
+        body.valinor-dark #journey-map-svg text {
+            fill: #f8fafc !important;
+        }
+
+        body.valinor-dark #text-halo feFlood {
+            flood-color: #0e2439;
+        }
+
+        body.valinor-dark #journey-map-svg image {
+            filter: url(#valinor-dark-recolor);
+        }
+
+        body.valinor-dark .dark-invert-preserve-blue {
+            filter: url(#valinor-dark-recolor) !important;
+        }
+
+        body.valinor-dark .ring-text-dark-white {
+            filter: brightness(0) invert(1) !important;
+        }
+
+        body.valinor-dark .evenstar-dark-glow {
+            filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(125, 211, 252, 0.65)) !important;
+        }
+
+        /* Tinta cartográfica SVG para el mapa de Nuestra Historia */
+        .map-ink {
+            stroke: #38b0cf;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .map-ink-fill {
+            fill: #38b0cf;
+            stroke: #38b0cf;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .map-ink-white-fill {
+            fill: #FDFBF7;
+            stroke: #38b0cf;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .map-ink-fill {
+            fill: #38b0cfff;
+            stroke: #38b0cfff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .map-ink-white-fill {
+            fill: #FDFBF7;
+            stroke: #38b0cfff;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* Flotación sutil de dragones */
+        @keyframes dragonGlide {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(-1.2deg); }
+        }
+        .animate-dragon {
+            animation: dragonGlide 5.5s ease-in-out infinite;
+        }
+
+        /* Pulso místico de la Luna interactiva */
+        @keyframes moonPulse {
+            0%, 100% { filter: drop-shadow(0 0 3px rgba(27, 117, 188, 0.35)); }
+            50% { filter: drop-shadow(0 0 12px rgba(53, 167, 204, 0.9)); }
+        }
+        .mystic-moon {
+            cursor: pointer;
+            animation: moonPulse 3.8s ease-in-out infinite;
+            transition: filter 0.4s ease;
+        }
+        .mystic-moon:hover {
+            filter: drop-shadow(0 0 16px rgba(53, 167, 204, 1));
+        }
+        .mystic-moon.moon-active {
+            animation: none;
+            filter: drop-shadow(0 0 18px rgba(53, 167, 204, 1));
+        }
+
+        /* Rotación continua e independiente del texto circular del anillo */
+        @keyframes rotateRing {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+        .ring-inscription-group {
+            transform-origin: 400px 358px;
+            animation: rotateRing 45s linear infinite;
+        }
+
+        /* Transición suave al revelar la traducción de las runas */
+        @keyframes fadeMoonlight {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .moonlight-reveal {
+            animation: fadeMoonlight 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Custom animations for envelope and paper opening */
+        .perspective-1000 { perspective: 1000px; }
+        .transform-style-3d { transform-style: preserve-3d; }
+        
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 3s infinite ease-in-out;
+        }
+
+        /* Wax seal shadow and shine */
+        .wax-seal {
+            box-shadow: 0 4px 15px rgba(27, 117, 188, 0.4), inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.4);
+            background: radial-gradient(circle at 30% 30%, #4da6ff, #38b0cfff 60%, #0d3b66);
+        }
+
+        /* Efecto de grabado en relieve sobre el lacre azul para el PNG negro sin fondo */
+        .seal-engraved-img {
+            filter: brightness(0) saturate(100%) invert(18%) sepia(63%) saturate(2250%) hue-rotate(192deg) brightness(86%) contrast(96%) drop-shadow(0 1px 0 rgba(255, 255, 255, 0.42));
+            opacity: 0.88;
+        }
+
+        /* Negro en modo día y blanco puro en modo oscuro para los emblemas/logos de la boda */
+        .footer-crest-img {
+            filter: brightness(0);
+            transition: filter 0.4s ease;
+        }
+
+        body.valinor-dark .footer-crest-img {
+            filter: brightness(0) invert(1);
+        }
+
+        .paper-shadow {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* 3D Envelope & Card Folding Physics */
+        .scene-container {
+            perspective: 1500px;
+        }
+        .envelope-wrapper {
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease;
+        }
+        .flap-top {
+            transform-origin: top center;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.4s;
+        }
+        .flap-top.open {
+            transform: rotateX(180deg);
+            z-index: 5;
+        }
+        .card-container {
+            transform-style: preserve-3d;
+            transition: transform 0.85s cubic-bezier(0.25, 0.9, 0.35, 1), z-index 0s;
+        }
+        .card-container.extracted {
+            transform: translateY(-112%) translateZ(0px) scale(0.98);
+            z-index: 15;
+        }
+        .card-container.cleared-forward {
+            transform: translateY(-112%) translateZ(55px) scale(1.0);
+            z-index: 40;
+        }
+        .card-container.in-front {
+            transform: translateY(0%) translateZ(55px) scale(1.03);
+            z-index: 40;
+        }
+        .card-container.shifted-down {
+            transform: translateY(30%) translateZ(55px) scale(0.92);
+            z-index: 40;
+        }
+        .blue-cover-flap {
+            transform-origin: top center;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            backface-visibility: visible;
+        }
+        .blue-cover-flap.folded-up {
+            transform: rotateX(180deg);
+        }
+        .blue-cover-flap-bottom {
+            transform-origin: bottom center;
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            backface-visibility: visible;
+        }
+        .blue-cover-flap-bottom.folded-down {
+            transform: rotateX(-180deg);
+        }
+        .scrubbing .flap-top,
+        .scrubbing .card-container,
+        .scrubbing .blue-cover-flap,
+        .scrubbing .blue-cover-flap-bottom {
+            transition: none !important;
+        }
+    </style>
+</head>
+<body class="embossed-paper-bg text-[#2c3e50] font-sans antialiased min-h-screen selection:bg-[#38b0cfff] selection:text-white overflow-x-hidden">
+
+    <!-- CONTAINER PRINCIPAL DE LA EXPERIENCIA DE SOBRE -->
+    <div id="experience-container" class="relative w-full h-screen max-h-screen overflow-hidden flex flex-col items-center justify-between py-4 sm:py-6 px-4 transition-opacity duration-1000">
+        
+        <!-- BOTONES SUPERIORES DERECHA: LUNA/SOL (DÍA/NOCHE), MÚSICA Y SALTAR -->
+        <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
+            <!-- Botón Celestial Luna/Sol en pantalla de sobre -->
+            <button type="button" onclick="toggleThemeAndRunes()" aria-label="Cambiar modo Día / Noche de Valinor" title="Estrellas de Varda / Noche en Valinor" class="theme-toggle-btn bg-white/90 backdrop-blur border border-slate-200 text-[#38b0cf] hover:bg-[#38b0cf] hover:text-white p-2.5 rounded-full shadow-md transition-colors">
+                <svg class="theme-icon-moon h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg class="theme-icon-sun hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </button>
+
+            <button id="music-toggle-btn" onclick="toggleMusic()" aria-label="Controlar música" class="hidden bg-white/90 backdrop-blur border border-slate-200 text-[#38b0cf] hover:bg-[#38b0cf] hover:text-white p-2.5 rounded-full shadow-md transition-colors">
+                <svg id="music-icon-on" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                </svg>
+                <svg id="music-icon-off" xmlns="http://www.w3.org/2000/svg" class="hidden h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                </svg>
+            </button>
+
+            <button id="skip-animation-btn" onclick="openPasswordModal()" aria-label="Saltar animación" class="bg-white/90 backdrop-blur border border-slate-200 text-[#38b0cf] hover:bg-[#38b0cf] hover:text-white p-2.5 rounded-full shadow-md transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- SLIDER VERTICAL DERECHO MINIMALISTA (Visible desde el inicio, sin recuadro ni texto) -->
+        <div id="vertical-slider-container" class="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-50 flex items-center justify-center select-none touch-none">
+            <div id="vertical-slider-track" class="relative w-8 h-48 sm:h-56 flex items-center justify-center cursor-pointer">
+                <div class="w-1.5 h-full bg-white/95 rounded-full shadow-[0_2px_10px_rgba(0,0,0,0.12)] border border-slate-200/70 relative overflow-hidden">
+                    <div id="vertical-slider-fill" class="absolute bottom-0 left-0 w-full bg-[#35a7cc] rounded-full" style="height: 0%;"></div>
+                </div>
+                <div id="vertical-slider-thumb" class="absolute w-5 h-5 rounded-full bg-white border-2 border-[#35a7cc] shadow-md cursor-grab active:cursor-grabbing transition-transform duration-150 hover:scale-110" style="bottom: 0px;"></div>
+            </div>
+        </div>
+
+        <!-- TEXTO SUPERIOR (Fuera del sobre) -->
+        <div id="top-prompt" class="text-center transition-all duration-500 shrink-0">
+            <p class="font-cinzel text-[11px] sm:text-xs tracking-[0.25em] text-[#38b0cfff] uppercase mb-0.5">Una invitación muy esperada</p>
+            <h2 class="font-cinzel text-xl sm:text-2xl font-bold text-slate-800">Irene & Nacho</h2>
+        </div>
+
+        <!-- ESCENA 3D DEL SOBRE A5 HORIZONTAL -->
+        <div class="scene-container relative w-full max-w-[360px] sm:max-w-[420px] aspect-[1.414/1] flex items-center justify-center my-auto">
+            
+            <div id="envelope-body" class="envelope-wrapper relative w-full h-full bg-white rounded-xl paper-shadow border border-slate-200 flex items-center justify-center">
+                
+                <!-- Interior oscuro/sutil del sobre -->
+                <div class="absolute inset-0 bg-slate-100 rounded-xl z-0"></div>
+
+                <!-- TARJETA A5 HORIZONTAL (Sale hacia arriba y se coloca delante) -->
+                <div id="a5-card" class="card-container absolute inset-1.5 rounded-lg shadow-xl z-10 flex items-center justify-center bg-white" style="background-color: #ffffff !important;">
+                    
+                    <!-- CARA INTERIOR: Segundo PNG (invit_web.png) siempre con fondo blanco -->
+                    <div class="absolute inset-0 w-full h-full bg-white rounded-lg overflow-hidden flex items-center justify-center p-1 border border-slate-200 z-10" style="background-color: #ffffff !important;">
+                        <img id="front" src="https://uploads.onecompiler.io/44nfcewhu/1794673053955/invit_web.png" alt="Invitación Interior" class="w-full h-full object-contain">
+                    </div>
+
+                    <!-- SOLAPA INFERIOR TRANSPARENTE (Se abre hacia abajo en una capa inferior a front_up) -->
+                    <div id="blue-cover-bottom" class="blue-cover-flap-bottom absolute inset-0 w-full h-full rounded-lg overflow-hidden z-20 flex items-center justify-center pointer-events-none">
+                        <img src="https://uploads.onecompiler.io/44nfcewhu/1794739540689/front_down.png.png" alt="Solapa Inferior de la Invitación" class="w-full h-full object-cover">
+                    </div>
+
+                    <!-- PORTADA AZUL SUPERIOR (Se abre hacia arriba quedando invertida, por encima de la inferior) -->
+                    <div id="blue-cover" class="blue-cover-flap absolute inset-0 w-full h-full rounded-lg overflow-hidden z-30 flex items-center justify-center">
+                        <!-- Reemplaza la URL del src por el enlace directo a tu nuevo PNG -->
+                        <img src="https://uploads.onecompiler.io/44nfcewhu/1794672805823/front_up.png" alt="Portada Personalizada del Sobre" class="w-full h-full object-cover" onerror="this.style.display='none'; document.getElementById('svg-hobbit-fallback').classList.remove('hidden');">
+                        
+                        <!-- SVG de respaldo por si la imagen fallase al cargar -->
+                        <svg id="svg-hobbit-fallback" class="hidden w-full h-full" viewBox="0 0 840 595" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="840" height="595" fill="#35A7CC"/>
+                            <!-- (resto del código de respaldo por si acaso...) -->
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- BOLSILLO FRONTAL DEL SOBRE (Solapas izquierda, derecha e inferior) -->
+                <div class="absolute inset-0 z-20 pointer-events-none rounded-xl overflow-hidden">
+                    <div class="absolute inset-0 bg-[#f8f8f5]" style="clip-path: polygon(0 0, 52% 52%, 0 100%); filter: drop-shadow(2px 0 3px rgba(0,0,0,0.06));"></div>
+                    <div class="absolute inset-0 bg-[#f8f8f5]" style="clip-path: polygon(100% 0, 48% 52%, 100% 100%); filter: drop-shadow(-2px 0 3px rgba(0,0,0,0.06));"></div>
+                    <div class="absolute inset-0 bg-[#fcfcf9]" style="clip-path: polygon(0 100%, 50% 46%, 100% 100%); filter: drop-shadow(0 -3px 5px rgba(0,0,0,0.08));"></div>
+                </div>
+
+                <!-- SOLAPA SUPERIOR DEL SOBRE -->
+                <div id="envelope-flap" class="flap-top absolute top-0 left-0 w-full h-[56%] bg-[#f2f2ed] z-30 rounded-t-xl pointer-events-none" style="clip-path: polygon(0 0, 100% 0, 50% 100%); filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));"></div>
+
+                <!-- SELLO DE LACRE AZUL CON BORLA DE CUERDA COLGANTE CON FÍSICAS -->
+                <div id="wax-seal-wrapper" class="absolute z-40 flex items-center justify-center" style="transform: translateZ(170px); z-index: 60;">
+                    <canvas id="tassel-canvas" width="520" height="440" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-grab active:cursor-grabbing" style="z-index: 38;"></canvas>
+
+                    <button id="wax-seal-btn" onclick="startSequence()" aria-label="Abrir sobre" class="relative z-40 wax-seal w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center border-1 border-[#66b3ff] shadow-2xl cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95 focus:outline-none">
+                        <img src="https://uploads.onecompiler.io/44nfcewhu/44qr987r5/test_sello2_cropp_fin.png" alt="Emblema Boda Irene y Nacho" class="w-14 h-14 sm:w-14 sm:h-14 object-contain seal-engraved-img pointer-events-none select-none" onerror="this.style.display='none'; document.getElementById('seal-fallback-text').classList.remove('hidden');">
+                        <span id="seal-fallback-text" class="hidden font-cinzel font-bold text-white text-lg sm:text-xl tracking-wider drop-shadow">I & N</span>
+                        <div class="absolute inset-1 rounded-full border border-white/35 pointer-events-none"></div>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TEXTO INFERIOR Y BOTÓN "VER DETALLES" -->
+        <div id="bottom-controls" class="min-h-[76px] flex flex-col items-center justify-center text-center z-50 shrink-0 transition-transform duration-700">
+            <p id="instruction-text" class="text-xs sm:text-sm font-cinzel tracking-widest text-[#38b0cfff] uppercase animate-pulse-slow">
+                Pulsa el sello de lacre para abrir
+            </p>
+
+            <button id="details-btn" onclick="openPasswordModal()" class="hidden opacity-0 bg-[#35a7cc] hover:bg-[#288eb0] text-white font-cinzel tracking-widest text-xs sm:text-sm px-7 py-3 rounded-full shadow-xl transition-all duration-700 transform translate-y-2 hover:-translate-y-0.5 hover:scale-105 flex items-center gap-2.5">
+                <span>Ver detalles</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </button>
+
+            <p id="wheel-hint" class="hidden opacity-0 text-[11px] font-sans text-slate-400 mt-1.5 transition-opacity duration-700">
+                Usa la rueda del ratón o el deslizador derecho para abrir o cerrar
+            </p>
+        </div>
+
+    </div>
+
+    <!-- MODAL DE CONTRASEÑA DEL EVENTO -->
+    <div id="password-modal" class="hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl paper-shadow border border-slate-200 max-w-md w-full p-6 sm:p-8 text-center transform transition-all">
+            <div class="w-12 h-12 rounded-full bg-[#35a7cc]/15 text-[#38b0cfff] flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                </svg>
+            </div>
+            <h3 class="font-cinzel text-xl font-bold text-slate-900 mb-2">Acceso a la Invitación</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mb-2">Introduce la palabra clave del evento para descubrir todos los detalles.</p>
+            <p class="text-xs text-[#38b0cfff] bg-[#35a7cc]/10 rounded-lg py-2 px-3 mb-5 font-medium">
+                La encontrarás escrita en la tarjeta física junto con vuestra invitación.
+            </p>
+            
+            <form onsubmit="verifyPassword(event)" class="space-y-4">
+                <input id="event-password-input" type="text" autocomplete="off" required placeholder="Contraseña del evento..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:border-[#35a7cc] text-center font-sans text-sm">
+                <p id="password-error" class="hidden text-xs text-rose-600 font-medium">Contraseña incorrecta. Inténtalo de nuevo.</p>
+                <div class="flex gap-3 pt-1">
+                    <button type="button" onclick="closePasswordModal()" class="w-1/2 py-3 rounded-xl border border-slate-300 text-slate-600 font-cinzel text-xs tracking-wider hover:bg-slate-50 transition-colors">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="w-1/2 py-3 rounded-xl bg-[#35a7cc] hover:bg-[#288eb0] text-white font-cinzel text-xs tracking-wider shadow-md transition-colors">
+                        Entrar
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-5 pt-4 border-t border-slate-100">
+                <p class="text-xs font-sans text-slate-500">
+                    ¿Has olvidado la contraseña o no la tienes? Pregunta directamente a los novios.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PÁGINA PRINCIPAL COMPLETA -->
+    <div id="full-website" class="hidden w-full min-h-screen embossed-paper-bg text-[#2c3e50] opacity-0 transition-opacity duration-1000 relative">
+        
+        <!-- FRANJA SUPERIOR AZUL ESTILO MENÚ FIJO SIEMPRE PRESENTE -->
+        <nav aria-label="Navegación de la invitación" class="sticky top-0 left-0 right-0 z-50 bg-[#38b0cf]/95 backdrop-blur-md text-white shadow-md border-b border-[#35a7cc]/40">
+            <div class="relative max-w-5xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between">
+                <!-- Izquierda: Botón volver a la invitación + Logo a su derecha cuando el menú está horizontal (desktop) o expandido en móvil -->
+                <div class="flex items-center gap-2 z-10">
+                    <button onclick="returnToInvitation()" aria-label="Volver a la invitación" class="shrink-0 bg-white/15 hover:bg-white hover:text-[#38b0cf] text-white p-2 rounded-full transition-all border border-white/25">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </button>
+
+                    <!-- Logo a la derecha del botón de volver cuando el menú está horizontal (md:flex) o expandido en móvil -->
+                    <a id="nav-logo-next-to-back" href="#sec-inicio" onclick="closeMobileNav()" aria-label="Ir al inicio" class="hidden md:flex shrink-0 items-center justify-center rounded-full p-1 hover:bg-white/15 transition-all">
+                        <img src="https://uploads.onecompiler.io/44nfcewhu/44qr987r5/test_sello2_cropp_fin.png" alt="" class="h-9 w-9 object-contain brightness-0 invert">
+                    </a>
+                </div>
+
+                <!-- Centro (solo móvil cuando el menú está cerrado): Logo centrado en la barra superior -->
+                <a id="nav-logo-centered" href="#sec-inicio" onclick="closeMobileNav()" aria-label="Ir al inicio" class="md:hidden absolute left-1/2 -translate-x-1/2 flex items-center justify-center rounded-full p-1 hover:bg-white/15 transition-all">
+                    <img src="https://uploads.onecompiler.io/44nfcewhu/44qr987r5/test_sello2_cropp_fin.png" alt="" class="h-9 w-9 object-contain brightness-0 invert">
+                </a>
+
+                <!-- Centro / Derecha: Enlaces de navegación + Botón Luna/Sol + Botón Mute/Audio + Menú móvil -->
+                <div class="flex items-center justify-end gap-2 z-10">
+                    <div id="invitation-nav-links" class="hidden absolute top-full left-3 right-3 mt-2 flex-col rounded-xl border border-white/20 bg-[#38b0cf] p-2 shadow-xl md:static md:mt-0 md:flex md:flex-row md:items-center md:justify-end md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+                        <a href="#sec-historia" onclick="closeMobileNav()" class="px-3 py-2 rounded-lg hover:bg-white/15 font-cinzel text-xs tracking-wider transition-colors whitespace-nowrap">Historia</a>
+                        <a href="#sec-mapa" onclick="closeMobileNav()" class="px-3 py-2 rounded-lg hover:bg-white/15 font-cinzel text-xs tracking-wider transition-colors whitespace-nowrap">Cómo Llegar</a>
+                        <a href="#sec-rsvp" onclick="closeMobileNav()" class="px-3 py-2 rounded-lg hover:bg-white/15 font-cinzel text-xs tracking-wider transition-colors whitespace-nowrap">Asistencia</a>
+                        <a href="#sec-info" onclick="closeMobileNav()" class="px-3 py-2 rounded-lg hover:bg-white/15 font-cinzel text-xs tracking-wider transition-colors whitespace-nowrap">Detalles</a>
+                    </div>
+
+                    <!-- Extremo Derecho: Toggle Día/Noche (Luna/Sol) junto al control de Mute/Audio -->
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" onclick="toggleThemeAndRunes()" aria-label="Cambiar modo Día / Noche de Valinor" title="Estrellas de Varda / Noche en Valinor" class="theme-toggle-btn shrink-0 bg-white/15 hover:bg-white hover:text-[#38b0cf] text-white p-2 rounded-full transition-all border border-white/25">
+                            <svg class="theme-icon-moon h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                            <svg class="theme-icon-sun hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </button>
+
+                        <button type="button" onclick="toggleMusic()" aria-label="Activar o silenciar música" title="Música" class="shrink-0 bg-white/15 hover:bg-white hover:text-[#38b0cf] text-white p-2 rounded-full transition-all border border-white/25">
+                            <svg class="nav-music-icon-on h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                            </svg>
+                            <svg class="nav-music-icon-off hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <button id="mobile-nav-toggle" type="button" aria-expanded="false" aria-controls="invitation-nav-links" onclick="toggleMobileNav()" class="md:hidden inline-flex items-center gap-2 px-3 py-2 rounded-full border border-white/30 bg-white/10 hover:bg-white/20 font-cinzel text-xs tracking-wider">
+                        <span>Menú</span>
+                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header / Hero section -->
+        <header id="sec-inicio" class="scroll-mt-16 max-w-4xl mx-auto px-4 pt-10 pb-8 text-center border-b border-slate-200">
+            <img src="https://uploads.onecompiler.io/44nfcewhu/44qr987r5/test_sello2_cropp_fin.png" alt="Emblema Boda Irene y Nacho" class="w-20 h-20 mx-auto mb-4 object-contain footer-crest-img">
+            <p class="font-cinzel text-xs sm:text-sm tracking-[0.25em] text-[#38b0cfff] uppercase mb-2">You are invited to a long expected wedding</p>
+            <h1 class="font-cinzel text-3xl sm:text-5xl font-bold tracking-wide text-slate-900 my-4">Irene Salgado Borrell</h1>
+            <div class="font-cinzel text-[#38b0cfff] text-2xl my-2">&</div>
+            <h1 class="font-cinzel text-3xl sm:text-5xl font-bold tracking-wide text-slate-900 my-4">Nacho García-Zarandieta de Llanos</h1>
+            
+            <div class="mt-6 font-cinzel text-lg tracking-wider text-slate-700">
+                <p class="font-semibold text-[#38b0cfff]">01 · 05 · 2027</p>
+                <p class="text-sm mt-1">12:30</p>
+            </div>
+
+            <!-- WIDGET DE CUENTA ATRÁS -->
+            <div id="countdown-widget" class="mt-8 mb-4 max-w-xl mx-auto bg-white rounded-2xl paper-shadow border border-slate-200/80 p-5 sm:p-6">
+                <p class="font-cinzel text-xs tracking-[0.2em] text-slate-500 uppercase mb-4">Cuenta atrás para el gran día</p>
+                <div class="grid grid-cols-4 gap-2 sm:gap-4 text-center">
+                    <div class="bg-[#fcfbf9] rounded-xl p-2.5 sm:p-3 border border-slate-200/60">
+                        <span id="cd-days" class="block font-cinzel text-2xl sm:text-3xl font-bold text-[#38b0cfff]">000</span>
+                        <span class="text-[10px] sm:text-xs font-cinzel uppercase tracking-wider text-slate-500 mt-1 block">Días</span>
+                    </div>
+                    <div class="bg-[#fcfbf9] rounded-xl p-2.5 sm:p-3 border border-slate-200/60">
+                        <span id="cd-hours" class="block font-cinzel text-2xl sm:text-3xl font-bold text-[#38b0cfff]">00</span>
+                        <span class="text-[10px] sm:text-xs font-cinzel uppercase tracking-wider text-slate-500 mt-1 block">Horas</span>
+                    </div>
+                    <div class="bg-[#fcfbf9] rounded-xl p-2.5 sm:p-3 border border-slate-200/60">
+                        <span id="cd-minutes" class="block font-cinzel text-2xl sm:text-3xl font-bold text-[#38b0cfff]">00</span>
+                        <span class="text-[10px] sm:text-xs font-cinzel uppercase tracking-wider text-slate-500 mt-1 block">Minutos</span>
+                    </div>
+                    <div class="bg-[#fcfbf9] rounded-xl p-2.5 sm:p-3 border border-slate-200/60">
+                        <span id="cd-seconds" class="block font-cinzel text-2xl sm:text-3xl font-bold text-[#35a7cc]">00</span>
+                        <span class="text-[10px] sm:text-xs font-cinzel uppercase tracking-wider text-slate-500 mt-1 block">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-sm sm:text-base font-sans text-slate-600">
+                <p class="mt-3 font-semibold text-[#38b0cfff]">Parroquia de Los Santos Apóstoles</p>
+                <p>Boadilla del Monte</p>
+                <p class="mt-3 font-semibold text-[#38b0cfff]">Finca La Alcudia</p>
+                <p>Brunete</p>
+            </div>
+
+            <!-- BOTÓN GUARDAR EN EL CALENDARIO -->
+            <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Irene+y+Nacho&dates=20270501T103000Z/20270501T210000Z&details=Ceremonia+en+Parroquia+de+Los+Santos+Ap%C3%B3stoles+(Boadilla+del+Monte)+y+celebraci%C3%B3n+en+Finca+La+Alcudia.&location=Parroquia+de+Los+Santos+Ap%C3%B3stoles,+Boadilla+del+Monte,+Madrid" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#38b0cfff] hover:bg-[#155d96] text-white font-cinzel text-xs sm:text-sm tracking-wider px-5 py-3 rounded-full shadow-md transition-all hover:-translate-y-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span>Guardar en Google Calendar</span>
+                </a>
+                <button onclick="downloadICS()" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-[#38b0cfff] border border-[#38b0cfff] font-cinzel text-xs sm:text-sm tracking-wider px-5 py-3 rounded-full shadow-sm transition-all hover:-translate-y-0.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span>Descargar archivo (.ics)</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Contenido Principal -->
+        <main class="max-w-5xl mx-auto px-4 py-12">
+
+            <!-- SECCIÓN: NUESTRA HISTORIA (Mapa cartográfico con ríos animados por scroll, dragones, luna interactiva y espada) -->
+            <section id="sec-historia" class="scroll-mt-20 mb-14">
+
+
+                <!-- Lienzo Cartográfico Interactivo -->
+                <div class="max-w-2xl mx-auto relative bg-[#FDFBF7] rounded-2xl paper-shadow border border-[#38b0cfff]/25 overflow-hidden">
+                    
+                    <!-- Florituras superiores izquierda y derecha -->
+                    <div class="w-full flex justify-between items-start px-3 pt-3 pointer-events-none select-none">
+                        <svg class="w-28 sm:w-36 h-14" viewBox="0 0 180 90">
+                            <path class="map-ink" stroke-width="2.4" d="M 8 75 L 8 10 L 145 10" />
+                            <path class="map-ink" stroke-width="2" d="M 8 42 C 28 42, 42 26, 42 10" />
+                            <path class="map-ink" stroke-width="2" d="M 22 10 C 22 38, 52 52, 78 36 C 92 27, 86 14, 74 18 C 65 21, 68 33, 79 33 C 96 33, 114 22, 132 34 C 142 41, 138 52, 128 50 C 120 48, 122 38, 132 38 L 172 38" />
+                            <circle cx="172" cy="38" r="2" class="map-ink-fill" />
+                        </svg>
+
+                        <svg class="w-28 sm:w-36 h-14" viewBox="0 0 180 90">
+                            <path class="map-ink" stroke-width="2.4" d="M 172 75 L 172 10 L 35 10" />
+                            <path class="map-ink" stroke-width="2" d="M 172 42 C 152 42, 138 26, 138 10" />
+                            <path class="map-ink" stroke-width="2" d="M 158 10 C 158 38, 128 52, 102 36 C 88 27, 94 14, 106 18 C 115 21, 112 33, 101 33 C 84 33, 66 22, 48 34 C 38 41, 42 52, 52 50 C 60 48, 58 38, 48 38 L 8 38" />
+                            <circle cx="8" cy="38" r="2" class="map-ink-fill" />
+                        </svg>
+                    </div>
+
+                    <!-- Cabecera del Mapa -->
+                    <div class="relative px-6 pt-1 pb-2 text-center select-none">
+                        <div class="flex justify-center mb-1">
+                            <svg class="w-64 sm:w-80 h-6" viewBox="0 0 320 24">
+                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
+                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
+                                <path class="map-ink" stroke-width="1.4" d="M 15 12 C 5 6, 5 18, 15 12 M 305 12 C 315 6, 315 18, 305 12" />
+                            </svg>
+                        </div>
+
+                        <h2 class="font-tolkien-title text-3xl sm:text-5xl font-bold text-[#1A1A1A] tracking-wider uppercase leading-tight">
+                            Nuestra Historia
+                        </h2>
+
+                        <div class="flex justify-center mt-1 mb-2">
+                            <svg class="w-64 sm:w-80 h-6" viewBox="0 0 320 24">
+                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
+                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
+                                <path class="map-ink" stroke-width="1.4" d="M 15 12 C 5 6, 5 18, 15 12 M 305 12 C 315 6, 315 18, 305 12" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- MAPA SVG ÚNICO Y COHESIVO (viewBox 0 0 800 2145) -->
+                    <div class="relative w-full select-none">
+                        <svg id="journey-map-svg" class="w-full h-auto block" viewBox="0 0 800 2145" preserveAspectRatio="xMidYMid meet">
+                            <defs>
+                                <!-- Filtro para modo oscuro: convierte los blancos (R+G+B alto y baja saturación) al fondo #112a42 y conserva los trazos azules intactos -->
+                                <filter id="valinor-dark-recolor" color-interpolation-filters="sRGB">
+                                    <!-- 1. Invertir luminancia mediante CSS/SVG antes de mapear a #112a42 -->
+                                    <feColorMatrix type="matrix" values="
+                                        -1  0  0  0  1
+                                         0 -1  0  0  1
+                                         0  0 -1  0  1
+                                         0  0  0  1  0" result="inv" />
+                                    <!-- 2. Rotar 180deg de tono exacto en espacio RGB (preserva el azul turquesa sin volverlo naranja) -->
+                                    <feColorMatrix in="inv" type="hueRotate" values="180" result="hueRestored" />
+                                    <!-- 3. Elevar el negro puro (0,0,0 -> antiguo blanco) exactamente al fondo de tarjeta #112a42 (17, 42, 66) -->
+                                    <feComponentTransfer in="hueRestored">
+                                        <feFuncR type="linear" slope="0.9333" intercept="0.0667" />
+                                        <feFuncG type="linear" slope="0.8353" intercept="0.1647" />
+                                        <feFuncB type="linear" slope="0.7412" intercept="0.2588" />
+                                    </feComponentTransfer>
+                                </filter>
+
+                                <!-- Patrón de ondas de agua cartográfica -->
+                                <pattern id="water-ripples" width="32" height="11" patternUnits="userSpaceOnUse">
+                                    <line x1="2" y1="3" x2="16" y2="3" stroke="#38b0cfff" stroke-width="1.3" stroke-linecap="round" />
+                                    <line x1="20" y1="3" x2="28" y2="3" stroke="#38b0cfff" stroke-width="1.3" stroke-linecap="round" />
+                                    <line x1="7" y1="8.5" x2="23" y2="8.5" stroke="#38b0cfff" stroke-width="1.3" stroke-linecap="round" />
+                                </pattern>
+
+                                <!-- Recorta la copia animada del río al área del paisaje Ring -->
+                                <clipPath id="ring-river-clip" clipPathUnits="userSpaceOnUse">
+                                    <rect x="0" y="1095" width="800" height="300" />
+                                </clipPath>
+
+                                <!-- Halo claro para legibilidad de textos sobre líneas del mapa -->
+                                <filter id="text-halo" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feMorphology in="SourceAlpha" result="DILATED" operator="dilate" radius="3"></feMorphology>
+                                    <feFlood flood-color="#FDFBF7" flood-opacity="0.94" result="BG"></feFlood>
+                                    <feComposite in="BG" in2="DILATED" operator="in" result="OUTLINE"></feComposite>
+                                    <feMerge>
+                                        <feMergeNode in="OUTLINE" />
+                                        <feMergeNode in="SourceGraphic" />
+                                    </feMerge>
+                                </filter>
+                            </defs>
+
+                            <!-- SISTEMA FLUVIAL CONTINUO (DOS AFLUENTES SINCRONIZADOS -> UN SOLO RÍO) -->
+                            <!-- Afluente Izquierdo: Nace en Irene (12·1998) y llega a la confluencia (450, 500) -->
+                            <path id="river-tributary-irene" class="map-ink" stroke-width="2.5"
+                                  d="M 115 265 C 195 280, 345 310, 338 348 C 330 388, 175 390, 195 432 C 215 472, 390 468, 450 500" />
+
+                            <!-- Río Principal Continuo: Nace en Nacho (07·1998), llega exactamente a la vez a (450, 500) y desciende hasta el Tren/Lago -->
+                            <path id="river-continuous-main" class="map-ink" stroke-width="2.8"
+                                  d="M 580 135
+                                     C 520 170, 420 188, 432 222
+                                     C 445 256, 605 250, 592 292
+                                     C 580 335, 440 342, 460 385
+                                     C 480 428, 635 432, 610 472
+                                     C 590 502, 495 492, 450 500
+                                     C 505 518, 545 538, 520 564
+                                     C 495 590, 335 588, 342 624
+                                     C 350 658, 525 662, 512 698
+                                     C 498 734, 305 730, 318 776
+                                     C 332 820, 580 812, 620 862
+                                     C 660 912, 485 935, 400 960
+                                     C 315 985, 195 1020, 222 1095
+                                     C 250 1170, 380 1185, 432 1210
+                                     C 485 1240, 550 1220, 590 1195
+                                     C 645 1165, 725 1190, 712 1245
+                                     C 698 1305, 460 1325, 355 1355
+                                     C 250 1385, 195 1435, 345 1485
+                                     C 475 1528, 315 1580, 328 1645
+                                     C 342 1705, 510 1715, 495 1775
+                                     C 480 1835, 285 1850, 245 1908
+                                     C 212 1955, 245 2005, 315 2045" />
+
+                            <!-- TRAMO A: MONTAÑAS DE ORIGEN (NACHO 07·1998 & IRENE 12·1998) -->
+                            <!-- PRIMER DRAGÓN EN LAS MONTAÑAS INICIALES -->
+                            <g transform="translate(220, 18)">
+                                <g class="animate-dragon">
+                                    <image id="dragon_inicial" href="https://uploads.onecompiler.io/44nfcewhu/1794668761610/dragon_nuestra_historia.png"
+                                          x="20" y="-10" width="200" preserveAspectRatio="xMidYMid meet" />
+
+                                </g>
+                            </g>
+
+                            <!-- Cordilleras Derecha: NACHO 07·1998 -->
+                            <image id="nacho" href="https://uploads.onecompiler.io/44nfcewhu/1794668991205/monta%C3%83%C2%B1as_nacho.png"
+                                   x="500" y="20" width="250" preserveAspectRatio="xMidYMid meet" />
+
+
+                            <g filter="url(#text-halo)">
+                                <text x="645" y="175" text-anchor="middle" class="font-tolkien-milestone fill-[#1A1A1A] text-[30px]">Nacho</text>
+                                <text x="645" y="201" text-anchor="middle" class="font-tolkien-date fill-[#1A1A1A] text-[17px]">07·1998</text>
+                            </g>
+
+                            <!-- Cordilleras Izquierda: IRENE 12·1998 -->
+                            <image id="irene" href="https://uploads.onecompiler.io/44nfcewhu/1794668995887/monta%C3%83%C2%B1as_irene.png"
+                                   x="50" y="190" width="130" preserveAspectRatio="xMidYMid meet" />
+
+
+                            <g filter="url(#text-halo)">
+                                <text x="152" y="150" text-anchor="middle" class="font-tolkien-milestone fill-[#1A1A1A] text-[30px]">Irene</text>
+                                <text x="152" y="176" text-anchor="middle" class="font-tolkien-date fill-[#1A1A1A] text-[17px]">12·1998</text>
+                            </g>
+
+                            <!-- Bosque central entre cordilleras -->
+                            <image id="bosque" href="https://uploads.onecompiler.io/44nfcewhu/1794669003691/bosque_1.png"
+                                   x="220" y="180" width="370"  preserveAspectRatio="xMidYMid meet" />
+
+
+                            <!-- Cruce de caminos con el texto integrado en la ilustración PNG -->
+                            <image id="path-sign" href="https://uploads.onecompiler.io/44nfcewhu/1794671641784/pathsign.png"
+                                   x="420" y="390" width="100" height="105" preserveAspectRatio="xMidYMid meet" />
+
+                            <!-- TRAMO B: DATING (02·2016) — CASTILLO, LAGO Y ROSA DE LOS VIENTOS -->
+                            <path fill="url(#water-ripples)" stroke="#38b0cfff" stroke-width="2"
+                                  d="M 412 582 C 485 565, 655 574, 682 600 C 702 620, 616 635, 510 630 C 418 625, 336 632, 340 615 C 344 598, 380 590, 412 582 Z" />
+
+                            <!-- Castillo Disney junto al hito Dating -->
+                            <image id="dating-castle" href="https://uploads.onecompiler.io/44nfcewhu/1794669010504/disney.png"
+                                   x="105" y="510" width="200" height="140" preserveAspectRatio="xMidYMid meet" />
+
+                            <g filter="url(#text-halo)">
+                                <text x="355" y="558" text-anchor="middle" class="font-tolkien-milestone fill-[#1A1A1A] text-[31px]">Dating</text>
+                                <text x="355" y="584" text-anchor="middle" class="font-tolkien-date fill-[#1A1A1A] text-[17px]">02·2016</text>
+                            </g>
+
+                            <!-- Brújula ilustrada -->
+                            <image id="story-compass" href="https://uploads.onecompiler.io/44nfcewhu/1794669023971/compass.png"
+                                   x="53" y="670" width="130" height="130" preserveAspectRatio="xMidYMid meet" />
+
+                            <!-- TRAMO C: HOME (09·2022) — DOS PUEBLOS FORTIFICADOS Y BAHÍA -->
+                            <g transform="translate(0, 875)">
+                                <image id="home-landscape" href="https://uploads.onecompiler.io/44nfcewhu/1794670871776/home.png"
+                                       x="25" y="-50" width="740"  preserveAspectRatio="xMidYMid meet" />
+
+                                <g filter="url(#text-halo)">
+                                    <text x="430" y="35" text-anchor="middle" class="font-tolkien-milestone fill-[#1A1A1A] text-[34px]">Home</text>
+                                    <text x="430" y="50" text-anchor="middle" class="font-tolkien-date fill-[#1A1A1A] text-[18px]">09·2022</text>
+                                </g>
+
+
+
+                                <path fill="url(#water-ripples)" stroke="#38b0cfff" stroke-width="2.2"
+                                      d="M 0 148 Q 115 138, 220 155 Q 325 165, 420 142 Q 540 160, 660 145 Q 735 140, 800 150 L 800 205 L 0 205 Z" />
+                            </g>
+
+                            <!-- TRAMO D: RING (04·2026) — ILUSTRACIÓN PNG Y ELEMENTOS SOBRE EL RÍO -->
+                            <!-- Fondo completo de Ring. Ajusta x, y, width y height para recolocarlo o redimensionarlo. -->
+                            <image id="ring-landscape" href="https://uploads.onecompiler.io/44nfcewhu/1794669777886/pagoda.png"
+                                   x="80" y="1120" width="200"  preserveAspectRatio="xMidYMid meet" />
+                            
+                            <image id="ring-pagoda2" href="https://uploads.onecompiler.io/44nfcewhu/1794669773992/pagoda2.png"
+                                   x="500" y="1080" width="80"  preserveAspectRatio="xMidYMid meet" />
+                            
+                            <!-- Copia sincronizada del río: queda sobre el fondo, pero bajo el puente y el torii. -->
+                            <use id="river-ring-overlay" href="#river-continuous-main" class="map-ink" stroke-width="2.8"
+                                 clip-path="url(#ring-river-clip)" />
+
+                            <!-- Puente volteado horizontalmente (espejo lateral sobre sí mismo) -->
+                            <image id="ring-bridge" href="https://uploads.onecompiler.io/44nfcewhu/1794668931506/ring_river.png"
+                                  x="230" y="1130" width="100" preserveAspectRatio="xMidYMid meet"
+                                  transform="translate(600, 0) scale(-1, 1)" />
+
+                            <!-- Torii/puerta: colócalo más abajo para que el río pase también por detrás. -->
+                            <image id="ring-torii" href="https://uploads.onecompiler.io/44nfcewhu/1794668941348/ring_river_door.png"
+                                   x="355" y="1250" width="90"  preserveAspectRatio="xMidYMid meet" />
+
+                            <g filter="url(#text-halo)">
+                                <text x="548" y="1320" text-anchor="middle" class="font-tolkien-milestone fill-[#1A1A1A] text-[32px]">Ring</text>
+                                <text x="548" y="1347" text-anchor="middle" class="font-tolkien-date fill-[#1A1A1A] text-[18px]">04·2026</text>
+                            </g>
+
+                            <!-- TRAMO E: TRANSICIÓN COMPACTA RING -> WEDDING -->
+                            <image id="mountain_end" href="https://uploads.onecompiler.io/44nfcewhu/1794668956962/monta%C3%83%C2%B1as_final.png"
+                                x="50" y="1500" width="350"  preserveAspectRatio="xMidYMid meet" />
+
+
+                            <!-- SEGUNDO DRAGÓN ENCIMA DE LA IGLESIA -->
+                            <g transform="translate(415, 1445)">
+                                <g class="animate-dragon">
+                                    <image id="dragon_final" href="https://uploads.onecompiler.io/44nfcewhu/1794668791051/drag%C3%83%C2%B3n_iglesia.png"
+                                        x="10" y="-5" width="250"  preserveAspectRatio="xMidYMid meet" />
+                                </g>
+                            </g>
+
+                            <!-- SANTUARIO / IGLESIA DE WEDDING (05·2027) -->
+                            <image id="iglesia" href="https://uploads.onecompiler.io/44nfcewhu/1794668914782/iglesia.png"
+                                x="450" y="1560" width="200"  preserveAspectRatio="xMidYMid meet" />
+
+                            <g filter="url(#text-halo)">
+                                <text x="515" y="1882" text-anchor="middle" class="font-tolkien-milestone fill-[#1A1A1A] text-[36px]">Wedding</text>
+                                <text x="515" y="1914" text-anchor="middle" class="font-tolkien-date fill-[#1A1A1A] text-[20px]">05·2027</text>
+                            </g>
+
+                            <!-- TRAMO F: EL TREN DE VAPOR Y EL LAGO TRAS LA IGLESIA -->
+                            <g transform="translate(110, 1955)">
+                                <image id="tren" href="https://uploads.onecompiler.io/44nfcewhu/1794672402151/tren.png"
+                                      x="-50" y="-40" width="400"  preserveAspectRatio="xMidYMid meet" />
+
+                                <!-- Lago junto al tren -->
+                                <path fill="url(#water-ripples)" stroke="#38b0cfff" stroke-width="1.9"
+                                      d="M 355 45 C 435 30, 605 38, 625 58 C 640 74, 560 86, 460 80 C 380 76, 315 70, 355 45 Z" />
+                            </g>
+
+                            <!-- Horizonte / Mar cartográfico tras el tren -->
+                            <path fill="url(#water-ripples)" stroke="#38b0cfff" stroke-width="2.2"
+                                  d="M 0 2080 Q 145 2068, 260 2092 Q 375 2110, 475 2058 Q 575 2082, 685 2065 Q 750 2060, 800 2076 L 800 2135 L 0 2135 Z" />
+                        </svg>
+                    </div>
+
+                    <!-- Florituras inferiores izquierda y derecha -->
+                    <div class="w-full flex justify-between items-end px-3 pb-4 pt-2 pointer-events-none select-none">
+                        <svg class="w-28 sm:w-36 h-14" viewBox="0 0 180 90">
+                            <path class="map-ink" stroke-width="2.4" d="M 8 15 L 8 80 L 145 80" />
+                            <path class="map-ink" stroke-width="2" d="M 8 48 C 28 48, 42 64, 42 80" />
+                            <path class="map-ink" stroke-width="2" d="M 22 80 C 22 52, 52 38, 78 54 C 92 63, 86 76, 74 72 C 65 69, 68 57, 79 57 C 96 57, 114 68, 132 56 C 142 49, 138 38, 128 40 C 120 42, 122 52, 132 52 L 172 52" />
+                            <circle cx="172" cy="52" r="2" class="map-ink-fill" />
+                        </svg>
+
+                        <svg class="w-28 sm:w-36 h-14" viewBox="0 0 180 90">
+                            <path class="map-ink" stroke-width="2.4" d="M 172 15 L 172 80 L 35 80" />
+                            <path class="map-ink" stroke-width="2" d="M 172 48 C 152 48, 138 64, 138 80" />
+                            <path class="map-ink" stroke-width="2" d="M 158 80 C 158 52, 128 38, 102 54 C 88 63, 94 76, 106 72 C 115 69, 112 57, 101 57 C 84 57, 66 68, 48 56 C 38 49, 42 38, 52 40 C 60 42, 58 52, 48 52 L 8 52" />
+                            <circle cx="8" cy="52" r="2" class="map-ink-fill" />
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WIDGET DE UBICACIONES Y RUTA ENTRE CEREMONIA Y CELEBRACIÓN -->
+            <section id="sec-mapa" class="scroll-mt-20 mb-14">
+                <div class="text-center mb-8">
+                    <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-slate-900 tracking-wider">Cómo Llegar y Ruta</h2>
+                    <div class="w-20 h-0.5 bg-[#38b0cfff] mx-auto mt-3"></div>
+                </div>
+
+                <div class="bg-white rounded-2xl paper-shadow border border-slate-100 overflow-hidden">
+                    <div class="grid grid-cols-1 lg:grid-cols-5">
+                        <div class="lg:col-span-2 p-6 sm:p-8 flex flex-col justify-between bg-[#fcfbf9] border-b lg:border-b-0 lg:border-r border-slate-200/80">
+                            <div class="space-y-4">
+                                <!-- Parada 1: Ceremonia -->
+                                <div id="card-location-church" onclick="selectMapLocation('church')" role="button" tabindex="0" class="cursor-pointer rounded-xl p-3.5 bg-white border-2 border-[#38b0cfff] shadow-sm transition-all">
+                                    <div class="relative pl-5 border-l-2 border-[#38b0cfff]">
+                                        <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#38b0cfff] border-2 border-white shadow"></span>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[11px] font-cinzel font-bold uppercase tracking-wider text-[#38b0cfff]">12:30 · Ceremonia</span>
+                                            <span id="badge-church" class="text-[10px] font-cinzel font-bold bg-[#38b0cfff]/10 text-[#38b0cfff] px-2 py-0.5 rounded-full">En mapa</span>
+                                        </div>
+                                        <h3 class="font-cinzel font-bold text-slate-900 text-base mt-0.5">Parroquia de Los Santos Apóstoles</h3>
+                                        <p class="text-xs text-slate-600 mt-1">Boadilla del Monte, Madrid</p>
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Parroquia+de+los+Santos+Apostoles+Boadilla+del+Monte" onclick="event.stopPropagation()" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-cinzel text-[#38b0cfff] hover:underline font-semibold">
+                                            Abrir iglesia en Google Maps →
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- Parada 2: Celebración -->
+                                <div id="card-location-venue" onclick="selectMapLocation('venue')" role="button" tabindex="0" class="cursor-pointer rounded-xl p-3.5 bg-transparent border-2 border-transparent hover:bg-white/70 hover:border-slate-200 transition-all">
+                                    <div class="relative pl-5 border-l-2 border-[#35a7cc]">
+                                        <span class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-[#35a7cc] border-2 border-white shadow"></span>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-[11px] font-cinzel font-bold uppercase tracking-wider text-[#35a7cc]">A continuación · Celebración</span>
+                                            <span id="badge-venue" class="hidden text-[10px] font-cinzel font-bold bg-[#35a7cc]/15 text-[#38b0cfff] px-2 py-0.5 rounded-full">En mapa</span>
+                                        </div>
+                                        <h3 class="font-cinzel font-bold text-slate-900 text-base mt-0.5">Finca La Alcudia</h3>
+                                        <p class="text-xs text-slate-600 mt-1">Banquete y fiesta tras la ceremonia</p>
+                                        <a href="https://www.google.com/maps/search/?api=1&query=Finca+La+Alcudia+Madrid" onclick="event.stopPropagation()" target="_blank" rel="noopener noreferrer" class="inline-block mt-2 text-xs font-cinzel text-[#38b0cfff] hover:underline font-semibold">
+                                            Abrir finca en Google Maps →
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Botón de ruta entre ceremonia y finca -->
+                            <div class="mt-6 pt-5 border-t border-slate-200/80">
+                                <a href="https://www.google.com/maps/dir/?api=1&origin=Parroquia+de+los+Santos+Apostoles,+Boadilla+del+Monte&destination=Finca+La+Alcudia,+Madrid&travelmode=driving" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-[#35a7cc] hover:bg-[#288eb0] text-white font-cinzel text-xs tracking-wider py-3.5 px-4 rounded-xl shadow-md transition-all hover:-translate-y-0.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                                    </svg>
+                                    <span>Cómo llegar de la Iglesia a la Finca</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-3 min-h-[300px] sm:min-h-[360px] bg-slate-100 relative">
+                            <iframe
+                                id="location-map-iframe"
+                                title="Ubicación del Evento"
+                                class="w-full h-full min-h-[300px] sm:min-h-[360px] border-0"
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                                src="https://maps.google.com/maps?q=Parroquia+de+los+Santos+Apostoles,+Boadilla+del+Monte&z=15&output=embed">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Texto introductorio -->
+            <div class="bg-white/95 backdrop-blur-sm rounded-2xl paper-shadow p-6 sm:p-8 mb-8 border border-slate-200/80 max-w-3xl mx-auto text-center">
+                <p class="font-fell italic text-lg sm:text-xl text-slate-700 leading-relaxed">
+                    "Todo gran viaje comienza con un primer paso fuera de la puerta... Desde que nuestros caminos se cruzaron en 2016, cada capítulo ha sido una aventura llena de magia, juegos, risas, hogares nuevos y mundos fantásticos. Y ahora, por fin, ha llegado el momento de celebrar un nuevo capítulo de esta aventura rodeados de nuestra compañía favorita: vosotros."
+                </p>
+            </div>
+
+            <!-- Emblema de la estrella con volutas élficas invertidas -->
+            <div class="max-w-sm mx-auto mb-20 px-4 select-none" aria-hidden="true">
+                <div class="relative flex items-center justify-center min-h-[180px]">
+                    <svg class="absolute inset-0 w-full h-full scale-[1.45]" viewBox="0 0 400 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <image href="https://uploads.onecompiler.io/44nfcewhu/1794669134951/volutas.png" x="55" y="10" width="290" height="90" preserveAspectRatio="xMidYMid meet" transform="translate(0 220) scale(1 -1)" class="dark-invert-preserve-blue" />
+                    </svg>
+                    <img src="https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png" alt="Estrella élfica" class="relative z-10 w-24 h-24 sm:w-28 sm:h-28 object-contain footer-crest-img evenstar-dark-glow drop-shadow-sm">
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE CONFIRMACIÓN DE ASISTENCIA (RSVP) -->
+            <div id="sec-rsvp" class="scroll-mt-20 bg-white rounded-2xl paper-shadow p-6 sm:p-10 border border-slate-100 max-w-3xl mx-auto mb-14">
+                <div class="text-center mb-8">
+                    <h3 class="font-cinzel text-2xl sm:text-3xl font-bold text-slate-900">Confirmación de Asistencia</h3>
+                    <p class="text-sm text-slate-600 mt-2">Busca tu nombre o apellido para gestionar tu confirmación y la de tus acompañantes.</p>
+                </div>
+
+                <!-- Buscador de invitado -->
+                <div class="relative mb-6">
+                    <label for="guest-search-input" class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-2">Buscar invitado</label>
+                    <div class="relative">
+                        <input id="guest-search-input" type="text" autocomplete="off" oninput="searchGuests(this.value)" placeholder="Escribe tu nombre o apellido (ej. Pipin, Merry, Frodo, Sam...)" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-[#fcfbf9]">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 absolute left-3.5 top-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <div id="guest-search-results" class="hidden mt-2 bg-white border border-slate-200 rounded-xl shadow-lg divide-y divide-slate-100 overflow-hidden z-20"></div>
+                </div>
+
+                <!-- Formulario dinámico de grupo familiar / invitación -->
+                <div id="rsvp-group-container" class="hidden border-t border-slate-200 pt-6 mt-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+                        <div>
+                            <span class="text-[11px] font-cinzel uppercase tracking-wider text-[#38b0cfff] font-bold">Invitación seleccionada</span>
+                            <h4 id="rsvp-group-title" class="font-cinzel text-lg sm:text-xl font-bold text-slate-900"></h4>
+                        </div>
+                        <button type="button" onclick="resetGuestSelection()" class="text-xs font-cinzel text-slate-500 hover:text-[#38b0cfff] underline">
+                            Cambiar invitado
+                        </button>
+                    </div>
+
+                    <form onsubmit="handleRSVP(event)" class="space-y-5">
+                        <div id="rsvp-members-list" class="space-y-4"></div>
+
+                        <!-- Opción de añadir +1 solo para invitados sin acompañantes asignados -->
+                        <div id="solo-plus-one-wrapper" class="hidden bg-[#fcfbf9] p-4 rounded-xl border border-dashed border-[#35a7cc]">
+                            <div class="flex items-center justify-between gap-3">
+                                <div>
+                                    <p id="solo-plus-one-heading" class="font-cinzel text-xs font-bold text-[#3f464d] uppercase transition-colors duration-300">¿Vienes con acompañante (+1)?</p>
+                                </div>
+                                <button type="button" id="toggle-plus-one-btn" onclick="toggleSoloPlusOne()" class="px-4 py-2 rounded-full text-xs font-cinzel font-bold border border-[#35a7cc] text-[#38b0cfff] hover:bg-[#35a7cc] hover:text-white transition-colors shrink-0">
+                                    + Añadir acompañante
+                                </button>
+                            </div>
+
+                            <div id="solo-plus-one-fields" class="hidden mt-4 pt-4 border-t border-slate-200 space-y-3">
+                                <div>
+                                    <label class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-1">Nombre y Apellidos del +1</label>
+                                    <input id="solo-plus-one-name" type="text" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Nombre completo del acompañante">
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-1">Asistencia del +1</label>
+                                        <select id="solo-plus-one-status" onchange="updatePlusOneColor()" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white font-medium text-[#3f464d]">
+                                            <option value="yes" class="text-[#3b6e52]">Sí, asistirá</option>
+                                            <option value="no" class="text-[#8e4444]">No podrá asistir</option>
+                                            <option value="pending" class="text-[#3f464d]">Sin confirmar</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-1">Alergias / Intolerancias (+1)</label>
+                                        <input id="solo-plus-one-allergies" type="text" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Ninguna / Celíaco / Alergias...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full mt-2 bg-[#38b0cfff] hover:bg-[#155d96] text-white font-cinzel tracking-widest text-sm py-4 rounded-xl shadow-md transition-colors">
+                            Guardar Confirmación
+                        </button>
+                    </form>
+
+                    <div id="rsvp-feedback" class="hidden mt-5 p-4 rounded-xl text-center text-sm font-medium border transition-colors"></div>
+                </div>
+            </div>
+
+            <!-- EMBLEMA DE LA ESPADA CON ANILLO GIRATORIO (Fuera de Nuestra Historia, tras Asistencia) -->
+            <div class="max-w-lg mx-auto my-4 sm:my-4 px-4 select-none">
+              <svg class="w-full h-auto block mx-auto" viewBox="230 70 340 440" preserveAspectRatio="xMidYMid meet">
+                    <g id="final-sword-emblem">
+                        <!-- Volutas Élficas -->
+                        <image href="https://uploads.onecompiler.io/44nfcewhu/1794669134951/volutas.png" x="265" y="75" width="270" height="70" preserveAspectRatio="xMidYMid meet" class="dark-invert-preserve-blue" />
+
+                        <!-- Texto circular del anillo girando antihorario -->
+                        <g class="ring-inscription-group">
+                            <image href="https://uploads.onecompiler.io/44nfcewhu/1794668753444/texto_anillo.png" x="270" y="228" width="260" height="260" preserveAspectRatio="xMidYMid meet" class="ring-text-dark-white" />
+                        </g>
+
+                        <!-- Espada vertical -->
+                        <image href="https://uploads.onecompiler.io/44nfcewhu/1794668757459/espada_gandalf.png" x="340" y="105" width="120" height="370" preserveAspectRatio="xMidYMid meet" class="dark-invert-preserve-blue" />
+                    </g>
+                </svg>
+            </div>
+
+            <!-- SECCIÓN DE INFORMACIÓN PRÁCTICA -->
+            <section id="sec-info" class="scroll-mt-20 max-w-5xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-slate-900 tracking-wider">Información de Interés</h2>
+                    <div class="w-20 h-0.5 bg-[#38b0cfff] mx-auto mt-3"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Temática -->
+                    <div class="bg-white rounded-2xl paper-shadow p-6 sm:p-8 border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-[#35a7cc]/15 text-[#38b0cfff] flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-slate-900 mb-2">Temática del Evento</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Sí, lo habéis adivinado: la boda va a ser un auténtico <strong>popurrí de mundos</strong>. Desde la Tierra Media pasando por Hogwarts y todos esos universos que nos apasionan, así que esperamos que vengáis con los ojos bien abiertos y con muchas ganas de descubrir y entender todas las referencias escondidas durante el día.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Código de Vestimenta -->
+                    <div class="bg-white rounded-2xl paper-shadow p-6 sm:p-8 border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-[#38b0cfff]/10 text-[#38b0cfff] flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-slate-900 mb-2">Código de Vestimenta</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                <strong>Etiqueta / Formal.</strong> (lo típico) Es una boda no una fiesta de disfraces, así que tranquilos que no hace falta venir con cota de malla de mithril, kimono ni capa de mago (aunque si queréis traer un pequeño guiño discreto, seguro que a los novios les encantará).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Transporte -->
+                    <div class="bg-white rounded-2xl paper-shadow p-6 sm:p-8 border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-[#38b0cfff]/10 text-[#38b0cfff] flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                                </svg>
+                            </div>
+                            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-slate-900 mb-2">Transporte y Parking</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Tanto la Parroquia de Los Santos Apóstoles como Finca La Alcudia cuentan con zona de aparcamiento para quienes vengáis en coche. Además, pondremos a vuestra disposición autobuses lanzadera entre la ceremonia, la finca y el regreso a Madrid al finalizar la fiesta.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Regalos -->
+                    <div class="bg-white rounded-2xl paper-shadow p-6 sm:p-8 border border-slate-100 flex flex-col justify-between">
+                        <div>
+                            <div class="w-11 h-11 rounded-xl bg-[#35a7cc]/15 text-[#38b0cfff] flex items-center justify-center mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                                </svg>
+                            </div>
+                            <h3 class="font-cinzel text-lg sm:text-xl font-bold text-slate-900 mb-2">Regalos</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed mb-3">
+                                Vuestra compañía en este viaje es nuestro mejor regalo. Si aun así queréis ayudarnos a financiar nuestra próxima gran aventura (y algún que otro capricho en Japón), podéis hacerlo aquí:
+                            </p>
+                            <div class="bg-[#fcfbf9] px-3.5 py-2.5 rounded-xl border border-slate-200 flex items-center justify-between gap-2">
+                                <span id="iban-text" class="font-mono text-xs sm:text-sm text-slate-700 select-all">ES00 0000 0000 00 0000000000</span>
+                                <button type="button" onclick="copyIban()" id="copy-iban-btn" class="text-xs font-cinzel font-bold text-[#38b0cfff] hover:text-[#155d96] px-2.5 py-1 rounded-lg bg-[#38b0cfff]/10 transition-colors shrink-0">
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN FINAL: LUNA DE DURIN INTERACTIVA Y MENSAJE RÚNICO (Justo antes del pie de página) -->
+            <section aria-label="Mensaje rúnico secreto" class="max-w-2xl mx-auto mt-14 mb-4 px-4 text-center">
+                <!-- Luna Interactiva -->
+                <div class="flex justify-center mb-3">
+                    <svg class="w-24 h-24 sm:w-28 sm:h-28 overflow-visible" viewBox="-68 -68 136 136">
+                        <g id="secret-moon-trigger" onclick="toggleThemeAndRunes()" role="button" tabindex="0"
+                           aria-label="Tocar la luna para cambiar a Noche en Valinor y revelar el mensaje secreto de las runas"
+                           class="mystic-moon">
+                            <title>La luz de Ithildin y Noche en Valinor...</title>
+                            <circle cx="0" cy="0" r="52" class="map-ink" stroke-width="1.2" stroke-dasharray="3 5" opacity="0.7" />
+                            <circle cx="0" cy="0" r="62" fill="transparent" />
+                            <path class="map-ink-white-fill" stroke-width="2.4"
+                                  d="M -10 -36 A 38 38 0 1 0 30 22 A 29 29 0 1 1 -10 -36 Z" />
+                            <path class="map-ink-fill" stroke-width="1"
+                                  d="M 20 -18 L 23 -25 L 26 -18 L 33 -15 L 26 -12 L 23 -5 L 20 -12 L 13 -15 Z" />
+                            <circle cx="36" cy="-2" r="2" class="map-ink-fill" />
+                            <circle cx="10" cy="-34" r="1.8" class="map-ink-fill" />
+                            <circle cx="-38" cy="-25" r="1.8" class="map-ink-fill" />
+                        </g>
+                    </svg>
+                </div>
+
+                <!-- Ornamento superior -->
+                <div class="flex justify-center mb-3 select-none">
+                    <svg class="w-64 sm:w-72 h-5" viewBox="0 0 320 24">
+                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
+                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
+                    </svg>
+                </div>
+
+                <!-- Texto Rúnico y Traducción -->
+                <div class="px-2 sm:px-6">
+                    <p id="rune-text" class="moonlight-reveal text-[#38b0cfff] text-xs sm:text-sm font-semibold tracking-[0.11em] leading-relaxed uppercase select-none" style="font-family: 'Cinzel', serif;">
+                        ᛚᚪᛋ ᚱᚢᚾᚪᛋ ᛋᛖ ᚱᛖᚠᛖᛚᚪᚾ ᚪ ᛚᚪ ᛚᚢᛉ ᛞᛖ ᛚᚪ ᛚᚢᚾᚪ... ᛖᛋᛏᚪ ᚳᛖᛚᛖᛒᚱᚪᚳᛡᚾ ᛖᛋ ᚢᚾ ᚳᚪᚩᛋ ᛞᛖ ᛗᚪᚷᛡ, ᚷᚪᛚᚪᚳᛋᛡᛋ, ᚱᛖᛁᚾᚩᛋ ᛁ ᛗᚢᚾᛞᚩᛋ ᚳᚢᛖ ᚪᛗᚪᛗᚩᛋ. ᚠᛖᚾ ᛈᚱᛖᛈᚪᚱᚪᛞᚩ ᛈᚪᚱᚪ ᛗᚢᚳᚻᚪᛋ ᚱᛖᚠᛖᚱᛖᚾᚳᛡᛋ ᛁ ᚷᚱᚪᚳᛡᛋ ᛈᚩᚱ ᚠᚩᚱᛗᚪᚱ ᛈᚪᚱᛏᛖ ᛞᛖ ᚾᚢᛖᛋᛏᚱᚪ ᚻᛁᛋᛏᚩᚱᛡ.
+                    </p>
+
+                    <div id="translated-text" class="hidden moonlight-reveal text-[#1A1A1A] text-lg sm:text-xl leading-relaxed space-y-1.5" style="font-family: 'Cormorant Garamond', serif;">
+                        <p class="italic text-[#38b0cfff] font-semibold">«Las runas se revelan a la luz de la luna...»</p>
+                        <p class="italic">Esta celebración es un caos de magia, galaxias, reinos y mundos que amamos. Ven preparado para muchas referencias y gracias por formar parte de nuestra historia.</p>
+                    </div>
+                </div>
+
+                <!-- Ornamento inferior -->
+                <div class="flex justify-center mt-3 select-none">
+                    <svg class="w-64 sm:w-72 h-5" viewBox="0 0 320 24">
+                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
+                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
+                    </svg>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 border-t border-slate-200 mt-30">
+            <img src="https://uploads.onecompiler.io/44nfcewhu/44qr987r5/test_sello2_cropp_fin.png" alt="Icono Boda Irene y Nacho" class="w-16 h-16 mx-auto mb-3 object-contain footer-crest-img opacity-85" onerror="this.style.display='none'">
+            <p class="mt-4 font-cinzel text-lg sm:text-xl font-semibold tracking-wide text-[#38b0cfff]">
+                Irene &amp; Nacho · 01.05.2027
+            </p>
+        </footer>
+    </div>
+
+    <!-- Script de control de la animación, mapa fluvial y flujo completo -->
+    <script>
+        let sequenceStarted = false;
+        let wheelControlEnabled = true;
+        let targetProgress = 0;
+        let currentProgress = 0;
+        let rafRunning = false;
+        let musicStartedOnce = false;
+        let isMusicPlaying = false;
+        let melodyLoop = null;
+        let synth = null;
+        let sequenceTimers = [];
+        let runesTranslated = false;
+        let isDarkMode = false;
+
+        // =========================================================================
+        // SINCRONIZACIÓN DE TEMA DÍA ("ESTRELLAS DE VARDA") / NOCHE ("VALINOR")
+        // Y REVELADO DE RUNAS ÉLFICAS DE ITHILDIN
+        // =========================================================================
+        function applyThemeAndRunesState(darkState) {
+            isDarkMode = darkState;
+            runesTranslated = darkState;
+
+            document.body.classList.toggle('valinor-dark', isDarkMode);
+
+            document.querySelectorAll('.theme-icon-moon').forEach(el => {
+                el.classList.toggle('hidden', isDarkMode);
+            });
+            document.querySelectorAll('.theme-icon-sun').forEach(el => {
+                el.classList.toggle('hidden', !isDarkMode);
+            });
+
+            const runeEl = document.getElementById('rune-text');
+            const transEl = document.getElementById('translated-text');
+            const moonEl = document.getElementById('secret-moon-trigger');
+
+            if (runeEl && transEl) {
+                if (runesTranslated) {
+                    runeEl.classList.add('hidden');
+                    transEl.classList.remove('hidden');
+                    if (moonEl) moonEl.classList.add('moon-active');
+                } else {
+                    transEl.classList.add('hidden');
+                    runeEl.classList.remove('hidden');
+                    if (moonEl) moonEl.classList.remove('moon-active');
+                }
+            }
+        }
+
+        function toggleThemeAndRunes() {
+            applyThemeAndRunesState(!isDarkMode);
+        }
+
+        function toggleRunes() {
+            toggleThemeAndRunes();
+        }
+
+        // =========================================================================
+        // ANIMACIÓN DEL RÍO CONTINUO CON EL SCROLL EN EL MAPA DE NUESTRA HISTORIA
+        // =========================================================================
+        let updateRiverFn = null;
+
+        function initStoryMapRiver() {
+            const moonEl = document.getElementById('secret-moon-trigger');
+            if (moonEl) {
+                moonEl.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleThemeAndRunes();
+                    }
+                });
+            }
+
+            const mainRiver = document.getElementById('river-continuous-main');
+            const ireneTributary = document.getElementById('river-tributary-irene');
+            const ringRiverOverlay = document.getElementById('river-ring-overlay');
+            const mapSvg = document.getElementById('journey-map-svg');
+
+            if (!mainRiver || !mapSvg) return;
+
+            const mainLength = mainRiver.getTotalLength();
+            const ireneLength = ireneTributary ? ireneTributary.getTotalLength() : 0;
+
+            mainRiver.style.strokeDasharray = mainLength;
+            mainRiver.style.strokeDashoffset = mainLength;
+            if (ringRiverOverlay) {
+                ringRiverOverlay.style.strokeDasharray = mainLength;
+                ringRiverOverlay.style.strokeDashoffset = mainLength;
+            }
+
+            if (ireneTributary) {
+                ireneTributary.style.strokeDasharray = ireneLength;
+                ireneTributary.style.strokeDashoffset = ireneLength;
+            }
+
+            let ticking = false;
+
+            updateRiverFn = function updateContinuousRiver() {
+                const fullWebsite = document.getElementById('full-website');
+                if (!fullWebsite || fullWebsite.classList.contains('hidden')) return;
+
+                const svgRect = mapSvg.getBoundingClientRect();
+                if (svgRect.height <= 0) return;
+
+                const viewportHeight = window.innerHeight;
+                const riverEndRatio = 2045 / 2145;
+                const riverPixelHeight = svgRect.height * riverEndRatio;
+
+                const maxScroll = Math.max(document.documentElement.scrollHeight - viewportHeight, 1);
+                const scrollFraction = Math.min(Math.max(window.scrollY / maxScroll, 0), 1);
+                const readingLineY = viewportHeight * (0.42 + scrollFraction * 0.45);
+
+                const rawProgress = (readingLineY - svgRect.top) / Math.max(riverPixelHeight, 1);
+                const progress = Math.min(Math.max(rawProgress, 0.04), 1);
+
+                const confluenceFraction = 0.265;
+
+                if (progress <= confluenceFraction) {
+                    const localProgress = progress / confluenceFraction;
+                    mainRiver.style.strokeDashoffset = mainLength * (1 - (confluenceFraction * localProgress));
+                    if (ireneTributary) {
+                        ireneTributary.style.strokeDashoffset = ireneLength * (1 - localProgress);
+                    }
+                } else {
+                    if (ireneTributary) {
+                        ireneTributary.style.strokeDashoffset = 0;
+                    }
+                    mainRiver.style.strokeDashoffset = mainLength * (1 - progress);
+                }
+
+                if (ringRiverOverlay) {
+                    ringRiverOverlay.style.strokeDashoffset = mainRiver.style.strokeDashoffset;
+                }
+
+                ticking = false;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking && updateRiverFn) {
+                    window.requestAnimationFrame(updateRiverFn);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', () => {
+                if (updateRiverFn) updateRiverFn();
+            }, { passive: true });
+
+            updateRiverFn();
+        }
+
+        // =========================================================================
+        // FÍSICAS DE CUERDA Y BORLA AZUL COLGANTE DEL SELLO DE LACRE
+        // =========================================================================
+        (function initTasselPhysics() {
+            const canvas = document.getElementById('tassel-canvas');
+            const sealBtn = document.getElementById('wax-seal-btn');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            const numPoints = 9;
+            const segmentLength = 5.4;
+            const knotClearance = 11;
+            const sealCenterX = canvas.width / 2;
+            const sealCenterY = canvas.height / 2;
+
+            function getSealRadius() {
+                return sealBtn ? (sealBtn.offsetWidth / 2) : 36;
+            }
+
+            let sealRadius = getSealRadius();
+            const anchorX = sealCenterX;
+            let anchorY = sealCenterY + sealRadius - 1;
+            const gravity = 0.35;
+            const damping = 0.95;
+
+            const points = [];
+            for (let i = 0; i < numPoints; i++) {
+                points.push({
+                    x: anchorX,
+                    y: anchorY + i * segmentLength,
+                    oldX: anchorX,
+                    oldY: anchorY + i * segmentLength,
+                    pinned: i === 0
+                });
+            }
+
+            let mouseX = -999;
+            let mouseY = -999;
+            let prevMouseX = -999;
+            let prevMouseY = -999;
+            let isDragging = false;
+            let draggedIndex = -1;
+
+            function getCanvasCoords(clientX, clientY) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                return {
+                    x: (clientX - rect.left) * scaleX,
+                    y: (clientY - rect.top) * scaleY
+                };
+            }
+
+            function constrainTarget(x, y, maxRadius, minSealDist) {
+                let dxSeal = x - sealCenterX;
+                let dySeal = y - sealCenterY;
+                let distSeal = Math.hypot(dxSeal, dySeal) || 0.001;
+                if (distSeal < minSealDist) {
+                    x = sealCenterX + (dxSeal / distSeal) * minSealDist;
+                    y = sealCenterY + (dySeal / distSeal) * minSealDist;
+                }
+
+                let dxAnchor = x - anchorX;
+                let dyAnchor = y - anchorY;
+                let distAnchor = Math.hypot(dxAnchor, dyAnchor);
+                if (distAnchor > maxRadius) {
+                    x = anchorX + (dxAnchor / distAnchor) * maxRadius;
+                    y = anchorY + (dyAnchor / distAnchor) * maxRadius;
+                }
+
+                dxSeal = x - sealCenterX;
+                dySeal = y - sealCenterY;
+                distSeal = Math.hypot(dxSeal, dySeal) || 0.001;
+                if (distSeal < minSealDist) {
+                    x = sealCenterX + (dxSeal / distSeal) * minSealDist;
+                    y = sealCenterY + (dySeal / distSeal) * minSealDist;
+                }
+
+                return { x, y };
+            }
+
+            function startDrag(clientX, clientY) {
+                const pos = getCanvasCoords(clientX, clientY);
+                let minDist = 42;
+                let closestIdx = -1;
+
+                for (let i = 1; i < points.length; i++) {
+                    const dist = Math.hypot(points[i].x - pos.x, points[i].y - pos.y);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closestIdx = i;
+                    }
+                }
+
+                const tip = points[points.length - 1];
+                const tasselDist = Math.hypot(tip.x - pos.x, (tip.y + 18) - pos.y);
+                if (tasselDist < 52 && tasselDist <= minDist) {
+                    closestIdx = points.length - 1;
+                }
+
+                if (closestIdx !== -1) {
+                    isDragging = true;
+                    draggedIndex = closestIdx;
+                    mouseX = pos.x;
+                    mouseY = pos.y;
+                }
+            }
+
+            function movePointer(clientX, clientY) {
+                const pos = getCanvasCoords(clientX, clientY);
+                prevMouseX = mouseX;
+                prevMouseY = mouseY;
+                mouseX = pos.x;
+                mouseY = pos.y;
+
+                if (isDragging) return;
+
+                if (prevMouseX !== -999) {
+                    const vx = (mouseX - prevMouseX) * 0.4;
+                    const vy = (mouseY - prevMouseY) * 0.4;
+                    for (let i = 1; i < points.length; i++) {
+                        const dx = points[i].x - mouseX;
+                        const dy = points[i].y - mouseY;
+                        const dist = Math.hypot(dx, dy);
+                        if (dist < 32) {
+                            const influence = (1 - dist / 32);
+                            points[i].oldX -= vx * influence;
+                            points[i].oldY -= vy * influence;
+                        }
+                    }
+                }
+            }
+
+            function endDrag() {
+                if (isDragging && prevMouseX !== -999 && draggedIndex > 0) {
+                    const p = points[draggedIndex];
+                    const releaseVx = Math.max(-12, Math.min(12, (mouseX - prevMouseX) * 0.35));
+                    const releaseVy = Math.max(-12, Math.min(12, (mouseY - prevMouseY) * 0.35));
+                    p.oldX = p.x - releaseVx;
+                    p.oldY = p.y - releaseVy;
+                }
+                isDragging = false;
+                draggedIndex = -1;
+            }
+
+            canvas.addEventListener('mousedown', (e) => startDrag(e.clientX, e.clientY));
+            window.addEventListener('mousemove', (e) => movePointer(e.clientX, e.clientY));
+            window.addEventListener('mouseup', endDrag);
+            canvas.addEventListener('mouseleave', () => {
+                if (!isDragging) {
+                    mouseX = -999;
+                    prevMouseX = -999;
+                }
+            });
+
+            canvas.addEventListener('touchstart', (e) => {
+                if (e.touches.length > 0) startDrag(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches.length > 0) movePointer(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: true });
+            window.addEventListener('touchend', endDrag);
+
+            points[numPoints - 1].oldX -= 7;
+
+            function simulate() {
+                sealRadius = getSealRadius();
+                anchorY = sealCenterY + sealRadius - 1;
+
+                for (let i = 0; i < points.length; i++) {
+                    const p = points[i];
+                    if (p.pinned) {
+                        p.x = anchorX;
+                        p.y = anchorY;
+                        continue;
+                    }
+                    const vx = (p.x - p.oldX) * damping;
+                    const vy = (p.y - p.oldY) * damping;
+                    p.oldX = p.x;
+                    p.oldY = p.y;
+                    p.x += vx;
+                    p.y += vy + gravity;
+                }
+
+                for (let iter = 0; iter < 20; iter++) {
+                    if (isDragging && draggedIndex > 0 && mouseX !== -999) {
+                        const maxNodeDist = draggedIndex * segmentLength;
+                        const minSealDist = (draggedIndex === points.length - 1)
+                            ? (sealRadius + knotClearance)
+                            : (sealRadius + 2);
+                        const target = constrainTarget(mouseX, mouseY, maxNodeDist, minSealDist);
+
+                        points[draggedIndex].x += (target.x - points[draggedIndex].x) * 0.35;
+                        points[draggedIndex].y += (target.y - points[draggedIndex].y) * 0.35;
+                    }
+
+                    for (let i = 0; i < points.length - 1; i++) {
+                        const p1 = points[i];
+                        const p2 = points[i + 1];
+                        const dx = p2.x - p1.x;
+                        const dy = p2.y - p1.y;
+                        const dist = Math.hypot(dx, dy) || 0.001;
+                        const diff = (segmentLength - dist) / dist;
+                        const offsetX = dx * diff;
+                        const offsetY = dy * diff;
+
+                        if (p1.pinned) {
+                            p2.x += offsetX;
+                            p2.y += offsetY;
+                        } else {
+                            p1.x -= offsetX * 0.5;
+                            p1.y -= offsetY * 0.5;
+                            p2.x += offsetX * 0.5;
+                            p2.y += offsetY * 0.5;
+                        }
+                    }
+
+                    for (let i = 1; i < points.length; i++) {
+                        const p = points[i];
+                        const dxSeal = p.x - sealCenterX;
+                        const dySeal = p.y - sealCenterY;
+                        const distSeal = Math.hypot(dxSeal, dySeal) || 0.001;
+                        const isKnotNode = (i === points.length - 1);
+                        const collisionRadius = isKnotNode ? (sealRadius + knotClearance) : (sealRadius + 2);
+
+                        if (distSeal < collisionRadius) {
+                            p.x = sealCenterX + (dxSeal / distSeal) * collisionRadius;
+                            p.y = sealCenterY + (dySeal / distSeal) * collisionRadius;
+                        }
+
+                        if (p.y < sealCenterY + 4) {
+                            p.y = sealCenterY + 4;
+                        }
+                    }
+                }
+            }
+
+            function drawTassel() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                ctx.save();
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                ctx.beginPath();
+                ctx.moveTo(points[0].x + 2, points[0].y + 2);
+                for (let i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x + 2, points[i].y + 2);
+                }
+                ctx.strokeStyle = 'rgba(13, 59, 102, 0.2)';
+                ctx.lineWidth = 5.8;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                for (let i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x, points[i].y);
+                }
+                ctx.strokeStyle = '#38b0cfff';
+                ctx.lineWidth = 4.8;
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(points[0].x - 0.8, points[0].y);
+                for (let i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x - 0.8, points[i].y);
+                }
+                ctx.strokeStyle = '#66b3ff';
+                ctx.lineWidth = 1.4;
+                ctx.stroke();
+                ctx.restore();
+
+                const tip = points[points.length - 1];
+                const prev = points[points.length - 2];
+                const angle = Math.atan2(tip.y - prev.y, tip.x - prev.x) - Math.PI / 2;
+
+                ctx.save();
+                ctx.translate(tip.x, tip.y);
+                ctx.rotate(angle);
+
+                ctx.fillStyle = 'rgba(13, 59, 102, 0.18)';
+                ctx.beginPath();
+                ctx.moveTo(-5.5, 7);
+                ctx.lineTo(8, 7);
+                ctx.lineTo(15.5, 49);
+                ctx.lineTo(-12.5, 49);
+                ctx.closePath();
+                ctx.fill();
+
+                const tasselGrad = ctx.createLinearGradient(0, 5, 0, 48);
+                tasselGrad.addColorStop(0, '#38b0cfff');
+                tasselGrad.addColorStop(0.5, '#35a7cc');
+                tasselGrad.addColorStop(1, '#0d3b66');
+
+                ctx.fillStyle = tasselGrad;
+                ctx.beginPath();
+                ctx.moveTo(-6.2, 5);
+                ctx.lineTo(6.2, 5);
+                ctx.lineTo(14, 48);
+                ctx.quadraticCurveTo(0, 52, -14, 48);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+                ctx.lineWidth = 1.1;
+                for (let f = -9.5; f <= 9.5; f += 3.2) {
+                    ctx.beginPath();
+                    ctx.moveTo(f * 0.42, 9);
+                    ctx.lineTo(f * 1.22, 47.5);
+                    ctx.stroke();
+                }
+
+                ctx.fillStyle = '#0d3b66';
+                ctx.beginPath();
+                ctx.roundRect(-7.5, -2, 15, 8.8, 4);
+                ctx.fill();
+
+                ctx.strokeStyle = '#66b3ff';
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.moveTo(-6.2, 2.5);
+                ctx.lineTo(6.2, 2.5);
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            function loop() {
+                simulate();
+                drawTassel();
+                requestAnimationFrame(loop);
+            }
+
+            requestAnimationFrame(loop);
+        })();
+
+        // Melodía suave estilo Comarca sintetizada con Tone.js sin URLs externas
+        async function initAndPlayShireMusicOnce() {
+            if (musicStartedOnce) return;
+            musicStartedOnce = true;
+
+            try {
+                await Tone.start();
+                synth = new Tone.Synth({
+                    oscillator: { type: 'sine' },
+                    envelope: { attack: 0.2, decay: 0.5, sustain: 0.3, release: 1.2 }
+                }).toDestination();
+
+                const notes = [
+                    { time: '0:0', note: 'D4', duration: '4n' },
+                    { time: '0:1', note: 'F4', duration: '4n' },
+                    { time: '0:2', note: 'A4', duration: '2n' },
+                    { time: '1:0', note: 'G4', duration: '4n' },
+                    { time: '1:1', note: 'F4', duration: '4n' },
+                    { time: '1:2', note: 'E4', duration: '2n' },
+                    { time: '2:0', note: 'D4', duration: '4n' },
+                    { time: '2:1', note: 'C4', duration: '4n' },
+                    { time: '2:2', note: 'D4', duration: '1n' }
+                ];
+
+                melodyLoop = new Tone.Part((time, value) => {
+                    synth.triggerAttackRelease(value.note, value.duration, time);
+                }, notes);
+
+                melodyLoop.loop = true;
+                melodyLoop.loopEnd = '3:0';
+                Tone.Transport.bpm.value = 88;
+                Tone.Transport.start();
+                melodyLoop.start(0);
+
+                isMusicPlaying = true;
+                const toggleBtn = document.getElementById('music-toggle-btn');
+                toggleBtn.classList.remove('hidden');
+                updateMusicIcon();
+            } catch (e) {
+                console.log('Audio Context no iniciado automáticamente:', e);
+            }
+        }
+
+        function toggleMusic() {
+            if (!musicStartedOnce) {
+                initAndPlayShireMusicOnce();
+                return;
+            }
+            if (isMusicPlaying) {
+                Tone.Transport.pause();
+                isMusicPlaying = false;
+            } else {
+                Tone.Transport.start();
+                isMusicPlaying = true;
+            }
+            updateMusicIcon();
+        }
+
+        function updateMusicIcon() {
+            const iconOn = document.getElementById('music-icon-on');
+            const iconOff = document.getElementById('music-icon-off');
+            if (iconOn && iconOff) {
+                iconOn.classList.toggle('hidden', !isMusicPlaying);
+                iconOff.classList.toggle('hidden', isMusicPlaying);
+            }
+            document.querySelectorAll('.nav-music-icon-on').forEach(el => {
+                el.classList.toggle('hidden', !isMusicPlaying);
+            });
+            document.querySelectorAll('.nav-music-icon-off').forEach(el => {
+                el.classList.toggle('hidden', isMusicPlaying);
+            });
+        }
+
+        function clearSequenceTimers() {
+            sequenceTimers.forEach(t => clearTimeout(t));
+            sequenceTimers = [];
+        }
+
+        function easeInOutCubic(t) {
+            return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function startSequence() {
+            if (sequenceStarted) return;
+            sequenceStarted = true;
+            wheelControlEnabled = false;
+            clearSequenceTimers();
+
+            initAndPlayShireMusicOnce();
+
+            const experienceContainer = document.getElementById('experience-container');
+            experienceContainer.classList.add('scrubbing');
+
+            const instructionText = document.getElementById('instruction-text');
+            instructionText.classList.remove('hidden');
+            instructionText.textContent = 'Abriendo invitación...';
+
+            const duration = 3800;
+            const startTime = performance.now();
+
+            function animateOpen(now) {
+                const elapsed = now - startTime;
+                const rawT = Math.min(1, elapsed / duration);
+                const easedP = easeInOutCubic(rawT);
+
+                targetProgress = easedP;
+                currentProgress = easedP;
+                applyScrubState(easedP);
+
+                if (rawT < 1) {
+                    requestAnimationFrame(animateOpen);
+                } else {
+                    targetProgress = 1;
+                    currentProgress = 1;
+                    applyScrubState(1);
+                    wheelControlEnabled = true;
+                }
+            }
+
+            requestAnimationFrame(animateOpen);
+        }
+
+        function smoothScrubLoop() {
+            const diff = targetProgress - currentProgress;
+            if (Math.abs(diff) > 0.0005) {
+                currentProgress += diff * 0.14;
+                applyScrubState(currentProgress);
+                requestAnimationFrame(smoothScrubLoop);
+            } else {
+                currentProgress = targetProgress;
+                applyScrubState(currentProgress);
+                rafRunning = false;
+            }
+        }
+
+        // Control mediante slider vertical derecho
+        (function initVerticalSlider() {
+            const track = document.getElementById('vertical-slider-track');
+            if (!track) return;
+            let isSliderDragging = false;
+
+            function updateFromClientY(clientY) {
+                const experienceContainer = document.getElementById('experience-container');
+                if (experienceContainer.classList.contains('hidden')) return;
+
+                if (!musicStartedOnce) {
+                    initAndPlayShireMusicOnce();
+                }
+
+                const rect = track.getBoundingClientRect();
+                const usableHeight = Math.max(1, rect.height);
+                const relativeY = Math.max(0, Math.min(usableHeight, clientY - rect.top));
+                const newProgress = 1 - (relativeY / usableHeight);
+
+                sequenceStarted = newProgress > 0.01;
+                wheelControlEnabled = true;
+                experienceContainer.classList.add('scrubbing');
+                targetProgress = newProgress;
+
+                if (!rafRunning) {
+                    rafRunning = true;
+                    requestAnimationFrame(smoothScrubLoop);
+                }
+            }
+
+            track.addEventListener('pointerdown', (e) => {
+                isSliderDragging = true;
+                track.setPointerCapture(e.pointerId);
+                updateFromClientY(e.clientY);
+            });
+
+            track.addEventListener('pointermove', (e) => {
+                if (!isSliderDragging) return;
+                updateFromClientY(e.clientY);
+            });
+
+            track.addEventListener('pointerup', (e) => {
+                if (!isSliderDragging) return;
+                isSliderDragging = false;
+                try { track.releasePointerCapture(e.pointerId); } catch (_) {}
+            });
+
+            track.addEventListener('pointercancel', () => {
+                isSliderDragging = false;
+            });
+        })();
+
+        function syncVerticalSliderUI(p) {
+            const track = document.getElementById('vertical-slider-track');
+            const thumb = document.getElementById('vertical-slider-thumb');
+            const fill = document.getElementById('vertical-slider-fill');
+            if (!track || !thumb || !fill) return;
+
+            const trackHeight = track.offsetHeight || 208;
+            const thumbHeight = thumb.offsetHeight || 20;
+            const maxTravel = Math.max(1, trackHeight - thumbHeight);
+            const bottomPos = p * maxTravel;
+            thumb.style.bottom = `${bottomPos}px`;
+            fill.style.height = `${Math.round(p * 100)}%`;
+        }
+
+        window.addEventListener('wheel', (e) => {
+            const experienceContainer = document.getElementById('experience-container');
+            const passwordModal = document.getElementById('password-modal');
+            if (!wheelControlEnabled || experienceContainer.classList.contains('hidden') || !passwordModal.classList.contains('hidden')) return;
+
+            e.preventDefault();
+            if (!musicStartedOnce) {
+                initAndPlayShireMusicOnce();
+            }
+            experienceContainer.classList.add('scrubbing');
+
+            const normalizedDelta = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 100);
+            targetProgress = Math.max(0, Math.min(1, targetProgress + normalizedDelta * 0.0014));
+            sequenceStarted = targetProgress > 0.01;
+
+            if (!rafRunning) {
+                rafRunning = true;
+                requestAnimationFrame(smoothScrubLoop);
+            }
+        }, { passive: false });
+
+        function applyScrubState(p) {
+            const sealWrapper = document.getElementById('wax-seal-wrapper');
+            const flap = document.getElementById('envelope-flap');
+            const a5Card = document.getElementById('a5-card');
+            const blueCover = document.getElementById('blue-cover');
+            const blueCoverBottom = document.getElementById('blue-cover-bottom');
+            const detailsBtn = document.getElementById('details-btn');
+            const topPrompt = document.getElementById('top-prompt');
+            const instructionText = document.getElementById('instruction-text');
+            const wheelHint = document.getElementById('wheel-hint');
+
+            syncVerticalSliderUI(p);
+
+            flap.classList.remove('open');
+            a5Card.classList.remove('extracted', 'cleared-forward', 'in-front', 'shifted-down');
+            blueCover.classList.remove('folded-up');
+            if (blueCoverBottom) blueCoverBottom.classList.remove('folded-down');
+
+            const p1 = Math.min(1, Math.max(0, p / 0.22));
+            flap.style.transform = `rotateX(${p1 * 180}deg)`;
+            flap.style.zIndex = p1 > 0.5 ? '5' : '30';
+
+            if (p <= 0.22) {
+                a5Card.style.transform = 'translateY(0%) translateZ(0px) scale(1)';
+                a5Card.style.zIndex = '10';
+                blueCover.style.transform = 'rotateX(0deg)';
+                if (blueCoverBottom) blueCoverBottom.style.transform = 'rotateX(0deg)';
+            } else if (p <= 0.45) {
+                const p2 = (p - 0.22) / 0.23;
+                a5Card.style.transform = `translateY(${-112 * p2}%) translateZ(0px) scale(${1 - 0.02 * p2})`;
+                a5Card.style.zIndex = '15';
+                blueCover.style.transform = 'rotateX(0deg)';
+                if (blueCoverBottom) blueCoverBottom.style.transform = 'rotateX(0deg)';
+            } else if (p <= 0.55) {
+                const p3 = (p - 0.45) / 0.10;
+                a5Card.style.transform = `translateY(-112%) translateZ(${55 * p3}px) scale(${0.98 + 0.02 * p3})`;
+                a5Card.style.zIndex = '40';
+                blueCover.style.transform = 'rotateX(0deg)';
+                if (blueCoverBottom) blueCoverBottom.style.transform = 'rotateX(0deg)';
+            } else if (p <= 0.72) {
+                const p4 = (p - 0.55) / 0.17;
+                a5Card.style.transform = `translateY(${-112 * (1 - p4)}%) translateZ(55px) scale(${1.0 + 0.03 * p4})`;
+                a5Card.style.zIndex = '40';
+                blueCover.style.transform = 'rotateX(0deg)';
+                if (blueCoverBottom) blueCoverBottom.style.transform = 'rotateX(0deg)';
+            } else {
+                const p5 = (p - 0.72) / 0.28;
+                a5Card.style.transform = `translateY(${0 * p5}%) translateZ(55px) scale(${1.03 - 0.19 * p5})`;
+                a5Card.style.zIndex = '40';
+                blueCover.style.transform = `rotateX(${180 * p5}deg)`;
+                if (blueCoverBottom) blueCoverBottom.style.transform = `rotateX(${-180 * p5}deg)`;
+            }
+
+            topPrompt.style.opacity = `${1 - 0.8 * Math.min(1, p / 0.6)}`;
+
+            const p5Global = Math.max(0, (p - 0.72) / 0.28);
+            if (p5Global > 0.7) {
+                detailsBtn.classList.remove('hidden', 'opacity-0', 'translate-y-2');
+                wheelHint.classList.remove('hidden', 'opacity-0');
+                instructionText.classList.add('hidden');
+            } else {
+                detailsBtn.classList.add('opacity-0', 'translate-y-2', 'hidden');
+            }
+
+            if (p <= 0.01) {
+                sealWrapper.style.opacity = '1';
+                sealWrapper.style.transform = 'translateZ(70px) scale(1)';
+                sealWrapper.style.zIndex = '60';
+                sealWrapper.style.pointerEvents = 'auto';
+                instructionText.classList.remove('hidden');
+                instructionText.textContent = 'Pulsa el sello de lacre o usa el deslizador para abrir';
+                sequenceStarted = false;
+            } else {
+                const sealFade = Math.min(1, p / 0.16);
+                sealWrapper.style.opacity = `${Math.max(0, 1 - sealFade)}`;
+                sealWrapper.style.transform = `translateZ(70px) scale(${1 + 0.45 * sealFade})`;
+                sealWrapper.style.zIndex = '60';
+                sealWrapper.style.pointerEvents = 'none';
+            }
+        }
+
+        function openPasswordModal() {
+            const modal = document.getElementById('password-modal');
+            const input = document.getElementById('event-password-input');
+            const error = document.getElementById('password-error');
+            error.classList.add('hidden');
+            input.value = '';
+            modal.classList.remove('hidden');
+            setTimeout(() => input.focus(), 50);
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').classList.add('hidden');
+        }
+
+        function verifyPassword(e) {
+            e.preventDefault();
+            const inputVal = document.getElementById('event-password-input').value.trim().toLowerCase();
+            const error = document.getElementById('password-error');
+
+            if (inputVal === 'unaesperadafiesta') {
+                closePasswordModal();
+                showFullWebsite();
+            } else {
+                error.classList.remove('hidden');
+            }
+        }
+
+        function showFullWebsite() {
+            const experienceContainer = document.getElementById('experience-container');
+            const fullWebsite = document.getElementById('full-website');
+
+            experienceContainer.style.opacity = '0';
+            setTimeout(() => {
+                experienceContainer.classList.add('hidden');
+                fullWebsite.classList.remove('hidden');
+                setTimeout(() => {
+                    fullWebsite.style.opacity = '1';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    if (updateRiverFn) updateRiverFn();
+                }, 50);
+            }, 700);
+        }
+
+        function toggleMobileNav() {
+            const links = document.getElementById('invitation-nav-links');
+            const toggle = document.getElementById('mobile-nav-toggle');
+            const centeredLogo = document.getElementById('nav-logo-centered');
+            const nextToBackLogo = document.getElementById('nav-logo-next-to-back');
+            const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+            const nextState = !isOpen;
+
+            toggle.setAttribute('aria-expanded', String(nextState));
+            links.classList.toggle('hidden', !nextState);
+            links.classList.toggle('flex', nextState);
+
+            if (centeredLogo && nextToBackLogo) {
+                centeredLogo.classList.toggle('hidden', nextState);
+                nextToBackLogo.classList.toggle('hidden', !nextState);
+                nextToBackLogo.classList.toggle('flex', nextState);
+            }
+        }
+
+        function closeMobileNav() {
+            const links = document.getElementById('invitation-nav-links');
+            const toggle = document.getElementById('mobile-nav-toggle');
+            const centeredLogo = document.getElementById('nav-logo-centered');
+            const nextToBackLogo = document.getElementById('nav-logo-next-to-back');
+
+            links.classList.add('hidden');
+            links.classList.remove('flex');
+            toggle.setAttribute('aria-expanded', 'false');
+
+            if (centeredLogo && nextToBackLogo) {
+                centeredLogo.classList.remove('hidden');
+                nextToBackLogo.classList.add('hidden');
+                nextToBackLogo.classList.remove('flex');
+            }
+        }
+
+        // =========================================================================
+        // GENERADOR DE PATRÓN DE REPUJADO (EMBOSSING) "ESTRELLAS DE VARDA" (EVENSTAR)
+        // =========================================================================
+        (function initAlphaEmbossedPattern() {
+            const motifs = [
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 54, y: 54, size: 68, rot: -12 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 160, y: 54, size: 52, rot: 22 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 266, y: 54, size: 66, rot: 8 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 54, y: 160, size: 54, rot: 16 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 160, y: 160, size: 74, rot: 0 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 266, y: 160, size: 54, rot: -18 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 54, y: 266, size: 64, rot: -20 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 160, y: 266, size: 52, rot: 14 },
+                { url: 'https://uploads.onecompiler.io/44nfcewhu/1794662748442/evenstar.png', x: 266, y: 266, size: 68, rot: -10 }
+            ];
+
+            const uniqueUrls = [...new Set(motifs.map(m => m.url))];
+            const loadedImages = {};
+
+            function buildAlphaSilhouette(img, r, g, b) {
+                const off = document.createElement('canvas');
+                const w = img.naturalWidth || 200;
+                const h = img.naturalHeight || 200;
+                off.width = w;
+                off.height = h;
+                const octx = off.getContext('2d');
+                octx.drawImage(img, 0, 0, w, h);
+
+                const imgData = octx.getImageData(0, 0, w, h);
+                const data = imgData.data;
+                for (let i = 0; i < data.length; i += 4) {
+                    const alpha = data[i + 3];
+                    if (alpha > 10) {
+                        data[i] = r;
+                        data[i + 1] = g;
+                        data[i + 2] = b;
+                    } else {
+                        data[i + 3] = 0;
+                    }
+                }
+                octx.putImageData(imgData, 0, 0);
+                return off;
+            }
+
+            function renderEmbossedTile() {
+                const tileSize = 320;
+                const canvas = document.createElement('canvas');
+                canvas.width = tileSize;
+                canvas.height = tileSize;
+                const ctx = canvas.getContext('2d');
+
+                motifs.forEach(m => {
+                    const img = loadedImages[m.url];
+                    if (!img) return;
+
+                    const ratio = (img.naturalWidth && img.naturalHeight)
+                        ? (img.naturalWidth / img.naturalHeight)
+                        : 1;
+                    const drawW = ratio >= 1 ? m.size : m.size * ratio;
+                    const drawH = ratio >= 1 ? m.size / ratio : m.size;
+                    const rad = (m.rot * Math.PI) / 180;
+
+                    try {
+                        // Relieve turquesa sutil de Estrellas de Varda sobre blanco puro (#ffffff)
+                        const turquoiseShadow = buildAlphaSilhouette(img, 56, 176, 207);
+                        const crispHighlight = buildAlphaSilhouette(img, 255, 255, 255);
+                        const pureSurface = buildAlphaSilhouette(img, 248, 252, 254);
+
+                        ctx.save();
+                        ctx.translate(m.x + 1.4, m.y + 1.5);
+                        ctx.rotate(rad);
+                        ctx.globalAlpha = 0.14;
+                        ctx.drawImage(turquoiseShadow, -drawW / 2, -drawH / 2, drawW, drawH);
+                        ctx.restore();
+
+                        ctx.save();
+                        ctx.translate(m.x - 1.2, m.y - 1.2);
+                        ctx.rotate(rad);
+                        ctx.globalAlpha = 0.95;
+                        ctx.drawImage(crispHighlight, -drawW / 2, -drawH / 2, drawW, drawH);
+                        ctx.restore();
+
+                        ctx.save();
+                        ctx.translate(m.x, m.y);
+                        ctx.rotate(rad);
+                        ctx.globalAlpha = 0.9;
+                        ctx.drawImage(pureSurface, -drawW / 2, -drawH / 2, drawW, drawH);
+                        ctx.restore();
+                    } catch (secErr) {
+                        ctx.save();
+                        ctx.translate(m.x, m.y);
+                        ctx.rotate(rad);
+                        ctx.filter = 'brightness(0) invert(98%) drop-shadow(1.5px 1.5px 0.5px rgba(56,176,207,0.18))';
+                        ctx.drawImage(img, -drawW / 2, -drawH / 2, drawW, drawH);
+                        ctx.restore();
+                    }
+                });
+
+                try {
+                    const dataUrl = canvas.toDataURL('image/png');
+                    document.documentElement.style.setProperty('--embossed-pattern-url', `url("${dataUrl}")`);
+                } catch (err) {
+                    console.warn('No se pudo exportar el patrón de repujado:', err);
+                }
+            }
+
+            let pending = uniqueUrls.length;
+            uniqueUrls.forEach(url => {
+                const img = new Image();
+                img.crossOrigin = 'anonymous';
+                img.onload = () => {
+                    loadedImages[url] = img;
+                    pending--;
+                    if (pending === 0) renderEmbossedTile();
+                };
+                img.onerror = () => {
+                    pending--;
+                    if (pending === 0) renderEmbossedTile();
+                };
+                img.src = url;
+            });
+        })();
+
+        function returnToInvitation() {
+            closeMobileNav();
+            const experienceContainer = document.getElementById('experience-container');
+            const fullWebsite = document.getElementById('full-website');
+
+            clearSequenceTimers();
+            sequenceStarted = false;
+            wheelControlEnabled = true;
+            rafRunning = false;
+            targetProgress = 0;
+            currentProgress = 0;
+            experienceContainer.classList.add('scrubbing');
+            applyScrubState(0);
+
+            const instructionText = document.getElementById('instruction-text');
+            const wheelHint = document.getElementById('wheel-hint');
+            instructionText.textContent = 'Pulsa el sello de lacre para abrir';
+            wheelHint.classList.add('hidden', 'opacity-0');
+
+            fullWebsite.style.opacity = '0';
+            setTimeout(() => {
+                fullWebsite.classList.add('hidden');
+                experienceContainer.classList.remove('hidden');
+                setTimeout(() => {
+                    experienceContainer.style.opacity = '1';
+                }, 50);
+            }, 600);
+        }
+
+        function selectMapLocation(locationType) {
+            const iframe = document.getElementById('location-map-iframe');
+            const churchCard = document.getElementById('card-location-church');
+            const venueCard = document.getElementById('card-location-venue');
+            const badgeChurch = document.getElementById('badge-church');
+            const badgeVenue = document.getElementById('badge-venue');
+
+            if (!iframe) return;
+
+            if (locationType === 'venue') {
+                iframe.src = 'https://maps.google.com/maps?q=Finca+La+Alcudia,+M-501,+Madrid&z=14&output=embed';
+                venueCard.className = 'cursor-pointer rounded-xl p-3.5 bg-white border-2 border-[#35a7cc] shadow-sm transition-all';
+                churchCard.className = 'cursor-pointer rounded-xl p-3.5 bg-transparent border-2 border-transparent hover:bg-white/70 hover:border-slate-200 transition-all';
+                badgeVenue.classList.remove('hidden');
+                badgeChurch.classList.add('hidden');
+            } else {
+                iframe.src = 'https://maps.google.com/maps?q=Parroquia+de+los+Santos+Apostoles,+Boadilla+del+Monte&z=15&output=embed';
+                churchCard.className = 'cursor-pointer rounded-xl p-3.5 bg-white border-2 border-[#38b0cfff] shadow-sm transition-all';
+                venueCard.className = 'cursor-pointer rounded-xl p-3.5 bg-transparent border-2 border-transparent hover:bg-white/70 hover:border-slate-200 transition-all';
+                badgeChurch.classList.remove('hidden');
+                badgeVenue.classList.add('hidden');
+            }
+        }
+
+        function downloadICS() {
+            const icsContent = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//Boda Irene y Nacho//Invitacion//ES',
+                'BEGIN:VEVENT',
+                'UID:boda-irene-nacho-20270501@invitacion.es',
+                'DTSTAMP:20261113T120000Z',
+                'DTSTART:20270501T103000Z',
+                'DTEND:20270501T210000Z',
+                'SUMMARY:Boda Irene & Nacho',
+                'DESCRIPTION:Ceremonia en la Parroquia de Los Santos Apóstoles (Boadilla del Monte) a las 12:30 y celebración posterior en Finca La Alcudia.',
+                'LOCATION:Parroquia de Los Santos Apóstoles, Boadilla del Monte, Madrid',
+                'END:VEVENT',
+                'END:VCALENDAR'
+            ].join('\r\n');
+
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Boda_Irene_y_Nacho.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function updateCountdown() {
+            const weddingDate = new Date('2027-05-01T12:30:00').getTime();
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const daysEl = document.getElementById('cd-days');
+            const hoursEl = document.getElementById('cd-hours');
+            const minutesEl = document.getElementById('cd-minutes');
+            const secondsEl = document.getElementById('cd-seconds');
+
+            if (!daysEl) return;
+
+            if (distance <= 0) {
+                daysEl.textContent = '000';
+                hoursEl.textContent = '00';
+                minutesEl.textContent = '00';
+                secondsEl.textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            daysEl.textContent = String(days).padStart(3, '0');
+            hoursEl.textContent = String(hours).padStart(2, '0');
+            minutesEl.textContent = String(minutes).padStart(2, '0');
+            secondsEl.textContent = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Inicializar río del mapa al cargar
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initStoryMapRiver);
+        } else {
+            initStoryMapRiver();
+        }
+
+        const INITIAL_GUEST_GROUPS = [
+            {
+                groupId: 'grp-tuk-brandigamo',
+                allowExtraPlusOne: false,
+                members: [
+                    { id: 'g-pipin', firstName: 'Pipin', lastName: 'Tuk', status: 'pending', allergies: '' },
+                    { id: 'g-merry', firstName: 'Merry', lastName: 'Brandigamo', status: 'pending', allergies: '' }
+                ]
+            },
+            {
+                groupId: 'grp-gamyi-coto',
+                allowExtraPlusOne: false,
+                members: [
+                    { id: 'g-sam', firstName: 'Samsagaz', lastName: 'Gamyi', status: 'pending', allergies: '' },
+                    { id: 'g-rosita', firstName: 'Rosita', lastName: 'Coto', status: 'pending', allergies: '' },
+                    { id: 'g-elanor', firstName: 'Elanor', lastName: 'Gamyi Coto (Hija)', status: 'pending', allergies: '' },
+                    { id: 'g-frodo-jr', firstName: 'Frodo', lastName: 'Gamyi Coto (Hijo)', status: 'pending', allergies: '' }
+                ]
+            },
+            {
+                groupId: 'grp-bolson',
+                allowExtraPlusOne: true,
+                extraPlusOne: null,
+                members: [
+                    { id: 'g-frodo', firstName: 'Frodo', lastName: 'Bolsón', status: 'pending', allergies: '' }
+                ]
+            },
+            {
+                groupId: 'grp-aragorn-arwen',
+                allowExtraPlusOne: false,
+                members: [
+                    { id: 'g-aragorn', firstName: 'Aragorn', lastName: 'Elessar', status: 'pending', allergies: '' },
+                    { id: 'g-arwen', firstName: 'Arwen', lastName: 'Undómiel', status: 'pending', allergies: '' },
+                    { id: 'g-eldarion', firstName: 'Eldarion', lastName: 'Telcontar (Hijo)', status: 'pending', allergies: '' }
+                ]
+            },
+            {
+                groupId: 'grp-legolas',
+                allowExtraPlusOne: true,
+                extraPlusOne: null,
+                members: [
+                    { id: 'g-legolas', firstName: 'Legolas', lastName: 'Hojaverde', status: 'pending', allergies: '' }
+                ]
+            },
+            {
+                groupId: 'grp-gimli',
+                allowExtraPlusOne: true,
+                extraPlusOne: null,
+                members: [
+                    { id: 'g-gimli', firstName: 'Gimli', lastName: 'Hijo de Glóin', status: 'pending', allergies: '' }
+                ]
+            }
+        ];
+
+        const STORAGE_KEY = 'boda_irene_nacho_rsvp_v1';
+        let guestGroups = loadGuestGroups();
+        let selectedGroupId = null;
+        let hasExtraPlusOneOpen = false;
+
+        function loadGuestGroups() {
+            try {
+                const saved = window.localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+            } catch (e) {
+                console.warn('No se pudo leer almacenamiento local, usando datos por defecto:', e);
+            }
+            return JSON.parse(JSON.stringify(INITIAL_GUEST_GROUPS));
+        }
+
+        function persistGuestGroups() {
+            try {
+                window.localStorage.setItem(STORAGE_KEY, JSON.stringify(guestGroups));
+            } catch (e) {
+                console.warn('No se pudo guardar en almacenamiento local:', e);
+            }
+        }
+
+        function normalizeText(str) {
+            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+        }
+
+        function searchGuests(query) {
+            const resultsBox = document.getElementById('guest-search-results');
+            const cleanQuery = normalizeText(query);
+
+            if (!cleanQuery) {
+                resultsBox.classList.add('hidden');
+                resultsBox.innerHTML = '';
+                return;
+            }
+
+            if (cleanQuery.length < 5) {
+                resultsBox.innerHTML = `<div class="p-4 text-xs text-slate-500 text-center">Escribe al menos 5 letras de tu nombre o apellido para buscar.</div>`;
+                resultsBox.classList.remove('hidden');
+                return;
+            }
+
+            const matches = [];
+            guestGroups.forEach(group => {
+                const matchedMember = group.members.find(m => {
+                    const fullName = normalizeText(`${m.firstName} ${m.lastName}`);
+                    return fullName.includes(cleanQuery);
+                });
+                if (matchedMember) {
+                    matches.push({ group, matchedMember });
+                }
+            });
+
+            if (matches.length === 0) {
+                resultsBox.innerHTML = `<div class="p-4 text-xs text-slate-500 text-center">No se encontraron invitados con "${escapeHtml(query)}". Prueba con otro nombre o apellido.</div>`;
+                resultsBox.classList.remove('hidden');
+                return;
+            }
+
+            if (matches.length > 3) {
+                resultsBox.innerHTML = `<div class="p-4 text-xs text-slate-500 text-center">Hay demasiadas coincidencias. Por privacidad, escribe también tu apellido para acotar la búsqueda.</div>`;
+                resultsBox.classList.remove('hidden');
+                return;
+            }
+
+            resultsBox.innerHTML = matches.map(({ group, matchedMember }) => {
+                const allNames = group.members.map(m => `${m.firstName} ${m.lastName}`).join(' · ');
+                const extraLabel = group.extraPlusOne && group.extraPlusOne.name ? ` · +1: ${group.extraPlusOne.name}` : '';
+                const hasConfirmedAny = group.members.some(m => m.status !== 'pending');
+                const badge = hasConfirmedAny
+                    ? `<span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold">Guardado</span>`
+                    : `<span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Pendiente</span>`;
+
+                return `
+                    <button type="button" onclick="selectGuestGroup('${group.groupId}')" class="w-full text-left p-3.5 hover:bg-[#fcfbf9] transition-colors flex items-center justify-between gap-3">
+                        <div>
+                            <p class="font-cinzel text-sm font-bold text-slate-800">${matchedMember.firstName} ${matchedMember.lastName}</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Invitación completa: ${allNames}${extraLabel}</p>
+                        </div>
+                        ${badge}
+                    </button>
+                `;
+            }).join('');
+
+            resultsBox.classList.remove('hidden');
+        }
+
+        function selectGuestGroup(groupId) {
+            selectedGroupId = groupId;
+            const group = guestGroups.find(g => g.groupId === groupId);
+            if (!group) return;
+
+            document.getElementById('guest-search-results').classList.add('hidden');
+            document.getElementById('rsvp-feedback').classList.add('hidden');
+
+            const groupTitle = group.members.map(m => `${m.firstName} ${m.lastName}`).join(' & ');
+            document.getElementById('rsvp-group-title').textContent = groupTitle;
+
+            const membersListEl = document.getElementById('rsvp-members-list');
+            membersListEl.innerHTML = group.members.map(member => {
+                const nameColorClass = getStatusNameColorClass(member.status);
+                const selectColorClass = getStatusSelectColorClass(member.status);
+                return `
+                <div class="bg-[#fcfbf9] p-4 rounded-xl border border-slate-200/90 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h5 id="member-name-${member.id}" class="font-cinzel font-bold text-sm sm:text-base transition-colors duration-300 ${nameColorClass}">${member.firstName} ${member.lastName}</h5>
+                        <span class="text-[11px] font-sans text-slate-400">Invitado</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-cinzel font-bold text-slate-700 uppercase mb-1">Confirmación</label>
+                            <select data-member-id="${member.id}" onchange="updateMemberNameColor('${member.id}', this.value)" class="member-status-select w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white font-medium transition-colors duration-300 ${selectColorClass}">
+                                <option value="yes" class="text-[#3b6e52]" ${member.status === 'yes' ? 'selected' : ''}>Sí, asistiré</option>
+                                <option value="no" class="text-[#8e4444]" ${member.status === 'no' ? 'selected' : ''}>No podré asistir</option>
+                                <option value="pending" class="text-[#3f464d]" ${member.status === 'pending' ? 'selected' : ''}>Sin confirmar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-cinzel font-bold text-slate-700 uppercase mb-1">Alergias / Intolerancias</label>
+                            <input type="text" data-member-id="${member.id}" value="${escapeHtml(member.allergies || '')}" class="member-allergy-input w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Ninguna / Celíaco / Alergias...">
+                        </div>
+                    </div>
+                </div>
+            `;
+            }).join('');
+
+            const soloWrapper = document.getElementById('solo-plus-one-wrapper');
+            const soloFields = document.getElementById('solo-plus-one-fields');
+            const toggleBtn = document.getElementById('toggle-plus-one-btn');
+
+            if (group.allowExtraPlusOne) {
+                soloWrapper.classList.remove('hidden');
+                if (group.extraPlusOne && group.extraPlusOne.name) {
+                    hasExtraPlusOneOpen = true;
+                    soloFields.classList.remove('hidden');
+                    toggleBtn.textContent = 'Quitar acompañante';
+                    document.getElementById('solo-plus-one-name').value = group.extraPlusOne.name || '';
+                    document.getElementById('solo-plus-one-status').value = group.extraPlusOne.status || 'yes';
+                    document.getElementById('solo-plus-one-allergies').value = group.extraPlusOne.allergies || '';
+                } else {
+                    hasExtraPlusOneOpen = false;
+                    soloFields.classList.add('hidden');
+                    toggleBtn.textContent = '+ Añadir acompañante';
+                    document.getElementById('solo-plus-one-name').value = '';
+                    document.getElementById('solo-plus-one-status').value = 'yes';
+                    document.getElementById('solo-plus-one-allergies').value = '';
+                }
+                updatePlusOneColor();
+            } else {
+                soloWrapper.classList.add('hidden');
+                hasExtraPlusOneOpen = false;
+            }
+
+            document.getElementById('rsvp-group-container').classList.remove('hidden');
+        }
+
+        function getStatusNameColorClass(status) {
+            if (status === 'yes') return 'text-[#3b6e52]';
+            if (status === 'no') return 'text-[#8e4444]';
+            return 'text-[#3f464d]';
+        }
+
+        function getStatusSelectColorClass(status) {
+            if (status === 'yes') return 'text-[#3b6e52] border-[#3b6e52]/40';
+            if (status === 'no') return 'text-[#8e4444] border-[#8e4444]/40';
+            return 'text-[#3f464d] border-slate-300';
+        }
+
+        function updateMemberNameColor(memberId, status) {
+            const nameEl = document.getElementById(`member-name-${memberId}`);
+            const selectEl = document.querySelector(`.member-status-select[data-member-id="${memberId}"]`);
+            if (nameEl) {
+                nameEl.className = `font-cinzel font-bold text-sm sm:text-base transition-colors duration-300 ${getStatusNameColorClass(status)}`;
+            }
+            if (selectEl) {
+                selectEl.className = `member-status-select w-full px-3 py-2.5 rounded-lg border focus:outline-none focus:border-[#38b0cfff] text-sm bg-white font-medium transition-colors duration-300 ${getStatusSelectColorClass(status)}`;
+            }
+        }
+
+        function updatePlusOneColor() {
+            const statusEl = document.getElementById('solo-plus-one-status');
+            const nameInput = document.getElementById('solo-plus-one-name');
+            const headingEl = document.getElementById('solo-plus-one-heading');
+            if (!statusEl || !nameInput) return;
+
+            const status = hasExtraPlusOneOpen ? statusEl.value : 'pending';
+            nameInput.className = `w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white font-semibold transition-colors duration-300 ${getStatusNameColorClass(status)}`;
+            statusEl.className = `w-full px-3.5 py-2.5 rounded-lg border focus:outline-none focus:border-[#38b0cfff] text-sm bg-white font-medium transition-colors duration-300 ${getStatusSelectColorClass(status)}`;
+            if (headingEl) {
+                headingEl.className = `font-cinzel text-xs font-bold uppercase transition-colors duration-300 ${getStatusNameColorClass(status)}`;
+            }
+        }
+
+        function toggleSoloPlusOne() {
+            hasExtraPlusOneOpen = !hasExtraPlusOneOpen;
+            const soloFields = document.getElementById('solo-plus-one-fields');
+            const toggleBtn = document.getElementById('toggle-plus-one-btn');
+            if (hasExtraPlusOneOpen) {
+                soloFields.classList.remove('hidden');
+                toggleBtn.textContent = 'Quitar acompañante';
+            } else {
+                soloFields.classList.add('hidden');
+                toggleBtn.textContent = '+ Añadir acompañante';
+            }
+            updatePlusOneColor();
+        }
+
+        function resetGuestSelection() {
+            selectedGroupId = null;
+            document.getElementById('rsvp-group-container').classList.add('hidden');
+            document.getElementById('guest-search-input').value = '';
+            document.getElementById('guest-search-input').focus();
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function handleRSVP(e) {
+            e.preventDefault();
+            if (!selectedGroupId) return;
+
+            const group = guestGroups.find(g => g.groupId === selectedGroupId);
+            if (!group) return;
+
+            const statusSelects = document.querySelectorAll('.member-status-select');
+            statusSelects.forEach(select => {
+                const memberId = select.getAttribute('data-member-id');
+                const member = group.members.find(m => m.id === memberId);
+                if (member) member.status = select.value;
+            });
+
+            const allergyInputs = document.querySelectorAll('.member-allergy-input');
+            allergyInputs.forEach(input => {
+                const memberId = input.getAttribute('data-member-id');
+                const member = group.members.find(m => m.id === memberId);
+                if (member) member.allergies = input.value.trim();
+            });
+
+            if (group.allowExtraPlusOne) {
+                if (hasExtraPlusOneOpen) {
+                    const plusName = document.getElementById('solo-plus-one-name').value.trim();
+                    if (plusName) {
+                        group.extraPlusOne = {
+                            name: plusName,
+                            status: document.getElementById('solo-plus-one-status').value,
+                            allergies: document.getElementById('solo-plus-one-allergies').value.trim()
+                        };
+                    } else {
+                        group.extraPlusOne = null;
+                    }
+                } else {
+                    group.extraPlusOne = null;
+                }
+            }
+
+            persistGuestGroups();
+
+            const allStatuses = group.members.map(m => m.status);
+            if (group.extraPlusOne && group.extraPlusOne.name) {
+                allStatuses.push(group.extraPlusOne.status);
+            }
+
+            const anyYes = allStatuses.includes('yes');
+            const anyNo = allStatuses.includes('no');
+            const feedbackMsg = document.getElementById('rsvp-feedback');
+
+            if (anyYes && !anyNo) {
+                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#eef5f0] border-[#b8d1c1] text-[#2f5741]';
+                feedbackMsg.textContent = '¡Qué alegría contar con vosotros! Hemos guardado vuestra confirmación y alergias. ¡Nos vemos el 1 de mayo de 2027!';
+            } else if (!anyYes && anyNo) {
+                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
+                feedbackMsg.textContent = '¡Qué pena que no podáis venir! Os echaremos mucho de menos ese día. Si cambian vuestros planes, podéis volver a entrar aquí para modificarlo.';
+            } else if (anyYes && anyNo) {
+                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
+                feedbackMsg.textContent = '¡Gracias por avisarnos! Hemos guardado quiénes podréis venir y quiénes no. Echaremos de menos a quienes falten y celebraremos por todo lo alto con los que vengáis.';
+            } else {
+                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-slate-100 border-slate-300 text-slate-700';
+                feedbackMsg.textContent = 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.';
+            }
+
+            feedbackMsg.classList.remove('hidden');
+        }
+
+        function copyIban() {
+            const iban = document.getElementById('iban-text').textContent.trim();
+            const btn = document.getElementById('copy-iban-btn');
+            const tempInput = document.createElement('input');
+            tempInput.value = iban;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            btn.textContent = '¡Copiado!';
+            setTimeout(() => {
+                btn.textContent = 'Copiar';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
