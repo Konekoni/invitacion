@@ -508,10 +508,10 @@
     </div>
 
     <!-- PÁGINA PRINCIPAL COMPLETA -->
-    <div id="full-website" class="hidden w-full min-h-screen embossed-paper-bg text-[#2c3e50] opacity-0 transition-opacity duration-1000 relative">
+    <div id="full-website" class="hidden w-full min-h-screen pt-14 embossed-paper-bg text-[#2c3e50] opacity-0 transition-opacity duration-1000 relative">
         
         <!-- FRANJA SUPERIOR AZUL ESTILO MENÚ FIJO SIEMPRE PRESENTE -->
-        <nav aria-label="Navegación de la invitación" class="sticky top-0 left-0 right-0 z-50 bg-[#38b0cf]/95 backdrop-blur-md text-white shadow-md border-b border-[#35a7cc]/40">
+        <nav aria-label="Navegación de la invitación" class="fixed top-0 left-0 right-0 z-50 w-full bg-[#38b0cf]/95 backdrop-blur-md text-white shadow-md border-b border-[#35a7cc]/40">
             <div class="relative max-w-5xl mx-auto px-3 sm:px-6 h-14 flex items-center justify-between">
                 <!-- Izquierda: Botón volver a la invitación + Logo a su derecha cuando el menú está horizontal (desktop) o expandido en móvil -->
                 <div class="flex items-center gap-2 z-10">
@@ -1060,13 +1060,19 @@
                                     </div>
                                     <div>
                                         <label class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-1">Alergias / Intolerancias (+1)</label>
-                                        <input id="solo-plus-one-allergies" type="text" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Ninguna / Celíaco / Alergias...">
+                                        <input id="solo-plus-one-allergies" type="text" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Celíaco / Vegetariano / Alergias...">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full mt-2 bg-[#38b0cfff] hover:bg-[#155d96] text-white font-cinzel tracking-widest text-sm py-4 rounded-xl shadow-md transition-colors">
+                        <!-- Mensaje opcional para los novios -->
+                        <div class="mt-4 pt-4 border-t border-slate-200">
+                            <label for="rsvp-group-message" class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-1">Si quieres dejar un mensaje para los novios: 💌</label>
+                            <textarea id="rsvp-group-message" rows="3" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Escribe aquí vuestros buenos deseos..."></textarea>
+                        </div>
+
+                        <button type="submit" id="rsvp-submit-btn" class="w-full mt-2 bg-[#38b0cfff] hover:bg-[#155d96] text-white font-cinzel tracking-widest text-sm py-4 rounded-xl shadow-md transition-colors">
                             Guardar Confirmación
                         </button>
                     </form>
@@ -2228,87 +2234,39 @@
             initStoryMapRiver();
         }
 
-        const INITIAL_GUEST_GROUPS = [
-            {
-                groupId: 'grp-tuk-brandigamo',
-                allowExtraPlusOne: false,
-                members: [
-                    { id: 'g-pipin', firstName: 'Pipin', lastName: 'Tuk', status: 'pending', allergies: '' },
-                    { id: 'g-merry', firstName: 'Merry', lastName: 'Brandigamo', status: 'pending', allergies: '' }
-                ]
-            },
-            {
-                groupId: 'grp-gamyi-coto',
-                allowExtraPlusOne: false,
-                members: [
-                    { id: 'g-sam', firstName: 'Samsagaz', lastName: 'Gamyi', status: 'pending', allergies: '' },
-                    { id: 'g-rosita', firstName: 'Rosita', lastName: 'Coto', status: 'pending', allergies: '' },
-                    { id: 'g-elanor', firstName: 'Elanor', lastName: 'Gamyi Coto (Hija)', status: 'pending', allergies: '' },
-                    { id: 'g-frodo-jr', firstName: 'Frodo', lastName: 'Gamyi Coto (Hijo)', status: 'pending', allergies: '' }
-                ]
-            },
-            {
-                groupId: 'grp-bolson',
-                allowExtraPlusOne: true,
-                extraPlusOne: null,
-                members: [
-                    { id: 'g-frodo', firstName: 'Frodo', lastName: 'Bolsón', status: 'pending', allergies: '' }
-                ]
-            },
-            {
-                groupId: 'grp-aragorn-arwen',
-                allowExtraPlusOne: false,
-                members: [
-                    { id: 'g-aragorn', firstName: 'Aragorn', lastName: 'Elessar', status: 'pending', allergies: '' },
-                    { id: 'g-arwen', firstName: 'Arwen', lastName: 'Undómiel', status: 'pending', allergies: '' },
-                    { id: 'g-eldarion', firstName: 'Eldarion', lastName: 'Telcontar (Hijo)', status: 'pending', allergies: '' }
-                ]
-            },
-            {
-                groupId: 'grp-legolas',
-                allowExtraPlusOne: true,
-                extraPlusOne: null,
-                members: [
-                    { id: 'g-legolas', firstName: 'Legolas', lastName: 'Hojaverde', status: 'pending', allergies: '' }
-                ]
-            },
-            {
-                groupId: 'grp-gimli',
-                allowExtraPlusOne: true,
-                extraPlusOne: null,
-                members: [
-                    { id: 'g-gimli', firstName: 'Gimli', lastName: 'Hijo de Glóin', status: 'pending', allergies: '' }
-                ]
-            }
-        ];
-
-        const STORAGE_KEY = 'boda_irene_nacho_rsvp_v1';
-        let guestGroups = loadGuestGroups();
+        const API_URL = "https://script.google.com/macros/s/AKfycbxmHgjzRVIZpZwV6BhO6Qeo4ohQAZIra61EgdiCz9vvEMlhzGixNyZRX2k-UzSKzRAopA/exec";
+        let guestGroups = [];
         let selectedGroupId = null;
         let hasExtraPlusOneOpen = false;
+        let isLoadingGuests = false;
 
-        function loadGuestGroups() {
+        async function loadGuestsFromSheet() {
+            isLoadingGuests = true;
             try {
-                const saved = window.localStorage.getItem(STORAGE_KEY);
-                if (saved) {
-                    return JSON.parse(saved);
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                if (Array.isArray(data)) {
+                    guestGroups = data;
                 }
             } catch (e) {
-                console.warn('No se pudo leer almacenamiento local, usando datos por defecto:', e);
+                console.error('Error al cargar los invitados desde Google Sheets:', e);
+            } finally {
+                isLoadingGuests = false;
+                const currentSearch = document.getElementById('guest-search-input')?.value;
+                if (currentSearch && currentSearch.trim().length >= 5) {
+                    searchGuests(currentSearch);
+                }
             }
-            return JSON.parse(JSON.stringify(INITIAL_GUEST_GROUPS));
         }
 
-        function persistGuestGroups() {
-            try {
-                window.localStorage.setItem(STORAGE_KEY, JSON.stringify(guestGroups));
-            } catch (e) {
-                console.warn('No se pudo guardar en almacenamiento local:', e);
-            }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadGuestsFromSheet);
+        } else {
+            loadGuestsFromSheet();
         }
 
         function normalizeText(str) {
-            return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+            return String(str || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
         }
 
         function searchGuests(query) {
@@ -2318,6 +2276,12 @@
             if (!cleanQuery) {
                 resultsBox.classList.add('hidden');
                 resultsBox.innerHTML = '';
+                return;
+            }
+
+            if (isLoadingGuests && guestGroups.length === 0) {
+                resultsBox.innerHTML = `<div class="p-4 text-xs text-slate-500 text-center">Cargando lista de invitados...</div>`;
+                resultsBox.classList.remove('hidden');
                 return;
             }
 
@@ -2351,7 +2315,7 @@
             }
 
             resultsBox.innerHTML = matches.map(({ group, matchedMember }) => {
-                const allNames = group.members.map(m => `${m.firstName} ${m.lastName}`).join(' · ');
+                const allNames = group.members.map(m => `${m.firstName} ${m.lastName}`.trim()).join(' · ');
                 const extraLabel = group.extraPlusOne && group.extraPlusOne.name ? ` · +1: ${group.extraPlusOne.name}` : '';
                 const hasConfirmedAny = group.members.some(m => m.status !== 'pending');
                 const badge = hasConfirmedAny
@@ -2359,10 +2323,10 @@
                     : `<span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">Pendiente</span>`;
 
                 return `
-                    <button type="button" onclick="selectGuestGroup('${group.groupId}')" class="w-full text-left p-3.5 hover:bg-[#fcfbf9] transition-colors flex items-center justify-between gap-3">
+                    <button type="button" onclick="selectGroup('${group.groupId}')" class="w-full text-left p-3.5 hover:bg-[#fcfbf9] transition-colors flex items-center justify-between gap-3">
                         <div>
-                            <p class="font-cinzel text-sm font-bold text-slate-800">${matchedMember.firstName} ${matchedMember.lastName}</p>
-                            <p class="text-xs text-slate-500 mt-0.5">Invitación completa: ${allNames}${extraLabel}</p>
+                            <p class="font-cinzel text-sm font-bold text-slate-800">${escapeHtml(matchedMember.firstName)} ${escapeHtml(matchedMember.lastName)}</p>
+                            <p class="text-xs text-slate-500 mt-0.5">Invitación completa: ${escapeHtml(allNames)}${escapeHtml(extraLabel)}</p>
                         </div>
                         ${badge}
                     </button>
@@ -2372,7 +2336,7 @@
             resultsBox.classList.remove('hidden');
         }
 
-        function selectGuestGroup(groupId) {
+        function selectGroup(groupId) {
             selectedGroupId = groupId;
             const group = guestGroups.find(g => g.groupId === groupId);
             if (!group) return;
@@ -2380,7 +2344,7 @@
             document.getElementById('guest-search-results').classList.add('hidden');
             document.getElementById('rsvp-feedback').classList.add('hidden');
 
-            const groupTitle = group.members.map(m => `${m.firstName} ${m.lastName}`).join(' & ');
+            const groupTitle = group.members.map(m => `${m.firstName} ${m.lastName}`.trim()).join(' & ');
             document.getElementById('rsvp-group-title').textContent = groupTitle;
 
             const membersListEl = document.getElementById('rsvp-members-list');
@@ -2390,7 +2354,7 @@
                 return `
                 <div class="bg-[#fcfbf9] p-4 rounded-xl border border-slate-200/90 space-y-3">
                     <div class="flex items-center justify-between">
-                        <h5 id="member-name-${member.id}" class="font-cinzel font-bold text-sm sm:text-base transition-colors duration-300 ${nameColorClass}">${member.firstName} ${member.lastName}</h5>
+                        <h5 id="member-name-${member.id}" class="font-cinzel font-bold text-sm sm:text-base transition-colors duration-300 ${nameColorClass}">${escapeHtml(member.firstName)} ${escapeHtml(member.lastName)}</h5>
                         <span class="text-[11px] font-sans text-slate-400">Invitado</span>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -2404,7 +2368,7 @@
                         </div>
                         <div>
                             <label class="block text-[11px] font-cinzel font-bold text-slate-700 uppercase mb-1">Alergias / Intolerancias</label>
-                            <input type="text" data-member-id="${member.id}" value="${escapeHtml(member.allergies || '')}" class="member-allergy-input w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Ninguna / Celíaco / Alergias...">
+                            <input type="text" data-member-id="${member.id}" value="${escapeHtml(member.allergies || '')}" class="member-allergy-input w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Celíaco / Vegetariano / Alergias...">
                         </div>
                     </div>
                 </div>
@@ -2435,7 +2399,13 @@
                 updatePlusOneColor();
             } else {
                 soloWrapper.classList.add('hidden');
+                soloFields.classList.add('hidden');
                 hasExtraPlusOneOpen = false;
+            }
+
+            const messageEl = document.getElementById('rsvp-group-message');
+            if (messageEl) {
+                messageEl.value = group.mensaje || '';
             }
 
             document.getElementById('rsvp-group-container').classList.remove('hidden');
@@ -2505,7 +2475,7 @@
             return div.innerHTML;
         }
 
-        function handleRSVP(e) {
+        async function handleRSVP(e) {
             e.preventDefault();
             if (!selectedGroupId) return;
 
@@ -2543,32 +2513,112 @@
                 }
             }
 
-            persistGuestGroups();
+            const messageEl = document.getElementById('rsvp-group-message');
+            group.mensaje = messageEl ? messageEl.value.trim() : '';
 
-            const allStatuses = group.members.map(m => m.status);
-            if (group.extraPlusOne && group.extraPlusOne.name) {
-                allStatuses.push(group.extraPlusOne.status);
-            }
-
-            const anyYes = allStatuses.includes('yes');
-            const anyNo = allStatuses.includes('no');
+            const submitBtn = document.getElementById('rsvp-submit-btn');
             const feedbackMsg = document.getElementById('rsvp-feedback');
 
-            if (anyYes && !anyNo) {
-                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#eef5f0] border-[#b8d1c1] text-[#2f5741]';
-                feedbackMsg.textContent = '¡Qué alegría contar con vosotros! Hemos guardado vuestra confirmación y alergias. ¡Nos vemos el 1 de mayo de 2027!';
-            } else if (!anyYes && anyNo) {
-                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
-                feedbackMsg.textContent = '¡Qué pena que no podáis venir! Os echaremos mucho de menos ese día. Si cambian vuestros planes, podéis volver a entrar aquí para modificarlo.';
-            } else if (anyYes && anyNo) {
-                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
-                feedbackMsg.textContent = '¡Gracias por avisarnos! Hemos guardado quiénes podréis venir y quiénes no. Echaremos de menos a quienes falten y celebraremos por todo lo alto con los que vengáis.';
-            } else {
-                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-slate-100 border-slate-300 text-slate-700';
-                feedbackMsg.textContent = 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
             }
 
+            feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
+            feedbackMsg.textContent = 'Guardando vuestra confirmación...';
             feedbackMsg.classList.remove('hidden');
+
+            const auditInfo = await getClientAuditInfo();
+
+            const payload = {
+                groupId: group.groupId,
+                mensaje: group.mensaje,
+                ip: auditInfo.ip,
+                userAgent: auditInfo.userAgent,
+                members: group.members,
+                extraPlusOne: group.extraPlusOne || null
+            };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (!result.success) {
+                    throw new Error(result.error || 'Error al guardar en el servidor');
+                }
+
+                const allStatuses = group.members.map(m => m.status);
+                if (group.extraPlusOne && group.extraPlusOne.name) {
+                    allStatuses.push(group.extraPlusOne.status);
+                }
+
+                const anyYes = allStatuses.includes('yes');
+                const anyNo = allStatuses.includes('no');
+
+                if (anyYes && !anyNo) {
+                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#eef5f0] border-[#b8d1c1] text-[#2f5741]';
+                    feedbackMsg.textContent = '¡Qué alegría contar con vosotros! Hemos guardado vuestra confirmación y alergias. ¡Nos vemos el 1 de mayo de 2027!';
+                } else if (!anyYes && anyNo) {
+                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
+                    feedbackMsg.textContent = '¡Qué pena que no podáis venir! Os echaremos mucho de menos ese día. Si cambian vuestros planes, podéis volver a entrar aquí para modificarlo.';
+                } else if (anyYes && anyNo) {
+                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
+                    feedbackMsg.textContent = '¡Gracias por avisarnos! Hemos guardado quiénes podréis venir y quiénes no. Echaremos de menos a quienes falten y celebraremos por todo lo alto con los que vengáis.';
+                } else {
+                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-slate-100 border-slate-300 text-slate-700';
+                    feedbackMsg.textContent = 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.';
+                }
+
+                loadGuestsFromSheet();
+            } catch (err) {
+                console.error('Error guardando RSVP:', err);
+                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
+                feedbackMsg.textContent = 'Hubo un problema al conectar con el servidor para guardar la confirmación. Por favor, inténtalo de nuevo en unos segundos.';
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+                }
+            }
+        }
+
+        async function getClientAuditInfo() {
+            let clientIp = '';
+            const ipProviders = [
+                'https://api.ipify.org?format=json',
+                'https://ipapi.co/json/'
+            ];
+
+            for (const url of ipProviders) {
+                try {
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 2000);
+                    const res = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeoutId);
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        clientIp = data.ip || '';
+                        if (clientIp) break;
+                    }
+                } catch (e) {
+                    // Continuar con el siguiente proveedor si falla o es bloqueado
+                }
+            }
+
+            const ua = navigator.userAgent || '';
+            const lang = navigator.language || '';
+            const screenInfo = `${window.screen.width}x${window.screen.height}`;
+            const platform = navigator.userAgentData?.platform || navigator.platform || '';
+            const fullDeviceInfo = `${ua} | ${platform} | ${screenInfo} | ${lang}`.trim();
+
+            return {
+                ip: clientIp || 'IP bloqueada por navegador',
+                userAgent: fullDeviceInfo
+            };
         }
 
         function copyIban() {
