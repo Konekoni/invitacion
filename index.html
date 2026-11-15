@@ -120,6 +120,16 @@
             filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(125, 211, 252, 0.65)) !important;
         }
 
+        /* Modo oscuro para el visor integrado de Google Maps */
+        body.valinor-dark #location-map-iframe {
+            filter: invert(90%) hue-rotate(185deg) saturate(85%) brightness(88%) contrast(95%);
+            transition: filter 0.5s ease;
+        }
+
+        body.valinor-dark #map-container {
+            background-color: #0e2439;
+        }
+
         /* Tinta cartográfica SVG para el mapa de Nuestra Historia */
         .map-ink {
             stroke: #38b0cf;
@@ -345,7 +355,7 @@
                 </svg>
             </button>
 
-            <button id="music-toggle-btn" onclick="toggleMusic()" aria-label="Controlar música" class="hidden bg-white/90 backdrop-blur border border-slate-200 text-[#38b0cf] hover:bg-[#38b0cf] hover:text-white p-2.5 rounded-full shadow-md transition-colors">
+            <button id="music-toggle-btn" onclick="toggleMusic()" aria-label="Controlar música" class="bg-white/90 backdrop-blur border border-slate-200 text-[#38b0cf] hover:bg-[#38b0cf] hover:text-white p-2.5 rounded-full shadow-md transition-colors">
                 <svg id="music-icon-on" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                 </svg>
@@ -538,7 +548,7 @@
 
                         <button type="button" onclick="toggleMusic()" aria-label="Activar o silenciar música" title="Música" class="shrink-0 bg-white/15 hover:bg-white hover:text-[#38b0cf] text-white p-2 rounded-full transition-all border border-white/25">
                             <svg class="nav-music-icon-on h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                             </svg>
                             <svg class="nav-music-icon-off hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
@@ -647,11 +657,7 @@
                     <!-- Cabecera del Mapa -->
                     <div class="relative px-6 pt-1 pb-2 text-center select-none">
                         <div class="flex justify-center mb-1">
-                            <svg class="w-64 sm:w-80 h-6" viewBox="0 0 320 24">
-                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
-                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
-                                <path class="map-ink" stroke-width="1.4" d="M 15 12 C 5 6, 5 18, 15 12 M 305 12 C 315 6, 315 18, 305 12" />
-                            </svg>
+                            <img src="https://uploads.onecompiler.io/44nfcewhu/1794758228232/voluta.png" alt="" width="200" class="h-8 object-contain">
                         </div>
 
                         <h2 class="font-tolkien-title text-3xl sm:text-5xl font-bold text-[#1A1A1A] tracking-wider uppercase leading-tight">
@@ -659,11 +665,7 @@
                         </h2>
 
                         <div class="flex justify-center mt-1 mb-2">
-                            <svg class="w-64 sm:w-80 h-6" viewBox="0 0 320 24">
-                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
-                                <path class="map-ink" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
-                                <path class="map-ink" stroke-width="1.4" d="M 15 12 C 5 6, 5 18, 15 12 M 305 12 C 315 6, 315 18, 305 12" />
-                            </svg>
+                            <img src="https://uploads.onecompiler.io/44nfcewhu/1794758228232/voluta.png" alt="" width="200" class="h-8 object-contain" style="transform: scaleY(-1);">
                         </div>
                     </div>
 
@@ -719,29 +721,35 @@
                                   d="M 115 265 C 195 280, 345 310, 338 348 C 330 388, 175 390, 195 432 C 215 472, 390 468, 450 500" />
 
                             <!-- Río Principal Continuo: Nace en Nacho (07·1998), llega exactamente a la vez a (450, 500) y desciende hasta el Tren/Lago -->
-                            <path id="river-continuous-main" class="map-ink" stroke-width="2.8"
-                                  d="M 580 135
-                                     C 520 170, 420 188, 432 222
-                                     C 445 256, 605 250, 592 292
-                                     C 580 335, 440 342, 460 385
-                                     C 480 428, 635 432, 610 472
-                                     C 590 502, 495 492, 450 500
-                                     C 505 518, 545 538, 520 564
-                                     C 495 590, 335 588, 342 624
-                                     C 350 658, 525 662, 512 698
-                                     C 498 734, 305 730, 318 776
-                                     C 332 820, 580 812, 620 862
-                                     C 660 912, 485 935, 400 960
-                                     C 315 985, 195 1020, 222 1095
-                                     C 250 1170, 380 1185, 432 1210
-                                     C 485 1240, 550 1220, 590 1195
-                                     C 645 1165, 725 1190, 712 1245
-                                     C 698 1305, 460 1325, 355 1355
-                                     C 250 1385, 195 1435, 345 1485
-                                     C 475 1528, 315 1580, 328 1645
-                                     C 342 1705, 510 1715, 495 1775
-                                     C 480 1835, 285 1850, 245 1908
-                                     C 212 1955, 245 2005, 315 2045" />
+                            <path id="river-continuous-main" class="map-ink" stroke-width="2.8" d="M 580 135
+                                     C 552 144, 410 162, 412 188
+                                     C 414 214, 594 261, 592 292
+                                     C 590 323, 384 350, 398 376
+                                     C 412 403, 666 430, 675 451
+                                     C 684 472, 495 488, 450 500
+                                     C 405 512, 409 514, 406 523
+                                     C 403 532, 446 546, 434 556
+                                     C 422 566, 355 569, 334 582
+                                     C 313 595, 273 620, 307 636
+                                     C 341 652, 518 655, 539 677
+                                     C 560 699, 418 748, 434 770
+                                     C 450 792, 637 784, 636 811
+                                     C 635 838, 463 896, 427 930
+                                     C 391 964, 456 995, 419 1017
+                                     C 382 1039, 241 1044, 206 1062
+                                     C 171 1081, 174 1101, 211 1128
+                                     C 249 1155, 358 1209, 431 1223
+                                     C 505 1237, 614 1202, 652 1211
+                                     C 691 1220, 724 1247, 662 1275
+                                     C 601 1303, 356 1352, 283 1381
+                                     C 210 1410, 193 1421, 226 1451
+                                     C 259 1481, 456 1530, 479 1559
+                                     C 503 1589, 373 1603, 367 1628
+                                     C 361 1653, 489 1676, 445 1710
+                                     C 401 1744, 100 1794, 103 1830
+                                     C 106 1866, 413 1893, 463 1926
+                                     C 513 1960, 399 2009, 402 2031
+                                     C 405 2053, 470 2055, 483 2060" />
 
                             <!-- TRAMO A: MONTAÑAS DE ORIGEN (NACHO 07·1998 & IRENE 12·1998) -->
                             <!-- PRIMER DRAGÓN EN LAS MONTAÑAS INICIALES -->
@@ -953,11 +961,11 @@
                             </div>
                         </div>
 
-                        <div class="lg:col-span-3 min-h-[300px] sm:min-h-[360px] bg-slate-100 relative">
+                        <div id="map-container" class="lg:col-span-3 min-h-[300px] sm:min-h-[360px] bg-slate-100 relative transition-colors duration-500">
                             <iframe
                                 id="location-map-iframe"
                                 title="Ubicación del Evento"
-                                class="w-full h-full min-h-[300px] sm:min-h-[360px] border-0"
+                                class="w-full h-full min-h-[300px] sm:min-h-[360px] border-0 transition-all duration-500"
                                 loading="lazy"
                                 referrerpolicy="no-referrer-when-downgrade"
                                 src="https://maps.google.com/maps?q=Parroquia+de+los+Santos+Apostoles,+Boadilla+del+Monte&z=15&output=embed">
@@ -1155,54 +1163,29 @@
                 </div>
             </section>
 
-            <!-- SECCIÓN FINAL: LUNA DE DURIN INTERACTIVA Y MENSAJE RÚNICO (Justo antes del pie de página) -->
+            <!-- SECCIÓN FINAL: MENSAJE RÚNICO -->
             <section aria-label="Mensaje rúnico secreto" class="max-w-2xl mx-auto mt-14 mb-4 px-4 text-center">
-                <!-- Luna Interactiva -->
-                <div class="flex justify-center mb-3">
-                    <svg class="w-24 h-24 sm:w-28 sm:h-28 overflow-visible" viewBox="-68 -68 136 136">
-                        <g id="secret-moon-trigger" onclick="toggleThemeAndRunes()" role="button" tabindex="0"
-                           aria-label="Tocar la luna para cambiar a Noche en Valinor y revelar el mensaje secreto de las runas"
-                           class="mystic-moon">
-                            <title>La luz de Ithildin y Noche en Valinor...</title>
-                            <circle cx="0" cy="0" r="52" class="map-ink" stroke-width="1.2" stroke-dasharray="3 5" opacity="0.7" />
-                            <circle cx="0" cy="0" r="62" fill="transparent" />
-                            <path class="map-ink-white-fill" stroke-width="2.4"
-                                  d="M -10 -36 A 38 38 0 1 0 30 22 A 29 29 0 1 1 -10 -36 Z" />
-                            <path class="map-ink-fill" stroke-width="1"
-                                  d="M 20 -18 L 23 -25 L 26 -18 L 33 -15 L 26 -12 L 23 -5 L 20 -12 L 13 -15 Z" />
-                            <circle cx="36" cy="-2" r="2" class="map-ink-fill" />
-                            <circle cx="10" cy="-34" r="1.8" class="map-ink-fill" />
-                            <circle cx="-38" cy="-25" r="1.8" class="map-ink-fill" />
-                        </g>
-                    </svg>
-                </div>
-
                 <!-- Ornamento superior -->
                 <div class="flex justify-center mb-3 select-none">
-                    <svg class="w-64 sm:w-72 h-5" viewBox="0 0 320 24">
-                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
-                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
-                    </svg>
+                    <img src="https://uploads.onecompiler.io/44nfcewhu/1794758228232/voluta.png" alt="" width="200" class="h-8 object-contain">
                 </div>
 
-                <!-- Texto Rúnico y Traducción -->
+                <!-- Pista permanente y textos alternativos con espacio reservado -->
                 <div class="px-2 sm:px-6">
-                    <p id="rune-text" class="moonlight-reveal text-[#38b0cfff] text-xs sm:text-sm font-semibold tracking-[0.11em] leading-relaxed uppercase select-none" style="font-family: 'Cinzel', serif;">
-                        ᛚᚪᛋ ᚱᚢᚾᚪᛋ ᛋᛖ ᚱᛖᚠᛖᛚᚪᚾ ᚪ ᛚᚪ ᛚᚢᛉ ᛞᛖ ᛚᚪ ᛚᚢᚾᚪ... ᛖᛋᛏᚪ ᚳᛖᛚᛖᛒᚱᚪᚳᛡᚾ ᛖᛋ ᚢᚾ ᚳᚪᚩᛋ ᛞᛖ ᛗᚪᚷᛡ, ᚷᚪᛚᚪᚳᛋᛡᛋ, ᚱᛖᛁᚾᚩᛋ ᛁ ᛗᚢᚾᛞᚩᛋ ᚳᚢᛖ ᚪᛗᚪᛗᚩᛋ. ᚠᛖᚾ ᛈᚱᛖᛈᚪᚱᚪᛞᚩ ᛈᚪᚱᚪ ᛗᚢᚳᚻᚪᛋ ᚱᛖᚠᛖᚱᛖᚾᚳᛡᛋ ᛁ ᚷᚱᚪᚳᛡᛋ ᛈᚩᚱ ᚠᚩᚱᛗᚪᚱ ᛈᚪᚱᛏᛖ ᛞᛖ ᚾᚢᛖᛋᛏᚱᚪ ᚻᛁᛋᛏᚩᚱᛡ.
-                    </p>
-
-                    <div id="translated-text" class="hidden moonlight-reveal text-[#1A1A1A] text-lg sm:text-xl leading-relaxed space-y-1.5" style="font-family: 'Cormorant Garamond', serif;">
-                        <p class="italic text-[#38b0cfff] font-semibold">«Las runas se revelan a la luz de la luna...»</p>
-                        <p class="italic">Esta celebración es un caos de magia, galaxias, reinos y mundos que amamos. Ven preparado para muchas referencias y gracias por formar parte de nuestra historia.</p>
+                    <p class="italic text-[#38b0cfff] font-semibold text-lg sm:text-xl leading-relaxed mb-2" style="font-family: 'Cormorant Garamond', serif;">«Las runas se revelan a la luz de la luna...»</p>
+                    <div class="grid items-center">
+                        <p id="rune-text" class="col-start-1 row-start-1 moonlight-reveal text-[#38b0cfff] text-xs sm:text-sm font-semibold tracking-[0.11em] leading-relaxed uppercase select-none" style="font-family: 'Cinzel', serif;">
+                            ᛚᚪᛋ ᚱᚢᚾᚪᛋ ᛋᛖ ᚱᛖᚠᛖᛚᚪᚾ ᚪ ᛚᚪ ᛚᚢᛉ ᛞᛖ ᛚᚪ ᛚᚢᚾᚪ... ᛖᛋᛏᚪ ᚳᛖᛚᛖᛒᚱᚪᚳᛡᚾ ᛖᛋ ᚢᚾ ᚳᚪᚩᛋ ᛞᛖ ᛗᚪᚷᛡ, ᚷᚪᛚᚪᚳᛋᛡᛋ, ᚱᛖᛁᚾᚩᛋ ᛁ ᛗᚢᚾᛞᚩᛋ ᚳᚢᛖ ᚪᛗᚪᛗᚩᛋ. ᚠᛖᚾ ᛈᚱᛖᛈᚪᚱᚪᛞᚩ ᛈᚪᚱᚪ ᛗᚢᚳᚻᚪᛋ ᚱᛖᚠᛖᚱᛖᚾᚳᛡᛋ ᛁ ᚷᚱᚪᚳᛡᛋ ᛈᚩᚱ ᚠᚩᚱᛗᚪᚱ ᛈᚪᚱᛏᛖ ᛞᛖ ᚾᚢᛖᛋᛏᚱᚪ ᚻᛁᛋᛏᚩᚱᛡ.
+                        </p>
+                        <p id="translated-text" class="invisible col-start-1 row-start-1 moonlight-reveal text-[#1A1A1A] text-lg sm:text-xl leading-relaxed italic" style="font-family: 'Cormorant Garamond', serif;">
+                            Esta celebración es un caos de magia, galaxias, reinos y mundos que amamos. Ven preparado para muchas referencias y gracias por formar parte de nuestra historia.
+                        </p>
                     </div>
                 </div>
 
                 <!-- Ornamento inferior -->
                 <div class="flex justify-center mt-3 select-none">
-                    <svg class="w-64 sm:w-72 h-5" viewBox="0 0 320 24">
-                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 2, 75 22, 100 12 C 125 2, 155 22, 180 12 C 205 2, 235 22, 260 12 C 280 4, 295 10, 305 12" />
-                        <path stroke="#38b0cfff" fill="none" stroke-linecap="round" stroke-width="1.8" d="M 20 12 C 45 22, 75 2, 100 12 C 125 22, 155 2, 180 12 C 205 22, 235 2, 260 12 C 280 20, 295 14, 305 12" />
-                    </svg>
+                    <img src="https://uploads.onecompiler.io/44nfcewhu/1794758228232/voluta.png" alt="" width="200" class="h-8 object-contain" style="transform: scaleY(-1);">
                 </div>
             </section>
 
@@ -1226,6 +1209,7 @@
         let rafRunning = false;
         let musicStartedOnce = false;
         let isMusicPlaying = false;
+        let isMusicMuted = false;
         let backgroundAudio = null;
         let sequenceTimers = [];
         let runesTranslated = false;
@@ -1247,14 +1231,10 @@
 
             const runeEl = document.getElementById('rune-text');
             const transEl = document.getElementById('translated-text');
-            const moonEl = document.getElementById('secret-moon-trigger');
 
             if (runeEl && transEl) {
-                runeEl.classList.toggle('hidden', runesTranslated);
-                transEl.classList.toggle('hidden', !runesTranslated);
-            }
-            if (moonEl) {
-                moonEl.classList.toggle('moon-active', runesTranslated);
+                runeEl.classList.toggle('invisible', runesTranslated);
+                transEl.classList.toggle('invisible', !runesTranslated);
             }
         }
 
@@ -1326,23 +1306,43 @@
             updateContinuousRiver();
         }
 
-        // Física de la borla colgante del sello de lacre
+        // Física de la borla: balanceo, alcance limitado y colisión con el sello.
         (function initTasselPhysics() {
             const canvas = document.getElementById('tassel-canvas');
-            if (!canvas) return;
+            const sealButton = document.getElementById('wax-seal-btn');
+            if (!canvas || !sealButton) return;
             const ctx = canvas.getContext('2d');
 
-            const anchorX = canvas.width / 2;
-            const anchorY = canvas.height / 2 + 26;
-            const numNodes = 9;
-            const segLen = 5.4;
+            let anchorX = canvas.width / 2;
+            let anchorY = canvas.height / 2;
+            let seal = { x: anchorX, y: anchorY, rx: 35, ry: 35 };
+            const numNodes = 7;
+            const segLen = 4.75;
+            const maxRopeLength = segLen * (numNodes - 1) * 1.50;
+            const cordRadius = 2.5;
             const nodes = [];
 
+            function updateSealGeometry() {
+                const canvasRect = canvas.getBoundingClientRect();
+                const buttonRect = sealButton.getBoundingClientRect();
+                const scaleX = canvas.width / canvasRect.width;
+                const scaleY = canvas.height / canvasRect.height;
+                seal = {
+                    x: (buttonRect.left + buttonRect.width / 2 - canvasRect.left) * scaleX,
+                    y: (buttonRect.top + buttonRect.height / 2 - canvasRect.top) * scaleY,
+                    rx: buttonRect.width * scaleX / 2,
+                    ry: buttonRect.height * scaleY / 2
+                };
+                anchorX = seal.x;
+                anchorY = seal.y + seal.ry + 1;
+            }
+
+            updateSealGeometry();
             for (let i = 0; i < numNodes; i++) {
                 nodes.push({
-                    x: anchorX + (i * 0.6),
+                    x: anchorX,
                     y: anchorY + i * segLen,
-                    oldX: anchorX - (i * 0.4),
+                    oldX: anchorX,
                     oldY: anchorY + i * segLen
                 });
             }
@@ -1350,6 +1350,8 @@
             let isDragging = false;
             let dragX = anchorX;
             let dragY = anchorY;
+            let dragSide = 1;
+            let previousPointer = null;
 
             function getPointerPos(e) {
                 const rect = canvas.getBoundingClientRect();
@@ -1361,42 +1363,124 @@
                 };
             }
 
+            function keepOutsideSeal(point) {
+                const rx = seal.rx + cordRadius;
+                const ry = seal.ry + cordRadius;
+                const dx = point.x - seal.x;
+                const dy = point.y - seal.y;
+                const distance = Math.hypot(dx / rx, dy / ry);
+                if (distance < 1) {
+                    const angle = distance > 0.001 ? Math.atan2(dy / ry, dx / rx) : Math.PI / 2;
+                    point.x = seal.x + Math.cos(angle) * rx;
+                    point.y = seal.y + Math.sin(angle) * ry;
+                }
+            }
+
+            function isOutsideSeal(point) {
+                const rx = seal.rx + cordRadius;
+                const ry = seal.ry + cordRadius;
+                const dx = (point.x - seal.x) / rx;
+                const dy = (point.y - seal.y) / ry;
+                return dx * dx + dy * dy >= 1;
+            }
+
+            function limitDragTarget(x, y) {
+                const target = { x, y };
+
+                const dxFromSeal = target.x - seal.x;
+                const dyFromSeal = target.y - seal.y;
+                const normalizedDistance = Math.hypot(dxFromSeal / (seal.rx + cordRadius), dyFromSeal / (seal.ry + cordRadius));
+
+                const tip = nodes[nodes.length - 1];
+                const collisionRx = seal.rx + cordRadius;
+                const collisionRy = seal.ry + cordRadius;
+                const tipDx = (tip.x - seal.x) / collisionRx;
+                const tipDy = (tip.y - seal.y) / collisionRy;
+                const tipDistance = Math.hypot(tipDx, tipDy);
+
+                if (normalizedDistance < 1) {
+                    let angle = Math.atan2(tipDy, tipDx);
+                    if (!Number.isFinite(angle)) angle = Math.PI / 2;
+                    target.x = seal.x + Math.cos(angle) * collisionRx;
+                    target.y = seal.y + Math.sin(angle) * collisionRy;
+                } else if (isDragging && tipDistance < 1.4) {
+                    // Al cruzar el sello, desliza la borla por el borde en vez de saltar de lado.
+                    const targetAngle = Math.atan2(dyFromSeal / collisionRy, dxFromSeal / collisionRx);
+                    const currentAngle = Math.atan2(tipDy, tipDx);
+                    const angleDelta = Math.atan2(
+                        Math.sin(targetAngle - currentAngle),
+                        Math.cos(targetAngle - currentAngle)
+                    );
+                    if (Math.abs(angleDelta) > 0.12) {
+                        const angleStep = Math.max(-0.12, Math.min(0.12, angleDelta));
+                        const angle = currentAngle + angleStep;
+                        target.x = seal.x + Math.cos(angle) * collisionRx;
+                        target.y = seal.y + Math.sin(angle) * collisionRy;
+                    }
+                }
+
+                const dx = target.x - anchorX;
+                const dy = target.y - anchorY;
+                const distance = Math.hypot(dx, dy);
+                if (distance > maxRopeLength) {
+                    const scale = maxRopeLength / distance;
+                    target.x = anchorX + dx * scale;
+                    target.y = anchorY + dy * scale;
+                }
+
+                if (!isOutsideSeal(target)) keepOutsideSeal(target);
+                return target;
+            }
+
+            function isNearTassel(pos, tip) {
+                return Math.hypot(pos.x - tip.x, pos.y - tip.y) < 62;
+            }
+
             canvas.addEventListener('pointerdown', (e) => {
                 const pos = getPointerPos(e);
                 const tip = nodes[nodes.length - 1];
-                const dist = Math.hypot(pos.x - tip.x, pos.y - tip.y);
-                if (dist < 65) {
+                if (isNearTassel(pos, tip)) {
+                    dragSide = Math.abs(tip.x - seal.x) > 3
+                        ? Math.sign(tip.x - seal.x)
+                        : (pos.x >= seal.x ? 1 : -1);
                     isDragging = true;
-                    dragX = pos.x;
-                    dragY = pos.y;
+                    const target = limitDragTarget(pos.x, pos.y);
+                    dragX = target.x;
+                    dragY = target.y;
                     canvas.setPointerCapture(e.pointerId);
                 }
             });
 
             canvas.addEventListener('pointermove', (e) => {
                 const pos = getPointerPos(e);
+                const tip = nodes[nodes.length - 1];
                 if (isDragging) {
-                    dragX = pos.x;
-                    dragY = pos.y;
-                } else {
-                    const tip = nodes[nodes.length - 1];
-                    const dist = Math.hypot(pos.x - tip.x, pos.y - tip.y);
-                    if (dist < 50) {
-                        tip.x += (pos.x - tip.x) * 0.08;
-                    }
+                    const target = limitDragTarget(pos.x, pos.y);
+                    dragX = target.x;
+                    dragY = target.y;
+                } else if (previousPointer && isNearTassel(pos, tip)) {
+                    // El movimiento del ratón transmite impulso a la borla sin fijarla a su posición.
+                    const dx = pos.x - previousPointer.x;
+                    const dy = pos.y - previousPointer.y;
+                    tip.oldX -= dx * 0.16;
+                    tip.oldY -= dy * 0.16;
                 }
+                previousPointer = pos;
             });
 
-            canvas.addEventListener('pointerup', (e) => {
-                if (isDragging) {
-                    isDragging = false;
-                    try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
-                }
-            });
+            function stopDragging(e) {
+                if (!isDragging) return;
+                isDragging = false;
+                try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
+            }
+            canvas.addEventListener('pointerup', stopDragging);
+            canvas.addEventListener('pointercancel', stopDragging);
+
+            window.addEventListener('resize', updateSealGeometry, { passive: true });
 
             function stepPhysics() {
-                const gravity = 0.42;
-                const friction = 0.985;
+                const gravity = 0.24;
+                const friction = 0.992;
 
                 for (let i = 1; i < numNodes; i++) {
                     const n = nodes[i];
@@ -1414,7 +1498,7 @@
                     tip.y = dragY;
                 }
 
-                for (let iter = 0; iter < 6; iter++) {
+                for (let iter = 0; iter < 8; iter++) {
                     nodes[0].x = anchorX;
                     nodes[0].y = anchorY;
 
@@ -1438,6 +1522,15 @@
                             n2.x += dx * diff * 0.5;
                             n2.y += dy * diff * 0.5;
                         }
+                    }
+
+                    for (let i = 1; i < numNodes; i++) {
+                        keepOutsideSeal(nodes[i]);
+                    }
+                    if (isDragging) {
+                        const tip = nodes[numNodes - 1];
+                        tip.x = dragX;
+                        tip.y = dragY;
                     }
                 }
             }
@@ -1473,7 +1566,7 @@
                 ctx.rotate(angle);
 
                 // Flecos de la borla
-                const tasselLen = 48;
+                const tasselLen = 36;
                 const strandCount = 13;
                 for (let s = 0; s < strandCount; s++) {
                     const t = (s / (strandCount - 1)) - 0.5;
@@ -1529,8 +1622,7 @@
                 await audio.play();
 
                 isMusicPlaying = true;
-                const toggleBtn = document.getElementById('music-toggle-btn');
-                if (toggleBtn) toggleBtn.classList.remove('hidden');
+                isMusicMuted = false;
                 updateMusicIcon();
             } catch (e) {
                 musicStartedOnce = false;
@@ -1547,10 +1639,12 @@
             if (isMusicPlaying) {
                 audio.pause();
                 isMusicPlaying = false;
+                isMusicMuted = true;
             } else {
                 try {
                     await audio.play();
                     isMusicPlaying = true;
+                    isMusicMuted = false;
                 } catch (e) {
                     console.log('No se pudo reanudar el audio:', e);
                 }
@@ -1562,14 +1656,14 @@
             const iconOn = document.getElementById('music-icon-on');
             const iconOff = document.getElementById('music-icon-off');
             if (iconOn && iconOff) {
-                iconOn.classList.toggle('hidden', !isMusicPlaying);
-                iconOff.classList.toggle('hidden', isMusicPlaying);
+                iconOn.classList.toggle('hidden', isMusicMuted);
+                iconOff.classList.toggle('hidden', !isMusicMuted);
             }
             document.querySelectorAll('.nav-music-icon-on').forEach(el => {
-                el.classList.toggle('hidden', !isMusicPlaying);
+                el.classList.toggle('hidden', isMusicMuted);
             });
             document.querySelectorAll('.nav-music-icon-off').forEach(el => {
-                el.classList.toggle('hidden', isMusicPlaying);
+                el.classList.toggle('hidden', !isMusicMuted);
             });
         }
 
@@ -1804,6 +1898,7 @@
         }
 
         function openPasswordModal() {
+            if (!musicStartedOnce) initAndPlayShireMusicOnce();
             const modal = document.getElementById('password-modal');
             const input = document.getElementById('event-password-input');
             const error = document.getElementById('password-error');
