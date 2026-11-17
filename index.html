@@ -505,6 +505,13 @@
                 </p>
             </div>
         </div>
+
+        <div id="password-loading-overlay" class="hidden fixed inset-0 z-[110] bg-slate-900/35 backdrop-blur-[2px] flex items-center justify-center p-4" role="status" aria-live="polite" aria-label="Buscando la invitación">
+            <div class="flex items-center gap-3 rounded-xl bg-white px-5 py-4 shadow-xl text-slate-700">
+                <span class="h-5 w-5 rounded-full border-2 border-[#35a7cc]/25 border-t-[#35a7cc] animate-spin" aria-hidden="true"></span>
+                <span class="font-cinzel text-xs tracking-wide">Cargando la comarca...</span>
+            </div>
+        </div>
     </div>
 
     <!-- PÁGINA PRINCIPAL COMPLETA -->
@@ -1010,7 +1017,7 @@
                 <div class="relative mb-6">
                     <label for="guest-search-input" class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-2">Buscar invitado</label>
                     <div class="relative">
-                        <input id="guest-search-input" type="text" autocomplete="off" oninput="searchGuests(this.value)" placeholder="Escribe tu nombre o apellido (ej. Pipin, Merry, Frodo, Sam...)" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-[#fcfbf9]">
+                        <input id="guest-search-input" type="text" autocomplete="off" oninput="searchGuests(this.value)" placeholder="Escribe tu nombre o apellido (ej. Frodo, Légolas, Aragorn, Pipin...)" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-[#fcfbf9]">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 absolute left-3.5 top-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -1060,7 +1067,8 @@
                                     </div>
                                     <div>
                                         <label class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-1">Alergias / Intolerancias (+1)</label>
-                                        <input id="solo-plus-one-allergies" type="text" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Celíaco / Vegetariano / Alergias...">
+                                        <input id="solo-plus-one-allergies" type="text" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Ej.: celiaquía, vegetarianismo, marisco">
+                                    <p class="mt-1.5 text-xs text-slate-500">Tamibén puedes dejarlo en blanco e informarnos por whatsapp si lo prefieres.</p>
                                     </div>
                                 </div>
                             </div>
@@ -1924,16 +1932,32 @@
             document.getElementById('password-modal').classList.add('hidden');
         }
 
-        function verifyPassword(e) {
+        async function verifyPassword(e) {
             e.preventDefault();
-            const inputVal = document.getElementById('event-password-input').value.trim().toLowerCase();
+            const inputVal = document.getElementById('event-password-input').value.trim();
             const error = document.getElementById('password-error');
+            const submitBtn = e.submitter || document.querySelector('#password-modal button[type="submit"]');
+            const loadingOverlay = document.getElementById('password-loading-overlay');
+            error.textContent = 'Contraseña incorrecta. Inténtalo de nuevo.';
+            error.classList.add('hidden');
 
-            if (inputVal === 'unaesperadafiesta') {
+            if (submitBtn) submitBtn.disabled = true;
+            if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+            try {
+                const hasMatchingGuests = await loadGuestsFromSheet(inputVal);
+                if (!hasMatchingGuests) {
+                    error.classList.remove('hidden');
+                    return;
+                }
+                guestAccessPassword = inputVal;
                 closePasswordModal();
                 showFullWebsite();
-            } else {
+            } catch (err) {
+                error.textContent = 'No se pudo conectar con la lista de invitados. Comprueba tu conexión e inténtalo de nuevo.';
                 error.classList.remove('hidden');
+            } finally {
+                if (loadingOverlay) loadingOverlay.classList.add('hidden');
+                if (submitBtn) submitBtn.disabled = false;
             }
         }
 
@@ -2239,30 +2263,33 @@
         let selectedGroupId = null;
         let hasExtraPlusOneOpen = false;
         let isLoadingGuests = false;
+        let guestAccessPassword = '';
 
-        async function loadGuestsFromSheet() {
+        async function loadGuestsFromSheet(password) {
             isLoadingGuests = true;
             try {
-                const response = await fetch(API_URL);
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'lookup', password })
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 const data = await response.json();
-                if (Array.isArray(data)) {
-                    guestGroups = data;
+                if (!Array.isArray(data)) {
+                    if (data.error === 'Contraseña no válida.') return false;
+                    throw new Error(data.error || 'La respuesta del servidor no es válida.');
                 }
-            } catch (e) {
-                console.error('Error al cargar los invitados desde Google Sheets:', e);
-            } finally {
-                isLoadingGuests = false;
+                guestGroups = data;
                 const currentSearch = document.getElementById('guest-search-input')?.value;
                 if (currentSearch && currentSearch.trim().length >= 5) {
                     searchGuests(currentSearch);
                 }
+                return data.length > 0;
+            } catch (e) {
+                console.error('Error al cargar los invitados desde Google Sheets:', e);
+                throw e;
+            } finally {
+                isLoadingGuests = false;
             }
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadGuestsFromSheet);
-        } else {
-            loadGuestsFromSheet();
         }
 
         function normalizeText(str) {
@@ -2309,7 +2336,7 @@
             }
 
             if (matches.length > 3) {
-                resultsBox.innerHTML = `<div class="p-4 text-xs text-slate-500 text-center">Hay demasiadas coincidencias. Por privacidad, escribe también tu apellido para acotar la búsqueda.</div>`;
+                resultsBox.innerHTML = `<div class="p-4 text-xs text-slate-500 text-center">Hay demasiadas coincidencias. Escribe también tu apellido para acotar la búsqueda.</div>`;
                 resultsBox.classList.remove('hidden');
                 return;
             }
@@ -2368,7 +2395,8 @@
                         </div>
                         <div>
                             <label class="block text-[11px] font-cinzel font-bold text-slate-700 uppercase mb-1">Alergias / Intolerancias</label>
-                            <input type="text" data-member-id="${member.id}" value="${escapeHtml(member.allergies || '')}" class="member-allergy-input w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Celíaco / Vegetariano / Alergias...">
+                                                                <input type="text" data-member-id="${member.id}" value="${escapeHtml(member.allergies || '')}" class="member-allergy-input w-full px-3 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white" placeholder="Ej.: celiaquía, vegetarianismo, marisco">
+                                    <p class="mt-1.5 text-xs text-slate-500">Tamibén puedes dejarlo en blanco e informarnos por whatsapp si lo prefieres.</p>
                         </div>
                     </div>
                 </div>
@@ -2532,6 +2560,7 @@
 
             const payload = {
                 groupId: group.groupId,
+                password: guestAccessPassword,
                 mensaje: group.mensaje,
                 ip: auditInfo.ip,
                 userAgent: auditInfo.userAgent,
@@ -2572,7 +2601,9 @@
                     feedbackMsg.textContent = 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.';
                 }
 
-                loadGuestsFromSheet();
+                loadGuestsFromSheet(guestAccessPassword).catch(err => {
+                    console.error('Error al actualizar la lista de invitados:', err);
+                });
             } catch (err) {
                 console.error('Error guardando RSVP:', err);
                 feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
@@ -2637,5 +2668,59 @@
             }, 2000);
         }
     </script>
+<script>
+// Precarga la lista en segundo plano; la contraseña filtra los grupos localmente.
+(() => {
+    const normalize = value => String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/\s+/g, '')
+        .toLowerCase();
+    const scriptsText = Array.from(document.scripts)
+        .map(script => script.textContent || '')
+        .join('\n');
+    const endpointMatch = scriptsText.match(/https:\/\/script\.google\.com\/macros\/s\/[^'"\\s]+?\/exec/);
+    if (!endpointMatch) {
+        console.error('No se encontró la URL /exec de Google Apps Script para precargar invitados.');
+        return;
+    }
+
+    const endpoint = endpointMatch[0];
+    const originalFetch = window.fetch.bind(window);
+    const guestsPromise = originalFetch(endpoint)
+        .then(response => {
+            if (!response.ok) throw new Error('No se pudo cargar la lista de invitados.');
+            return response.json();
+        })
+        .then(groups => {
+            if (!Array.isArray(groups)) throw new Error(groups.error || 'Respuesta no válida al cargar invitados.');
+            return groups;
+        });
+
+    window.fetch = async (input, init) => {
+        let payload;
+        try {
+            if (init && typeof init.body === 'string') payload = JSON.parse(init.body);
+        } catch (_) {}
+
+        if (payload && payload.action === 'lookup') {
+            try {
+                const groups = await guestsPromise;
+                const filteredGroups = groups.filter(group =>
+                    normalize(group.password) === normalize(payload.password)
+                );
+                return new Response(JSON.stringify(filteredGroups), {
+                    status: 200,
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            } catch (error) {
+                console.error('Error en la precarga de invitados; se intentará la búsqueda normal:', error);
+            }
+        }
+
+        return originalFetch(input, init);
+    };
+})();
+</script>
 </body>
 </html>
