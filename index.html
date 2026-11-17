@@ -33,9 +33,10 @@
         /* 1. Tema Día: "Estrellas de Varda" (Evenstar) sobre blanco puro luminoso (#ffffff) */
         .embossed-paper-bg {
             background-color: #ffffff;
-            background-image: var(--embossed-pattern-url, radial-gradient(rgba(56, 176, 207, 0.075) 1px, transparent 0));
+            background-image: url("https://github.com/Konekoni/invitacion/blob/b02f7e20957f278c79eef2381d6f1012b748e5a6/evenstar.png"); /* O la ruta relativa: assets/images/evenstar.png */
             background-repeat: repeat;
-            background-size: 320px 320px;
+            background-size: 100px 100px; /* Tamaño del icono repetido */
+            opacity: 0.98;
             transition: background-color 0.6s ease, color 0.6s ease;
         }
 
