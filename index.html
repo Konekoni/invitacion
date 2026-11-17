@@ -30,14 +30,56 @@
         .font-tolkien-date { font-family: 'Cinzel', serif; letter-spacing: 0.14em; font-weight: 600; }
         .font-elvish { font-family: 'Cormorant Garamond', serif; font-style: italic; }
 
-        /* 1. Tema Día: "Estrellas de Varda" (Evenstar) sobre blanco puro luminoso (#ffffff) */
         .embossed-paper-bg {
-            background-color: #ffffff;
+            background-color: #fbf9f5; /* Un tono pergamino o blanco rotativo */
             background-image: url("https://github.com/Konekoni/invitacion/blob/b02f7e20957f278c79eef2381d6f1012b748e5a6/evenstar.png"); /* O la ruta relativa: assets/images/evenstar.png */
             background-repeat: repeat;
-            background-size: 100px 100px; /* Tamaño del icono repetido */
-            opacity: 0.98;
-            transition: background-color 0.6s ease, color 0.6s ease;
+            background-size: 120px 120px;
+            /* Esto le da un aspecto sutil de marca de agua en relieve */
+            background-blend-mode: multiply; 
+            opacity: 0.95;
+        }
+
+        /* Fondos alternativos del modo día */
+        body:not(.valinor-dark).bg-day-3,
+        body:not(.valinor-dark) #full-website.bg-day-3 {
+            background-color: #cde6e8 !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='f3' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.011 0.016' numOctaves='5' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.65 -0.48'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1200' height='900' filter='url(%23f3)'/%3E%3C/svg%3E") !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+        }
+        body:not(.valinor-dark).bg-day-5,
+        body:not(.valinor-dark) #full-website.bg-day-5 {
+            background-color: #d9edee !important;
+            background-image: radial-gradient(ellipse 65% 45% at 80% 12%, rgba(253, 251, 247, 0.9) 0%, transparent 70%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='f5'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.009 0.015' numOctaves='5' seed='88'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1.4 -0.42'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='1200' height='900' filter='url(%23f5)'/%3E%3C/svg%3E") !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+        }
+        body:not(.valinor-dark).bg-day-8,
+        body:not(.valinor-dark) #full-website.bg-day-8 {
+            background-color: #ffffff !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='wc8' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='4' seed='3' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='55'/%3E%3CfeGaussianBlur stdDeviation='14'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23wc8)'%3E%3Cellipse cx='190' cy='160' rx='210' ry='145' fill='%23d9edee' opacity='0.95'/%3E%3Cellipse cx='290' cy='210' rx='110' ry='85' fill='%2338b0cf' opacity='0.14'/%3E%3Cellipse cx='980' cy='240' rx='240' ry='170' fill='%23d9edee' opacity='0.85'/%3E%3Cellipse cx='640' cy='690' rx='290' ry='160' fill='%23d9edee' opacity='0.9'/%3E%3Cellipse cx='540' cy='720' rx='130' ry='90' fill='%2335a7cc' opacity='0.12'/%3E%3Cellipse cx='130' cy='760' rx='160' ry='120' fill='%23d9edee' opacity='0.75'/%3E%3C/g%3E%3C/svg%3E") !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+        }
+        body:not(.valinor-dark).bg-day-9,
+        body:not(.valinor-dark) #full-website.bg-day-9 {
+            background-color: #fcfefe !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='wc9' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012' numOctaves='4' seed='15' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='70'/%3E%3CfeGaussianBlur stdDeviation='18'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23wc9)'%3E%3Cpath d='M-40 -40 Q380 40 310 290 Q240 460 -40 420 Z' fill='%23d9edee'/%3E%3Cpath d='M-20 -20 Q220 30 170 180 Q120 270 -20 250 Z' fill='%2338b0cf' opacity='0.16'/%3E%3Cpath d='M1240 940 Q820 880 880 610 Q940 430 1240 490 Z' fill='%23d9edee'/%3E%3Cpath d='M1220 920 Q960 870 1000 700 Q1040 590 1220 630 Z' fill='%2338b0cf' opacity='0.15'/%3E%3C/g%3E%3C/svg%3E") !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
+        }
+        body:not(.valinor-dark).bg-day-12,
+        body:not(.valinor-dark) #full-website.bg-day-12 {
+            background-color: #fafdfd !important;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900' preserveAspectRatio='none'%3E%3Cdefs%3E%3Cfilter id='wc12' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.018' numOctaves='5' seed='77' result='n'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='n' scale='62'/%3E%3CfeGaussianBlur stdDeviation='10'/%3E%3C/filter%3E%3C/defs%3E%3Cg filter='url(%23wc12)'%3E%3Cpath d='M120 480 C160 280, 420 220, 520 360 C610 490, 450 680, 260 640 C130 610, 90 590, 120 480 Z' fill='%23d9edee' opacity='0.88'/%3E%3Cpath d='M710 140 C860 90, 1080 180, 1050 350 C1020 510, 810 470, 720 340 C650 240, 620 170, 710 140 Z' fill='%23d9edee' opacity='0.82'/%3E%3Ccircle cx='890' cy='730' r='115' fill='%2338b0cf' opacity='0.12'/%3E%3C/g%3E%3C/svg%3E") !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            background-repeat: no-repeat !important;
         }
 
         /* 2. Tema Noche: "Noche Estrellada en Valinor" (#0e2439 con constelaciones brillantes) */
@@ -259,7 +301,8 @@
         }
         .envelope-wrapper {
             transform-style: preserve-3d;
-            transition: transform 0.8s ease;
+            transition: none;
+            will-change: transform;
         }
         .flap-top {
             transform-origin: top center;
@@ -345,22 +388,14 @@
         }
     </style>
 </head>
-<body class="embossed-paper-bg text-[#2c3e50] font-sans antialiased min-h-screen selection:bg-[#38b0cfff] selection:text-white overflow-x-hidden">
+<body class="embossed-paper-bg bg-day-9 text-[#2c3e50] font-sans antialiased min-h-screen selection:bg-[#38b0cfff] selection:text-white overflow-x-hidden">
 
     <!-- CONTAINER PRINCIPAL DE LA EXPERIENCIA DE SOBRE -->
     <div id="experience-container" class="relative w-full h-screen max-h-screen overflow-hidden flex flex-col items-center justify-between py-4 sm:py-6 px-4 transition-opacity duration-1000">
+        <canvas id="tassel-canvas" class="fixed inset-0 w-full h-full pointer-events-none" style="z-index: 65;"></canvas>
         
         <!-- BOTONES SUPERIORES DERECHA: LUNA/SOL (DÍA/NOCHE), MÚSICA Y SALTAR -->
         <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
-            <!-- Botón Celestial Luna/Sol en pantalla de sobre -->
-            <button type="button" onclick="toggleThemeAndRunes()" aria-label="Cambiar modo Día / Noche de Valinor" title="Estrellas de Varda / Noche en Valinor" class="theme-toggle-btn bg-white/90 backdrop-blur border border-slate-200 text-[#38b0cf] hover:bg-[#38b0cf] hover:text-white p-2.5 rounded-full shadow-md transition-colors">
-                <svg class="theme-icon-moon h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                </svg>
-                <svg class="theme-icon-sun hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-            </button>
 
             <button id="music-toggle-btn" onclick="toggleMusic()" aria-label="Controlar música" class="bg-white/90 backdrop-blur border border-slate-200 text-[#38b0cf] hover:bg-[#38b0cf] hover:text-white p-2.5 rounded-full shadow-md transition-colors">
                 <svg id="music-icon-on" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -398,7 +433,7 @@
         <!-- ESCENA 3D DEL SOBRE A5 HORIZONTAL -->
         <div class="scene-container relative w-full max-w-[360px] sm:max-w-[420px] aspect-[1.414/1] flex items-center justify-center my-auto">
             
-            <div id="envelope-body" class="envelope-wrapper relative w-full h-full bg-white rounded-xl paper-shadow border border-slate-200 flex items-center justify-center">
+            <div id="envelope-body" class="envelope-wrapper relative w-full h-full bg-white rounded-xl paper-shadow border border-slate-200 flex items-center justify-center cursor-grab active:cursor-grabbing touch-none will-change-transform">
                 
                 <!-- Interior oscuro/sutil del sobre -->
                 <div class="absolute inset-0 bg-slate-100 rounded-xl z-0"></div>
@@ -441,9 +476,7 @@
 
                 <!-- SELLO DE LACRE AZUL CON BORLA DE CUERDA COLGANTE CON FÍSICAS -->
                 <div id="wax-seal-wrapper" class="absolute z-40 flex items-center justify-center" style="transform: translateZ(170px); z-index: 60;">
-                    <canvas id="tassel-canvas" width="520" height="440" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-auto cursor-grab active:cursor-grabbing" style="z-index: 38;"></canvas>
-
-                    <button id="wax-seal-btn" onclick="startSequence()" aria-label="Abrir sobre" class="relative z-40 wax-seal w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center border-1 border-[#66b3ff] shadow-2xl cursor-pointer transition-transform duration-300 hover:scale-110 active:scale-95 focus:outline-none">
+                    <button id="wax-seal-btn" type="button" aria-label="Abrir sobre" class="relative z-40 wax-seal w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center border-1 border-[#66b3ff] shadow-2xl cursor-grab active:cursor-grabbing transition-transform duration-300 hover:scale-110 focus:outline-none">
                         <img src="https://uploads.onecompiler.io/44nfcewhu/44qr987r5/test_sello2_cropp_fin.png" alt="Emblema Boda Irene y Nacho" class="w-14 h-14 sm:w-14 sm:h-14 object-contain seal-engraved-img pointer-events-none select-none" onerror="this.style.display='none'; document.getElementById('seal-fallback-text').classList.remove('hidden');">
                         <span id="seal-fallback-text" class="hidden font-cinzel font-bold text-white text-lg sm:text-xl tracking-wider drop-shadow">I & N</span>
                         <div class="absolute inset-1 rounded-full border border-white/35 pointer-events-none"></div>
@@ -516,7 +549,7 @@
     </div>
 
     <!-- PÁGINA PRINCIPAL COMPLETA -->
-    <div id="full-website" class="hidden w-full min-h-screen pt-14 embossed-paper-bg text-[#2c3e50] opacity-0 transition-opacity duration-1000 relative">
+    <div id="full-website" class="hidden w-full min-h-screen pt-14 embossed-paper-bg bg-day-9 text-[#2c3e50] opacity-0 transition-opacity duration-1000 relative">
         
         <!-- FRANJA SUPERIOR AZUL ESTILO MENÚ FIJO SIEMPRE PRESENTE -->
         <nav aria-label="Navegación de la invitación" class="fixed top-0 left-0 right-0 z-50 w-full bg-[#38b0cf]/95 backdrop-blur-md text-white shadow-md border-b border-[#35a7cc]/40">
@@ -549,17 +582,8 @@
                         <a href="#sec-info" onclick="closeMobileNav()" class="px-3 py-2 rounded-lg hover:bg-white/15 font-cinzel text-xs tracking-wider transition-colors whitespace-nowrap">Detalles</a>
                     </div>
 
-                    <!-- Extremo Derecho: Toggle Día/Noche (Luna/Sol) junto al control de Mute/Audio -->
+                    <!-- Controles de música -->
                     <div class="flex items-center gap-1.5">
-                        <button type="button" onclick="toggleThemeAndRunes()" aria-label="Cambiar modo Día / Noche de Valinor" title="Estrellas de Varda / Noche en Valinor" class="theme-toggle-btn shrink-0 bg-white/15 hover:bg-white hover:text-[#38b0cf] text-white p-2 rounded-full transition-all border border-white/25">
-                            <svg class="theme-icon-moon h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                            </svg>
-                            <svg class="theme-icon-sun hidden h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                        </button>
-
                         <button type="button" onclick="toggleMusic()" aria-label="Activar o silenciar música" title="Música" class="shrink-0 bg-white/15 hover:bg-white hover:text-[#38b0cf] text-white p-2 rounded-full transition-all border border-white/25">
                             <svg class="nav-music-icon-on h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
@@ -1223,6 +1247,23 @@
 
     <!-- Script de control de la animación, mapa fluvial y flujo completo -->
     <script>
+        const TASSEL_AND_SEAL_CONFIG = {
+            // Física de arrastre del sello y sobre
+            sealSpring: 0.02,
+            sealDamping: 0.86,
+            sealTilt: 2.00,
+            dragLimit: 320,
+            shakeInertia: 1.90,
+            // Física y geometría de la borla
+            gravity: 0.52,
+            friction: 0.974,
+            iterations: 21,
+            numNodes: 9,
+            segLen: 5.50,
+            tasselLen: 48,
+            cordWidth: 5.2
+        };
+
         let sequenceStarted = false;
         let wheelControlEnabled = true;
         let targetProgress = 0;
@@ -1233,31 +1274,7 @@
         let isMusicMuted = false;
         let backgroundAudio = null;
         let sequenceTimers = [];
-        let runesTranslated = false;
-        let isDarkMode = false;
         let updateRiverFn = null;
-
-        function toggleThemeAndRunes() {
-            isDarkMode = !isDarkMode;
-            runesTranslated = isDarkMode;
-
-            document.body.classList.toggle('valinor-dark', isDarkMode);
-
-            document.querySelectorAll('.theme-icon-moon').forEach(el => {
-                el.classList.toggle('hidden', isDarkMode);
-            });
-            document.querySelectorAll('.theme-icon-sun').forEach(el => {
-                el.classList.toggle('hidden', !isDarkMode);
-            });
-
-            const runeEl = document.getElementById('rune-text');
-            const transEl = document.getElementById('translated-text');
-
-            if (runeEl && transEl) {
-                runeEl.classList.toggle('invisible', runesTranslated);
-                transEl.classList.toggle('invisible', !runesTranslated);
-            }
-        }
 
         function initStoryMapRiver() {
             const mainRiver = document.getElementById('river-continuous-main');
@@ -1327,21 +1344,362 @@
             updateContinuousRiver();
         }
 
-        // Física de la borla: balanceo, alcance limitado y colisión con el sello.
+        // Arrastre del sobre y física Verlet de la borla, sincronizados con la posición real del sello.
+        (function initEnvelopeAndTasselPhysics() {
+            const stage = document.getElementById('experience-container');
+            const envelope = document.getElementById('envelope-body');
+            const sealButton = document.getElementById('wax-seal-btn');
+            const canvas = document.getElementById('tassel-canvas');
+            if (!stage || !envelope || !sealButton || !canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            const cfg = TASSEL_AND_SEAL_CONFIG;
+            let anchorX = 0, anchorY = 0, previousAnchorX = 0, previousAnchorY = 0;
+            let seal = { x: 0, y: 0, rx: 38, ry: 38 };
+            const nodes = [];
+            const envelopePhysics = {
+                x: 0, y: 0, vx: 0, vy: 0, previousX: 0, previousY: 0,
+                targetX: 0, targetY: 0,
+                dragging: false, startX: 0, startY: 0, offsetX: 0, offsetY: 0,
+                dragDistance: 0
+            };
+            let draggingTassel = false;
+            let tasselX = 0, tasselY = 0, previousTasselPointer = null;
+
+            function dpr() {
+                return Math.min(window.devicePixelRatio || 1, 2);
+            }
+
+            function resizeCanvas() {
+                const rect = stage.getBoundingClientRect();
+                const ratio = dpr();
+                const width = Math.max(1, Math.round(rect.width * ratio));
+                const height = Math.max(1, Math.round(rect.height * ratio));
+                if (canvas.width !== width || canvas.height !== height) {
+                    canvas.width = width;
+                    canvas.height = height;
+                }
+            }
+
+            function updateSealGeometry() {
+                resizeCanvas();
+                const canvasRect = canvas.getBoundingClientRect();
+                const buttonRect = sealButton.getBoundingClientRect();
+                if (!canvasRect.width || !buttonRect.width) return;
+                const scaleX = canvas.width / canvasRect.width;
+                const scaleY = canvas.height / canvasRect.height;
+                seal = {
+                    x: (buttonRect.left + buttonRect.width / 2 - canvasRect.left) * scaleX,
+                    y: (buttonRect.top + buttonRect.height / 2 - canvasRect.top) * scaleY,
+                    rx: buttonRect.width * scaleX / 2,
+                    ry: buttonRect.height * scaleY / 2
+                };
+                anchorX = seal.x;
+                anchorY = seal.y + seal.ry + 1;
+            }
+
+            function pointerPosition(event) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: (event.clientX - rect.left) * canvas.width / rect.width,
+                    y: (event.clientY - rect.top) * canvas.height / rect.height
+                };
+            }
+
+            function keepOutsideSeal(point) {
+                const radius = cfg.cordWidth * 0.52 * dpr();
+                const rx = seal.rx + radius, ry = seal.ry + radius;
+                const dx = point.x - seal.x, dy = point.y - seal.y;
+                const distance = Math.hypot(dx / rx, dy / ry);
+                if (distance < 1) {
+                    const angle = distance > 0.001 ? Math.atan2(dy / ry, dx / rx) : Math.PI / 2;
+                    point.x = seal.x + Math.cos(angle) * rx;
+                    point.y = seal.y + Math.sin(angle) * ry;
+                }
+            }
+
+            function limitTasselTarget(x, y) {
+                const target = { x, y };
+                const radius = cfg.cordWidth * 0.52 * dpr();
+                const rx = seal.rx + radius, ry = seal.ry + radius;
+                const fromSealX = x - seal.x, fromSealY = y - seal.y;
+                const normalizedDistance = Math.hypot(fromSealX / rx, fromSealY / ry);
+                const tip = nodes[nodes.length - 1];
+                const tipDx = (tip.x - seal.x) / rx, tipDy = (tip.y - seal.y) / ry;
+                const tipDistance = Math.hypot(tipDx, tipDy);
+
+                if (normalizedDistance < 1) {
+                    const angle = Number.isFinite(tipDx) ? Math.atan2(tipDy, tipDx) : Math.PI / 2;
+                    target.x = seal.x + Math.cos(angle) * rx;
+                    target.y = seal.y + Math.sin(angle) * ry;
+                } else if (draggingTassel && tipDistance < 1.4) {
+                    const targetAngle = Math.atan2(fromSealY / ry, fromSealX / rx);
+                    const currentAngle = Math.atan2(tipDy, tipDx);
+                    const delta = Math.atan2(Math.sin(targetAngle - currentAngle), Math.cos(targetAngle - currentAngle));
+                    if (Math.abs(delta) > 0.12) {
+                        const angle = currentAngle + Math.max(-0.12, Math.min(0.12, delta));
+                        target.x = seal.x + Math.cos(angle) * rx;
+                        target.y = seal.y + Math.sin(angle) * ry;
+                    }
+                }
+
+                const dx = target.x - anchorX, dy = target.y - anchorY;
+                const distance = Math.hypot(dx, dy);
+                const maxLength = cfg.segLen * dpr() * (cfg.numNodes - 1) * 1.5;
+                if (distance > maxLength) {
+                    target.x = anchorX + dx * maxLength / distance;
+                    target.y = anchorY + dy * maxLength / distance;
+                }
+                keepOutsideSeal(target);
+                return target;
+            }
+
+            updateSealGeometry();
+            previousAnchorX = anchorX;
+            previousAnchorY = anchorY;
+            for (let i = 0; i < cfg.numNodes; i++) {
+                const y = anchorY + i * cfg.segLen * dpr();
+                nodes.push({ x: anchorX, y, oldX: anchorX, oldY: y });
+            }
+
+            stage.addEventListener('pointerdown', event => {
+                if (targetProgress > 0.01 || event.target.closest('#music-toggle-btn, #skip-animation-btn, #vertical-slider-container, #details-btn')) return;
+                updateSealGeometry();
+                const pos = pointerPosition(event);
+                const tip = nodes[nodes.length - 1];
+                if (tip && Math.hypot(pos.x - tip.x, pos.y - tip.y) < 58 * dpr()) {
+                    draggingTassel = true;
+                    const target = limitTasselTarget(pos.x, pos.y);
+                    tasselX = target.x;
+                    tasselY = target.y;
+                    previousTasselPointer = pos;
+                    stage.setPointerCapture(event.pointerId);
+                } else if (!event.target.closest('#wax-seal-btn') && event.target.closest('#envelope-body')) {
+                    envelopePhysics.dragging = true;
+                    envelopePhysics.dragDistance = 0;
+                    envelopePhysics.startX = event.clientX;
+                    envelopePhysics.startY = event.clientY;
+                    envelopePhysics.offsetX = envelopePhysics.x;
+                    envelopePhysics.offsetY = envelopePhysics.y;
+                    envelopePhysics.targetX = envelopePhysics.x;
+                    envelopePhysics.targetY = envelopePhysics.y;
+                    stage.setPointerCapture(event.pointerId);
+                }
+            });
+
+            stage.addEventListener('pointermove', event => {
+                const pos = pointerPosition(event);
+                const tip = nodes[nodes.length - 1];
+                if (draggingTassel) {
+                    const target = limitTasselTarget(pos.x, pos.y);
+                    tasselX = target.x;
+                    tasselY = target.y;
+                    previousTasselPointer = pos;
+                } else if (envelopePhysics.dragging) {
+                    const dx = event.clientX - envelopePhysics.startX;
+                    const dy = event.clientY - envelopePhysics.startY;
+                    envelopePhysics.dragDistance = Math.hypot(dx, dy);
+                    const stageRect = stage.getBoundingClientRect();
+                    const envelopeRect = envelope.getBoundingClientRect();
+                    const maxX = Math.min(cfg.dragLimit, Math.max(70, (stageRect.width - envelopeRect.width) * 0.48));
+                    const maxY = Math.min(cfg.dragLimit, Math.max(60, (stageRect.height - envelopeRect.height) * 0.42));
+                    envelopePhysics.targetX = Math.max(-maxX, Math.min(maxX, envelopePhysics.offsetX + dx));
+                    envelopePhysics.targetY = Math.max(-maxY, Math.min(maxY, envelopePhysics.offsetY + dy));
+                } else if (previousTasselPointer && tip && Math.hypot(pos.x - tip.x, pos.y - tip.y) < 58 * dpr()) {
+                    tip.oldX -= (pos.x - previousTasselPointer.x) * 0.16;
+                    tip.oldY -= (pos.y - previousTasselPointer.y) * 0.16;
+                    previousTasselPointer = pos;
+                } else {
+                    previousTasselPointer = pos;
+                }
+            });
+
+            function endPointer(event) {
+                if (draggingTassel) draggingTassel = false;
+                if (envelopePhysics.dragging) {
+                    envelopePhysics.dragging = false;
+                }
+                try { stage.releasePointerCapture(event.pointerId); } catch (_) {}
+            }
+            sealButton.addEventListener('click', startSequence);
+            stage.addEventListener('pointerup', endPointer);
+            stage.addEventListener('pointercancel', endPointer);
+
+            function stepEnvelope() {
+                if (targetProgress > 0.01) {
+                    if (envelopePhysics.x || envelopePhysics.y) {
+                        envelopePhysics.x = envelopePhysics.y = envelopePhysics.vx = envelopePhysics.vy = 0;
+                        envelope.style.transform = '';
+                    }
+                    return { dx: 0, dy: 0, hidden: true };
+                }
+
+                envelopePhysics.previousX = envelopePhysics.x;
+                envelopePhysics.previousY = envelopePhysics.y;
+                if (envelopePhysics.dragging) {
+                    envelopePhysics.x += (envelopePhysics.targetX - envelopePhysics.x) * 0.38;
+                    envelopePhysics.y += (envelopePhysics.targetY - envelopePhysics.y) * 0.38;
+                    envelopePhysics.vx = envelopePhysics.x - envelopePhysics.previousX;
+                    envelopePhysics.vy = envelopePhysics.y - envelopePhysics.previousY;
+                } else {
+                    envelopePhysics.vx = (envelopePhysics.vx - envelopePhysics.x * cfg.sealSpring) * cfg.sealDamping;
+                    envelopePhysics.vy = (envelopePhysics.vy - envelopePhysics.y * cfg.sealSpring) * cfg.sealDamping;
+                    envelopePhysics.x += envelopePhysics.vx;
+                    envelopePhysics.y += envelopePhysics.vy;
+                    if (Math.abs(envelopePhysics.x) < 0.02 && Math.abs(envelopePhysics.vx) < 0.02) envelopePhysics.x = envelopePhysics.vx = 0;
+                    if (Math.abs(envelopePhysics.y) < 0.02 && Math.abs(envelopePhysics.vy) < 0.02) envelopePhysics.y = envelopePhysics.vy = 0;
+                }
+
+                const tilt = (envelopePhysics.x * 0.045 + envelopePhysics.vx * 0.18) * cfg.sealTilt;
+                envelope.style.transform = `translate3d(${envelopePhysics.x.toFixed(2)}px, ${envelopePhysics.y.toFixed(2)}px, 0) rotate(${tilt.toFixed(2)}deg)`;
+                previousAnchorX = anchorX;
+                previousAnchorY = anchorY;
+                updateSealGeometry();
+                return { dx: anchorX - previousAnchorX, dy: anchorY - previousAnchorY, hidden: false };
+            }
+
+            function stepTassel(dx, dy) {
+                const ratio = dpr();
+                const gravity = cfg.gravity * ratio;
+                const segmentLength = cfg.segLen * ratio;
+                const extraInertia = cfg.shakeInertia - 1;
+                for (let i = 1; i < nodes.length; i++) {
+                    const node = nodes[i];
+                    const mass = 0.55 + (i / (nodes.length - 1)) * 0.65;
+                    node.oldX += dx * extraInertia * mass;
+                    node.oldY += dy * extraInertia * mass;
+                    const vx = (node.x - node.oldX) * cfg.friction;
+                    const vy = (node.y - node.oldY) * cfg.friction;
+                    node.oldX = node.x;
+                    node.oldY = node.y;
+                    node.x += vx;
+                    node.y += vy + gravity;
+                }
+                if (draggingTassel) {
+                    const tip = nodes[nodes.length - 1];
+                    tip.x = tasselX;
+                    tip.y = tasselY;
+                }
+                for (let iter = 0; iter < cfg.iterations; iter++) {
+                    nodes[0].x = anchorX;
+                    nodes[0].y = anchorY;
+                    for (let i = 0; i < nodes.length - 1; i++) {
+                        const first = nodes[i], second = nodes[i + 1];
+                        const dx = second.x - first.x, dy = second.y - first.y;
+                        const distance = Math.hypot(dx, dy) || 0.001;
+                        const difference = (segmentLength - distance) / distance;
+                        if (i === 0) {
+                            second.x += dx * difference;
+                            second.y += dy * difference;
+                        } else if (draggingTassel && i + 1 === nodes.length - 1) {
+                            first.x -= dx * difference;
+                            first.y -= dy * difference;
+                        } else {
+                            first.x -= dx * difference * 0.5;
+                            first.y -= dy * difference * 0.5;
+                            second.x += dx * difference * 0.5;
+                            second.y += dy * difference * 0.5;
+                        }
+                    }
+                    for (let i = 1; i < nodes.length; i++) keepOutsideSeal(nodes[i]);
+                    if (draggingTassel) {
+                        nodes[nodes.length - 1].x = tasselX;
+                        nodes[nodes.length - 1].y = tasselY;
+                    }
+                }
+            }
+
+            function drawTassel() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                if (nodes.length < 2) return;
+                const ratio = dpr();
+                const cordWidth = cfg.cordWidth * ratio;
+                ctx.save();
+                ctx.shadowColor = 'rgba(13, 59, 102, 0.22)';
+                ctx.shadowBlur = 4 * ratio;
+                ctx.shadowOffsetX = 1.5 * ratio;
+                ctx.shadowOffsetY = 2.5 * ratio;
+                ctx.beginPath();
+                ctx.moveTo(nodes[0].x, nodes[0].y);
+                for (let i = 1; i < nodes.length; i++) ctx.lineTo(nodes[i].x, nodes[i].y);
+                ctx.strokeStyle = '#1b75bc';
+                ctx.lineWidth = cordWidth;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+                ctx.shadowColor = 'transparent';
+                ctx.strokeStyle = '#66b3ff';
+                ctx.lineWidth = Math.max(1.1 * ratio, cordWidth * 0.34);
+                ctx.setLineDash([4 * ratio, 4 * ratio]);
+                ctx.stroke();
+                ctx.restore();
+
+                const previous = nodes[nodes.length - 2], tip = nodes[nodes.length - 1];
+                ctx.save();
+                ctx.translate(tip.x, tip.y);
+                ctx.rotate(Math.atan2(tip.y - previous.y, tip.x - previous.x) - Math.PI / 2);
+                ctx.scale(ratio, ratio);
+                for (let i = 0; i < 13; i++) {
+                    const t = i / 12 - 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(t * 7, 6);
+                    ctx.quadraticCurveTo(t * 13, cfg.tasselLen * 0.55, t * 16, cfg.tasselLen);
+                    ctx.strokeStyle = i % 2 === 0 ? '#1b75bc' : '#35a7cc';
+                    ctx.lineWidth = 2.2;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
+                }
+                ctx.fillStyle = '#0d3b66';
+                ctx.beginPath();
+                ctx.roundRect(-6, -2, 12, 9, 4);
+                ctx.fill();
+                ctx.strokeStyle = '#7dd3fc';
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.moveTo(-5.5, 2.5);
+                ctx.lineTo(5.5, 2.5);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function frame() {
+                const movement = stepEnvelope();
+                if (movement.hidden) {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                } else {
+                    stepTassel(movement.dx, movement.dy);
+                    drawTassel();
+                }
+                requestAnimationFrame(frame);
+            }
+            window.addEventListener('resize', updateSealGeometry, { passive: true });
+            requestAnimationFrame(frame);
+        })();
+
+        // Física anterior desactivada; la inicialización integrada de arriba la sustituye.
         (function initTasselPhysics() {
+            return;
             const canvas = document.getElementById('tassel-canvas');
             const sealButton = document.getElementById('wax-seal-btn');
             if (!canvas || !sealButton) return;
             const ctx = canvas.getContext('2d');
+            const envelopeBody = document.getElementById('envelope-body');
 
             let anchorX = canvas.width / 2;
             let anchorY = canvas.height / 2;
             let seal = { x: anchorX, y: anchorY, rx: 35, ry: 35 };
-            const numNodes = 7;
-            const segLen = 4.75;
-            const maxRopeLength = segLen * (numNodes - 1) * 1.50;
-            const cordRadius = 2.5;
+            const numNodes = TASSEL_AND_SEAL_CONFIG.numNodes;
+            const segLen = TASSEL_AND_SEAL_CONFIG.segLen;
+            const maxRopeLength = Math.min(
+                TASSEL_AND_SEAL_CONFIG.dragLimit,
+                segLen * (numNodes - 1) * 1.50
+            );
+            const cordRadius = TASSEL_AND_SEAL_CONFIG.cordWidth / 2;
             const nodes = [];
+            let envelopeTilt = 0;
+            let envelopeTiltVelocity = 0;
+            let targetEnvelopeTilt = 0;
+            if (envelopeBody) envelopeBody.style.transition = 'none';
 
             function updateSealGeometry() {
                 const canvasRect = canvas.getBoundingClientRect();
@@ -1479,12 +1837,16 @@
                     const target = limitDragTarget(pos.x, pos.y);
                     dragX = target.x;
                     dragY = target.y;
+                    const tiltRatio = Math.max(-1, Math.min(1,
+                        (dragX - anchorX) / TASSEL_AND_SEAL_CONFIG.dragLimit
+                    ));
+                    targetEnvelopeTilt = tiltRatio * TASSEL_AND_SEAL_CONFIG.sealTilt;
                 } else if (previousPointer && isNearTassel(pos, tip)) {
                     // El movimiento del ratón transmite impulso a la borla sin fijarla a su posición.
                     const dx = pos.x - previousPointer.x;
                     const dy = pos.y - previousPointer.y;
-                    tip.oldX -= dx * 0.16;
-                    tip.oldY -= dy * 0.16;
+                    tip.oldX -= dx * 0.16 * TASSEL_AND_SEAL_CONFIG.shakeInertia;
+                    tip.oldY -= dy * 0.16 * TASSEL_AND_SEAL_CONFIG.shakeInertia;
                 }
                 previousPointer = pos;
             });
@@ -1492,6 +1854,7 @@
             function stopDragging(e) {
                 if (!isDragging) return;
                 isDragging = false;
+                targetEnvelopeTilt = 0;
                 try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
             }
             canvas.addEventListener('pointerup', stopDragging);
@@ -1500,8 +1863,13 @@
             window.addEventListener('resize', updateSealGeometry, { passive: true });
 
             function stepPhysics() {
-                const gravity = 0.24;
-                const friction = 0.992;
+                const gravity = TASSEL_AND_SEAL_CONFIG.gravity;
+                const friction = TASSEL_AND_SEAL_CONFIG.friction;
+
+                envelopeTiltVelocity += (targetEnvelopeTilt - envelopeTilt) * TASSEL_AND_SEAL_CONFIG.sealSpring;
+                envelopeTiltVelocity *= TASSEL_AND_SEAL_CONFIG.sealDamping;
+                envelopeTilt += envelopeTiltVelocity;
+                if (envelopeBody) envelopeBody.style.transform = `rotate(${envelopeTilt}deg)`;
 
                 for (let i = 1; i < numNodes; i++) {
                     const n = nodes[i];
@@ -1519,7 +1887,7 @@
                     tip.y = dragY;
                 }
 
-                for (let iter = 0; iter < 8; iter++) {
+                for (let iter = 0; iter < TASSEL_AND_SEAL_CONFIG.iterations; iter++) {
                     nodes[0].x = anchorX;
                     nodes[0].y = anchorY;
 
@@ -1567,7 +1935,7 @@
                     ctx.lineTo(nodes[i].x, nodes[i].y);
                 }
                 ctx.strokeStyle = '#1b75bc';
-                ctx.lineWidth = 4.8;
+                ctx.lineWidth = TASSEL_AND_SEAL_CONFIG.cordWidth;
                 ctx.lineCap = 'round';
                 ctx.lineJoin = 'round';
                 ctx.stroke();
@@ -1587,7 +1955,7 @@
                 ctx.rotate(angle);
 
                 // Flecos de la borla
-                const tasselLen = 36;
+                const tasselLen = TASSEL_AND_SEAL_CONFIG.tasselLen;
                 const strandCount = 13;
                 for (let s = 0; s < strandCount; s++) {
                     const t = (s / (strandCount - 1)) - 0.5;
