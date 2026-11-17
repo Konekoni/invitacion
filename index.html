@@ -2485,14 +2485,14 @@
             const statusSelects = document.querySelectorAll('.member-status-select');
             statusSelects.forEach(select => {
                 const memberId = select.getAttribute('data-member-id');
-                const member = group.members.find(m => m.id === memberId);
+                const member = group.members.find(m => String(m.id) === memberId);
                 if (member) member.status = select.value;
             });
 
             const allergyInputs = document.querySelectorAll('.member-allergy-input');
             allergyInputs.forEach(input => {
                 const memberId = input.getAttribute('data-member-id');
-                const member = group.members.find(m => m.id === memberId);
+                const member = group.members.find(m => String(m.id) === memberId);
                 if (member) member.allergies = input.value.trim();
             });
 
