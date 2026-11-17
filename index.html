@@ -509,7 +509,7 @@
         <div id="password-loading-overlay" class="hidden fixed inset-0 z-[110] bg-slate-900/35 backdrop-blur-[2px] flex items-center justify-center p-4" role="status" aria-live="polite" aria-label="Buscando la invitación">
             <div class="flex items-center gap-3 rounded-xl bg-white px-5 py-4 shadow-xl text-slate-700">
                 <span class="h-5 w-5 rounded-full border-2 border-[#35a7cc]/25 border-t-[#35a7cc] animate-spin" aria-hidden="true"></span>
-                <span class="font-cinzel text-xs tracking-wide">Cargando la comarca...</span>
+                <span class="font-cinzel text-xs tracking-wide">De camino a la comarca...</span>
             </div>
         </div>
     </div>
@@ -2668,59 +2668,6 @@
             }, 2000);
         }
     </script>
-<script>
-// Precarga la lista en segundo plano; la contraseña filtra los grupos localmente.
-(() => {
-    const normalize = value => String(value || '')
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/\s+/g, '')
-        .toLowerCase();
-    const scriptsText = Array.from(document.scripts)
-        .map(script => script.textContent || '')
-        .join('\n');
-    const endpointMatch = scriptsText.match(/https:\/\/script\.google\.com\/macros\/s\/[^'"\\s]+?\/exec/);
-    if (!endpointMatch) {
-        console.error('No se encontró la URL /exec de Google Apps Script para precargar invitados.');
-        return;
-    }
 
-    const endpoint = endpointMatch[0];
-    const originalFetch = window.fetch.bind(window);
-    const guestsPromise = originalFetch(endpoint)
-        .then(response => {
-            if (!response.ok) throw new Error('No se pudo cargar la lista de invitados.');
-            return response.json();
-        })
-        .then(groups => {
-            if (!Array.isArray(groups)) throw new Error(groups.error || 'Respuesta no válida al cargar invitados.');
-            return groups;
-        });
-
-    window.fetch = async (input, init) => {
-        let payload;
-        try {
-            if (init && typeof init.body === 'string') payload = JSON.parse(init.body);
-        } catch (_) {}
-
-        if (payload && payload.action === 'lookup') {
-            try {
-                const groups = await guestsPromise;
-                const filteredGroups = groups.filter(group =>
-                    normalize(group.password) === normalize(payload.password)
-                );
-                return new Response(JSON.stringify(filteredGroups), {
-                    status: 200,
-                    headers: { 'Content-Type': 'application/json' }
-                });
-            } catch (error) {
-                console.error('Error en la precarga de invitados; se intentará la búsqueda normal:', error);
-            }
-        }
-
-        return originalFetch(input, init);
-    };
-})();
-</script>
 </body>
 </html>
