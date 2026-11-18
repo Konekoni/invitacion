@@ -140,12 +140,26 @@
             border-color: rgba(56, 176, 207, 0.28) !important;
         }
 
+        .status-yes { color: #3b6e52; }
+        .status-no { color: #8e4444; }
+        .status-pending { color: #3f464d; }
+        select.status-select-yes { color: #3b6e52; border-color: rgba(59, 110, 82, 0.4); }
+        select.status-select-no { color: #8e4444; border-color: rgba(142, 68, 68, 0.4); }
+        select.status-select-pending { color: #3f464d; border-color: #cbd5e1; }
+
         body.valinor-dark input,
         body.valinor-dark select {
             background-color: #0b1d2e !important;
             color: #f8fafc !important;
             border-color: rgba(56, 176, 207, 0.4) !important;
         }
+
+        body.valinor-dark .status-yes { color: #86efac !important; }
+        body.valinor-dark .status-no { color: #fda4af !important; }
+        body.valinor-dark .status-pending { color: #cbd5e1 !important; }
+        body.valinor-dark select.status-select-yes { color: #86efac !important; border-color: rgba(134, 239, 172, 0.55) !important; }
+        body.valinor-dark select.status-select-no { color: #fda4af !important; border-color: rgba(253, 164, 175, 0.55) !important; }
+        body.valinor-dark select.status-select-pending { color: #cbd5e1 !important; border-color: rgba(203, 213, 225, 0.45) !important; }
 
         body.valinor-dark .map-ink-white-fill {
             fill: #112a42;
@@ -1064,7 +1078,7 @@
                 </div>
 
                 <!-- Buscador de invitado -->
-                <div class="relative mb-6">
+                <div id="guest-search-wrapper" class="relative mb-6">
                     <label for="guest-search-input" class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-2">Buscar invitado</label>
                     <div class="relative">
                         <input id="guest-search-input" type="text" autocomplete="off" oninput="searchGuests(this.value)" placeholder="Escribe tu nombre o apellido (ej. Frodo, Légolas, Aragorn, Pipin...)" class="w-full pl-11 pr-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-[#fcfbf9]">
@@ -1082,8 +1096,8 @@
                             <span class="text-[11px] font-cinzel uppercase tracking-wider text-[#38b0cfff] font-bold">Invitación seleccionada</span>
                             <h4 id="rsvp-group-title" class="font-cinzel text-lg sm:text-xl font-bold text-slate-900"></h4>
                         </div>
-                        <button type="button" onclick="resetGuestSelection()" class="text-xs font-cinzel text-slate-500 hover:text-[#38b0cfff] underline">
-                            Cambiar invitado
+                        <button type="button" onclick="resetGuestSelection()" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#35a7cc] hover:bg-[#288eb0] text-white text-xs font-cinzel tracking-wider shadow-md transition-all">
+                            <span aria-hidden="true">←</span> Escoger otro invitado
                         </button>
                     </div>
 
@@ -1110,6 +1124,7 @@
                                     <div>
                                         <label class="block text-xs font-cinzel font-bold text-slate-700 uppercase mb-1">Asistencia del +1</label>
                                         <select id="solo-plus-one-status" onchange="updatePlusOneColor()" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:outline-none focus:border-[#38b0cfff] text-sm bg-white font-medium text-[#3f464d]">
+                                            <option value="" disabled>Selecciona una respuesta</option>
                                             <option value="yes" class="text-[#3b6e52]">Sí, asistirá</option>
                                             <option value="no" class="text-[#8e4444]">No podrá asistir</option>
                                             <option value="pending" class="text-[#3f464d]">Sin confirmar</option>
@@ -1280,6 +1295,7 @@
         let musicStartedOnce = false;
         let isMusicPlaying = false;
         let isMusicMuted = false;
+        let musicPlaybackRequestId = 0;
         let backgroundAudio = null;
         let sequenceTimers = [];
         let runesTranslated = false;
@@ -1677,8 +1693,18 @@
         function getBackgroundAudio() {
             if (!backgroundAudio) {
                 backgroundAudio = new Audio('https://raw.githubusercontent.com/Konekoni/invitacion/3c872a59aa95a2806b58165deb2143bd28cbb5c8/LotR_TheShire_Ambience_2h.mp3');
-                backgroundAudio.loop = true; 
+                backgroundAudio.loop = true;
                 backgroundAudio.volume = 0.55;
+                backgroundAudio.addEventListener('play', () => {
+                    isMusicPlaying = !backgroundAudio.paused;
+                    isMusicMuted = backgroundAudio.paused;
+                    updateMusicIcon();
+                });
+                backgroundAudio.addEventListener('pause', () => {
+                    isMusicPlaying = !backgroundAudio.paused;
+                    isMusicMuted = backgroundAudio.paused;
+                    updateMusicIcon();
+                });
             }
             return backgroundAudio;
         }
@@ -1686,38 +1712,59 @@
         async function initAndPlayShireMusicOnce() {
             if (musicStartedOnce) return;
             musicStartedOnce = true;
+            const requestId = ++musicPlaybackRequestId;
+            isMusicPlaying = true;
+            isMusicMuted = false;
+            updateMusicIcon();
 
             try {
                 const audio = getBackgroundAudio();
                 await audio.play();
-
-                isMusicPlaying = true;
-                isMusicMuted = false;
+                if (requestId !== musicPlaybackRequestId) return;
+                isMusicPlaying = !audio.paused;
+                isMusicMuted = audio.paused;
                 updateMusicIcon();
             } catch (e) {
-                musicStartedOnce = false;
+                if (requestId === musicPlaybackRequestId) {
+                    musicStartedOnce = false;
+                    isMusicPlaying = false;
+                    isMusicMuted = true;
+                    updateMusicIcon();
+                }
                 console.log('Reproducción de audio pendiente de interacción del usuario:', e);
             }
         }
 
         async function toggleMusic() {
             const audio = getBackgroundAudio();
-            if (!musicStartedOnce) {
-                await initAndPlayShireMusicOnce();
-                return;
-            }
-            if (isMusicPlaying) {
+            const requestId = ++musicPlaybackRequestId;
+
+            if (!audio.paused) {
                 audio.pause();
                 isMusicPlaying = false;
                 isMusicMuted = true;
-            } else {
-                try {
-                    await audio.play();
-                    isMusicPlaying = true;
-                    isMusicMuted = false;
-                } catch (e) {
-                    console.log('No se pudo reanudar el audio:', e);
+                updateMusicIcon();
+                return;
+            }
+
+            // Refleja el cambio en la interfaz antes de esperar a que el audio arranque.
+            isMusicPlaying = true;
+            isMusicMuted = false;
+            updateMusicIcon();
+            try {
+                await audio.play();
+                musicStartedOnce = true;
+                if (requestId !== musicPlaybackRequestId) return;
+                isMusicPlaying = !audio.paused;
+                isMusicMuted = audio.paused;
+            } catch (e) {
+                if (requestId === musicPlaybackRequestId) {
+                    isMusicPlaying = false;
+                    isMusicMuted = true;
+                    updateMusicIcon();
                 }
+                console.log('No se pudo iniciar o reanudar el audio:', e);
+                return;
             }
             updateMusicIcon();
         }
@@ -1734,6 +1781,11 @@
             });
             document.querySelectorAll('.nav-music-icon-off').forEach(el => {
                 el.classList.toggle('hidden', !isMusicMuted);
+            });
+
+            document.querySelectorAll('button[onclick="toggleMusic()"], #music-toggle-btn').forEach(button => {
+                button.setAttribute('aria-label', isMusicMuted ? 'Activar música' : 'Silenciar música');
+                button.setAttribute('title', isMusicMuted ? 'Activar música' : 'Silenciar música');
             });
         }
 
@@ -2030,37 +2082,21 @@
         function toggleMobileNav() {
             const links = document.getElementById('invitation-nav-links');
             const toggle = document.getElementById('mobile-nav-toggle');
-            const centeredLogo = document.getElementById('nav-logo-centered');
-            const nextToBackLogo = document.getElementById('nav-logo-next-to-back');
             const isOpen = toggle.getAttribute('aria-expanded') === 'true';
             const nextState = !isOpen;
 
             toggle.setAttribute('aria-expanded', String(nextState));
             links.classList.toggle('hidden', !nextState);
             links.classList.toggle('flex', nextState);
-
-            if (centeredLogo && nextToBackLogo) {
-                centeredLogo.classList.toggle('hidden', nextState);
-                nextToBackLogo.classList.toggle('hidden', !nextState);
-                nextToBackLogo.classList.toggle('flex', nextState);
-            }
         }
 
         function closeMobileNav() {
             const links = document.getElementById('invitation-nav-links');
             const toggle = document.getElementById('mobile-nav-toggle');
-            const centeredLogo = document.getElementById('nav-logo-centered');
-            const nextToBackLogo = document.getElementById('nav-logo-next-to-back');
 
             links.classList.add('hidden');
             links.classList.remove('flex');
             toggle.setAttribute('aria-expanded', 'false');
-
-            if (centeredLogo && nextToBackLogo) {
-                centeredLogo.classList.remove('hidden');
-                nextToBackLogo.classList.add('hidden');
-                nextToBackLogo.classList.remove('flex');
-            }
         }
 
         // =========================================================================
@@ -2419,6 +2455,7 @@
             if (!group) return;
 
             document.getElementById('guest-search-results').classList.add('hidden');
+            document.getElementById('guest-search-wrapper').classList.add('hidden');
             document.getElementById('rsvp-feedback').classList.add('hidden');
 
             const groupTitle = group.members.map(m => `${m.firstName} ${m.lastName}`.trim()).join(' & ');
@@ -2457,7 +2494,7 @@
             const soloFields = document.getElementById('solo-plus-one-fields');
             const toggleBtn = document.getElementById('toggle-plus-one-btn');
 
-            if (group.allowExtraPlusOne) {
+            if (group.allowExtraPlusOne || (group.extraPlusOne && group.extraPlusOne.name)) {
                 soloWrapper.classList.remove('hidden');
                 if (group.extraPlusOne && group.extraPlusOne.name) {
                     hasExtraPlusOneOpen = true;
@@ -2490,15 +2527,15 @@
         }
 
         function getStatusNameColorClass(status) {
-            if (status === 'yes') return 'text-[#3b6e52]';
-            if (status === 'no') return 'text-[#8e4444]';
-            return 'text-[#3f464d]';
+            if (status === 'yes') return 'status-yes';
+            if (status === 'no') return 'status-no';
+            return 'status-pending';
         }
 
         function getStatusSelectColorClass(status) {
-            if (status === 'yes') return 'text-[#3b6e52] border-[#3b6e52]/40';
-            if (status === 'no') return 'text-[#8e4444] border-[#8e4444]/40';
-            return 'text-[#3f464d] border-slate-300';
+            if (status === 'yes') return 'status-select-yes';
+            if (status === 'no') return 'status-select-no';
+            return 'status-select-pending';
         }
 
         function updateMemberNameColor(memberId, status) {
@@ -2530,12 +2567,25 @@
             hasExtraPlusOneOpen = !hasExtraPlusOneOpen;
             const soloFields = document.getElementById('solo-plus-one-fields');
             const toggleBtn = document.getElementById('toggle-plus-one-btn');
+            const nameInput = document.getElementById('solo-plus-one-name');
+            const statusInput = document.getElementById('solo-plus-one-status');
+            const allergiesInput = document.getElementById('solo-plus-one-allergies');
+            const group = guestGroups.find(g => g.groupId === selectedGroupId);
+
             if (hasExtraPlusOneOpen) {
                 soloFields.classList.remove('hidden');
                 toggleBtn.textContent = 'Quitar acompañante';
+                if (!nameInput.value.trim()) statusInput.value = 'yes';
             } else {
                 soloFields.classList.add('hidden');
                 toggleBtn.textContent = '+ Añadir acompañante';
+                nameInput.value = '';
+                statusInput.value = '';
+                allergiesInput.value = '';
+                if (group) {
+                    group.extraPlusOne = null;
+                    group.allowExtraPlusOne = true;
+                }
             }
             updatePlusOneColor();
         }
@@ -2543,6 +2593,7 @@
         function resetGuestSelection() {
             selectedGroupId = null;
             document.getElementById('rsvp-group-container').classList.add('hidden');
+            document.getElementById('guest-search-wrapper').classList.remove('hidden');
             document.getElementById('guest-search-input').value = '';
             document.getElementById('guest-search-input').focus();
         }
@@ -2602,8 +2653,9 @@
                 submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
             }
 
+            const pendingGuestCount = group.members.length + (group.extraPlusOne && group.extraPlusOne.name ? 1 : 0);
             feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
-            feedbackMsg.textContent = 'Guardando vuestra confirmación...';
+            feedbackMsg.textContent = `Guardando ${pendingGuestCount > 1 ? 'vuestra' : 'tu'} confirmación...`;
             feedbackMsg.classList.remove('hidden');
 
             const auditInfo = await getClientAuditInfo();
@@ -2636,24 +2688,37 @@
 
                 const anyYes = allStatuses.includes('yes');
                 const anyNo = allStatuses.includes('no');
+                const guestCount = group.members.length + (group.extraPlusOne && group.extraPlusOne.name ? 1 : 0);
+                const isPlural = guestCount > 1;
 
                 if (anyYes && !anyNo) {
                     feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#eef5f0] border-[#b8d1c1] text-[#2f5741]';
-                    feedbackMsg.textContent = '¡Qué alegría contar con vosotros! Hemos guardado vuestra confirmación y alergias. ¡Nos vemos el 1 de mayo de 2027!';
+                    feedbackMsg.textContent = `¡Qué alegría contar ${isPlural ? 'con vosotros' : 'contigo'}! Hemos guardado ${isPlural ? 'vuestra' : 'tu'} confirmación y alergias. ¡Nos vemos el 1 de mayo de 2027!`;
                 } else if (!anyYes && anyNo) {
                     feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
-                    feedbackMsg.textContent = '¡Qué pena que no podáis venir! Os echaremos mucho de menos ese día. Si cambian vuestros planes, podéis volver a entrar aquí para modificarlo.';
+                    feedbackMsg.textContent = `¡Qué pena que ${isPlural ? 'no podáis' : 'no puedas'} venir! ${isPlural ? 'Os echaremos' : 'Te echaremos'} mucho de menos ese día. Si cambian ${isPlural ? 'vuestros planes, podéis' : 'tus planes, puedes'} volver a entrar aquí para modificarlo.`;
                 } else if (anyYes && anyNo) {
                     feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
-                    feedbackMsg.textContent = '¡Gracias por avisarnos! Hemos guardado quiénes podréis venir y quiénes no. Echaremos de menos a quienes falten y celebraremos por todo lo alto con los que vengáis.';
+                    feedbackMsg.textContent = isPlural
+                        ? '¡Gracias por avisarnos! Hemos guardado quiénes podréis venir y quiénes no. Echaremos de menos a quienes falten y celebraremos por todo lo alto con los que vengáis.'
+                        : '¡Gracias por avisarnos! Hemos guardado tu respuesta. Echaremos de menos que no puedas venir y celebraremos por todo lo alto contigo si finalmente vienes.';
                 } else {
                     feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-slate-100 border-slate-300 text-slate-700';
-                    feedbackMsg.textContent = 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.';
+                    feedbackMsg.textContent = isPlural
+                        ? 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.'
+                        : 'He guardado tu respuesta como pendiente de confirmar. Puedes volver a entrar cuando lo tengas claro.';
                 }
 
-                loadGuestsFromSheet(guestAccessPassword).catch(err => {
+                const savedFeedbackClass = feedbackMsg.className;
+                const savedFeedbackText = feedbackMsg.textContent;
+                try {
+                    await loadGuestsFromSheet(guestAccessPassword);
+                    selectGroup(group.groupId);
+                    feedbackMsg.className = savedFeedbackClass;
+                    feedbackMsg.textContent = savedFeedbackText;
+                } catch (err) {
                     console.error('Error al actualizar la lista de invitados:', err);
-                });
+                }
             } catch (err) {
                 console.error('Error guardando RSVP:', err);
                 feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
