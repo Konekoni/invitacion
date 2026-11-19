@@ -406,6 +406,35 @@
                 max-width: min(420px, 48dvh);
             }
         }
+
+        @keyframes slideUpBottomSheet {
+            from { transform: translateY(100%); opacity: 0.6; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-bottom-sheet {
+            animation: slideUpBottomSheet 0.38s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        body.valinor-dark #rsvp-bottom-sheet-panel {
+            background-color: #112a42 !important;
+            border-color: rgba(56, 176, 207, 0.35) !important;
+            color: #f1f5f9 !important;
+        }
+
+        body.valinor-dark #sheet-status-title { color: #f1f5f9 !important; }
+        body.valinor-dark #sheet-feedback-box {
+            background-color: rgba(11, 29, 46, 0.8) !important;
+            border-color: rgba(56, 176, 207, 0.35) !important;
+            color: #e2e8f0 !important;
+        }
+        body.valinor-dark #rsvp-bottom-sheet-panel > div:first-child { background-color: #64748b; }
+        body.valinor-dark #sheet-calendar-actions button,
+        body.valinor-dark #rsvp-bottom-sheet-panel > div:last-child button {
+            background-color: #0b1d2e !important;
+            color: #7dd3fc !important;
+            border-color: rgba(56, 176, 207, 0.5) !important;
+        }
     </style>
 </head>
 <body class="embossed-paper-bg bg-day-9 text-[#2c3e50] font-sans antialiased min-h-screen selection:bg-[#38b0cfff] selection:text-white overflow-x-hidden">
@@ -1150,7 +1179,6 @@
                         </button>
                     </form>
 
-                    <div id="rsvp-feedback" class="hidden mt-5 p-4 rounded-xl text-center text-sm font-medium border transition-colors"></div>
                 </div>
             </div>
 
@@ -2456,7 +2484,6 @@
 
             document.getElementById('guest-search-results').classList.add('hidden');
             document.getElementById('guest-search-wrapper').classList.add('hidden');
-            document.getElementById('rsvp-feedback').classList.add('hidden');
 
             const groupTitle = group.members.map(m => `${m.firstName} ${m.lastName}`.trim()).join(' & ');
             document.getElementById('rsvp-group-title').textContent = groupTitle;
@@ -2604,6 +2631,53 @@
             return div.innerHTML;
         }
 
+        function closeRsvpBottomSheet(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('rsvp-bottom-sheet')?.classList.add('hidden');
+        }
+
+        function openRsvpBottomSheet({ anyYes, anyNo, isPlural }) {
+            const sheet = document.getElementById('rsvp-bottom-sheet');
+            const iconBox = document.getElementById('sheet-status-icon');
+            const titleEl = document.getElementById('sheet-status-title');
+            const feedbackBox = document.getElementById('sheet-feedback-box');
+            const calendarActions = document.getElementById('sheet-calendar-actions');
+            if (!sheet || !iconBox || !titleEl || !feedbackBox) return;
+
+            if (anyYes && !anyNo) {
+                iconBox.className = 'w-12 h-12 rounded-full mx-auto flex items-center justify-center border bg-[#eef5f0] border-[#b8d1c1] text-[#2f5741]';
+                iconBox.innerHTML = '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>';
+                titleEl.textContent = '¡Recibido en Hobbitón!';
+                feedbackBox.className = 'p-4 rounded-xl text-center text-sm font-medium border bg-[#eef5f0] border-[#b8d1c1] text-[#2f5741]';
+                feedbackBox.textContent = `¡Qué alegría contar ${isPlural ? 'con vosotros' : 'contigo'}! Hemos guardado ${isPlural ? 'vuestra' : 'tu'} confirmación y alergias. ¡Nos vemos el 1 de mayo de 2027!`;
+            } else if (!anyYes && anyNo) {
+                iconBox.className = 'w-12 h-12 rounded-full mx-auto flex items-center justify-center border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
+                iconBox.innerHTML = '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>';
+                titleEl.textContent = 'Respuesta guardada';
+                feedbackBox.className = 'p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
+                feedbackBox.textContent = `¡Qué pena que ${isPlural ? 'no podáis' : 'no puedas'} venir! ${isPlural ? 'Os echaremos' : 'Te echaremos'} mucho de menos ese día. Si cambian ${isPlural ? 'vuestros planes, podéis' : 'tus planes, puedes'} volver a entrar aquí para modificarlo.`;
+            } else if (anyYes && anyNo) {
+                iconBox.className = 'w-12 h-12 rounded-full mx-auto flex items-center justify-center border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
+                iconBox.innerHTML = '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>';
+                titleEl.textContent = '¡Recibido en Hobbitón!';
+                feedbackBox.className = 'p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
+                feedbackBox.textContent = isPlural
+                    ? '¡Gracias por avisarnos! Hemos guardado quiénes podréis venir y quiénes no. Echaremos de menos a quienes falten y celebraremos por todo lo alto con los que vengáis.'
+                    : '¡Gracias por avisarnos! Hemos guardado tu respuesta. Echaremos de menos que no puedas venir y celebraremos por todo lo alto contigo si finalmente vienes.';
+            } else {
+                iconBox.className = 'w-12 h-12 rounded-full mx-auto flex items-center justify-center border bg-slate-100 border-slate-300 text-slate-700';
+                iconBox.innerHTML = '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>';
+                titleEl.textContent = 'Cambios guardados';
+                feedbackBox.className = 'p-4 rounded-xl text-center text-sm font-medium border bg-slate-100 border-slate-300 text-slate-700';
+                feedbackBox.textContent = isPlural
+                    ? 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.'
+                    : 'He guardado tu respuesta como pendiente de confirmar. Puedes volver a entrar cuando lo tengas claro.';
+            }
+
+            calendarActions?.classList.toggle('hidden', !anyYes);
+            sheet.classList.remove('hidden');
+        }
+
         async function handleRSVP(e) {
             e.preventDefault();
             if (!selectedGroupId) return;
@@ -2646,31 +2720,38 @@
             group.mensaje = messageEl ? messageEl.value.trim() : '';
 
             const submitBtn = document.getElementById('rsvp-submit-btn');
-            const feedbackMsg = document.getElementById('rsvp-feedback');
+            const originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+            const pendingGuestCount = group.members.length + (group.extraPlusOne && group.extraPlusOne.name ? 1 : 0);
+            let showHobbitonMessage = true;
+
+            function updateSubmitProgress() {
+                if (!submitBtn) return;
+                const message = showHobbitonMessage
+                    ? 'Enviando a Hobbitón...'
+                    : `Guardando ${pendingGuestCount > 1 ? 'vuestra' : 'tu'} confirmación...`;
+                submitBtn.innerHTML = `<span class="inline-flex items-center justify-center gap-2"><span class="h-4 w-4 rounded-full border-2 border-white/30 border-t-white animate-spin" aria-hidden="true"></span><span>${message}</span></span>`;
+                showHobbitonMessage = !showHobbitonMessage;
+            }
 
             if (submitBtn) {
                 submitBtn.disabled = true;
-                submitBtn.classList.add('opacity-60', 'cursor-not-allowed');
+                submitBtn.classList.add('opacity-90', 'cursor-wait');
+                updateSubmitProgress();
             }
-
-            const pendingGuestCount = group.members.length + (group.extraPlusOne && group.extraPlusOne.name ? 1 : 0);
-            feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
-            feedbackMsg.textContent = `Guardando ${pendingGuestCount > 1 ? 'vuestra' : 'tu'} confirmación...`;
-            feedbackMsg.classList.remove('hidden');
-
-            const auditInfo = await getClientAuditInfo();
-
-            const payload = {
-                groupId: group.groupId,
-                password: guestAccessPassword,
-                mensaje: group.mensaje,
-                ip: auditInfo.ip,
-                userAgent: auditInfo.userAgent,
-                members: group.members,
-                extraPlusOne: group.extraPlusOne || null
-            };
+            const progressTimer = setInterval(updateSubmitProgress, 1800);
 
             try {
+                const auditInfo = await getClientAuditInfo();
+                const payload = {
+                    groupId: group.groupId,
+                    password: guestAccessPassword,
+                    mensaje: group.mensaje,
+                    ip: auditInfo.ip,
+                    userAgent: auditInfo.userAgent,
+                    members: group.members,
+                    extraPlusOne: group.extraPlusOne || null
+                };
+
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     body: JSON.stringify(payload)
@@ -2688,45 +2769,25 @@
 
                 const anyYes = allStatuses.includes('yes');
                 const anyNo = allStatuses.includes('no');
-                const guestCount = group.members.length + (group.extraPlusOne && group.extraPlusOne.name ? 1 : 0);
-                const isPlural = guestCount > 1;
+                const isPlural = allStatuses.length > 1;
 
-                if (anyYes && !anyNo) {
-                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#eef5f0] border-[#b8d1c1] text-[#2f5741]';
-                    feedbackMsg.textContent = `¡Qué alegría contar ${isPlural ? 'con vosotros' : 'contigo'}! Hemos guardado ${isPlural ? 'vuestra' : 'tu'} confirmación y alergias. ¡Nos vemos el 1 de mayo de 2027!`;
-                } else if (!anyYes && anyNo) {
-                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
-                    feedbackMsg.textContent = `¡Qué pena que ${isPlural ? 'no podáis' : 'no puedas'} venir! ${isPlural ? 'Os echaremos' : 'Te echaremos'} mucho de menos ese día. Si cambian ${isPlural ? 'vuestros planes, podéis' : 'tus planes, puedes'} volver a entrar aquí para modificarlo.`;
-                } else if (anyYes && anyNo) {
-                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f2f6f9] border-[#c4d6e3] text-[#2c4a63]';
-                    feedbackMsg.textContent = isPlural
-                        ? '¡Gracias por avisarnos! Hemos guardado quiénes podréis venir y quiénes no. Echaremos de menos a quienes falten y celebraremos por todo lo alto con los que vengáis.'
-                        : '¡Gracias por avisarnos! Hemos guardado tu respuesta. Echaremos de menos que no puedas venir y celebraremos por todo lo alto contigo si finalmente vienes.';
-                } else {
-                    feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-slate-100 border-slate-300 text-slate-700';
-                    feedbackMsg.textContent = isPlural
-                        ? 'Hemos guardado los cambios como pendientes de confirmar. Podéis volver a entrar cuando lo tengáis claro.'
-                        : 'He guardado tu respuesta como pendiente de confirmar. Puedes volver a entrar cuando lo tengas claro.';
-                }
-
-                const savedFeedbackClass = feedbackMsg.className;
-                const savedFeedbackText = feedbackMsg.textContent;
                 try {
                     await loadGuestsFromSheet(guestAccessPassword);
                     selectGroup(group.groupId);
-                    feedbackMsg.className = savedFeedbackClass;
-                    feedbackMsg.textContent = savedFeedbackText;
                 } catch (err) {
                     console.error('Error al actualizar la lista de invitados:', err);
                 }
+
+                openRsvpBottomSheet({ anyYes, anyNo, isPlural });
             } catch (err) {
                 console.error('Error guardando RSVP:', err);
-                feedbackMsg.className = 'mt-5 p-4 rounded-xl text-center text-sm font-medium border bg-[#f7efef] border-[#d9baba] text-[#7a3838]';
-                feedbackMsg.textContent = 'Hubo un problema al conectar con el servidor para guardar la confirmación. Por favor, inténtalo de nuevo en unos segundos.';
+                alert('Hubo un problema al conectar con el servidor para guardar la confirmación. Por favor, inténtalo de nuevo en unos segundos.');
             } finally {
+                clearInterval(progressTimer);
                 if (submitBtn) {
                     submitBtn.disabled = false;
-                    submitBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+                    submitBtn.classList.remove('opacity-60', 'cursor-not-allowed', 'opacity-90', 'cursor-wait');
+                    submitBtn.innerHTML = originalBtnHTML;
                 }
             }
         }
@@ -2783,6 +2844,31 @@
             }, 2000);
         }
     </script>
+
+    <!-- BOTTOM SHEET DE CONFIRMACIÓN RSVP -->
+    <div id="rsvp-bottom-sheet" onclick="closeRsvpBottomSheet(event)" class="hidden fixed inset-0 z-[110] bg-slate-900/55 backdrop-blur-[2px] flex items-end justify-center" role="dialog" aria-modal="true" aria-labelledby="sheet-status-title">
+        <div id="rsvp-bottom-sheet-panel" onclick="event.stopPropagation()" class="animate-bottom-sheet w-full max-w-lg bg-white rounded-t-3xl p-6 sm:p-8 shadow-2xl border-t border-slate-200 text-center space-y-4">
+            <div class="w-12 h-1.5 bg-slate-300 rounded-full mx-auto"></div>
+            <div id="sheet-status-icon" class="w-12 h-12 rounded-full mx-auto flex items-center justify-center border"></div>
+            <h4 id="sheet-status-title" class="font-cinzel text-lg sm:text-xl font-bold text-slate-900"></h4>
+            <div id="sheet-feedback-box" class="p-4 rounded-xl text-center text-sm font-medium border leading-relaxed"></div>
+
+            <div id="sheet-calendar-actions" class="hidden pt-1 space-y-2.5">
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Boda+Irene+y+Nacho&dates=20270501T103000Z/20270501T210000Z&details=Ceremonia+en+Parroquia+de+Los+Santos+Ap%C3%B3stoles+(Boadilla+del+Monte)+y+celebraci%C3%B3n+en+Finca+La+Alcudia.&location=Parroquia+de+Los+Santos+Ap%C3%B3stoles,+Boadilla+del+Monte,+Madrid" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-2 bg-[#38b0cfff] hover:bg-[#155d96] text-white font-cinzel text-xs sm:text-sm tracking-wider px-5 py-3.5 rounded-xl shadow-md transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                    <span>Guardar en Google Calendar</span>
+                </a>
+                <button type="button" onclick="downloadICS()" class="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-[#38b0cfff] border border-[#38b0cfff] font-cinzel text-xs sm:text-sm tracking-wider px-5 py-3 rounded-xl shadow-sm transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                    <span>Descargar archivo (.ics)</span>
+                </button>
+            </div>
+
+            <div class="pt-1">
+                <button type="button" onclick="closeRsvpBottomSheet()" class="w-full py-3 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-50 font-cinzel text-xs font-bold tracking-wider uppercase transition-colors">Cerrar</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
