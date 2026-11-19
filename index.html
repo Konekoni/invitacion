@@ -2049,6 +2049,10 @@
 
         function openPasswordModal() {
             if (!musicStartedOnce) initAndPlayShireMusicOnce();
+            if (guestAccessPassword) {
+                showFullWebsite();
+                return;
+            }
             const modal = document.getElementById('password-modal');
             const input = document.getElementById('event-password-input');
             const error = document.getElementById('password-error');
