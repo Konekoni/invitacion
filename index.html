@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
-    <title>Boda Irene & Nacho - Invitación</title>
+    <title>Boda Irene &amp; Nacho - Invitación</title>
+    <link rel="icon" type="image/png" href="https://uploads.onecompiler.io/44nfcewhu/44qr987r5/test_sello2_cropp_fin.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2745,13 +2746,12 @@
             const progressTimer = setInterval(updateSubmitProgress, 1800);
 
             try {
-                const auditInfo = await getClientAuditInfo();
                 const payload = {
                     groupId: group.groupId,
                     password: guestAccessPassword,
                     mensaje: group.mensaje,
-                    ip: auditInfo.ip,
-                    userAgent: auditInfo.userAgent,
+                    ip: '',
+                    userAgent: '',
                     members: group.members,
                     extraPlusOne: group.extraPlusOne || null
                 };
@@ -2796,6 +2796,10 @@
             }
         }
 
+        /*
+         * Recuperación anterior de IP y datos del navegador, conservada como referencia.
+         * No se ejecuta; los campos ip y userAgent se envían vacíos en el RSVP.
+         *
         async function getClientAuditInfo() {
             let clientIp = '';
             const ipProviders = [
@@ -2831,6 +2835,7 @@
                 userAgent: fullDeviceInfo
             };
         }
+        */
 
         function copyIban() {
             const iban = document.getElementById('iban-text').textContent.trim();
