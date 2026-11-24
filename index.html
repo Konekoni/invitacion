@@ -436,6 +436,14 @@
             color: #7dd3fc !important;
             border-color: rgba(56, 176, 207, 0.5) !important;
         }
+
+        body.valinor-dark #rsvp-reminder-panel {
+            background-color: #112a42 !important;
+            border-color: rgba(56, 176, 207, 0.4) !important;
+            color: #e2e8f0 !important;
+        }
+        body.valinor-dark #rsvp-reminder-panel h2 { color: #f1f5f9 !important; }
+        body.valinor-dark #rsvp-reminder-panel p { color: #cbd5e1 !important; }
     </style>
 </head>
 <body class="embossed-paper-bg bg-day-9 text-[#2c3e50] font-sans antialiased min-h-screen selection:bg-[#38b0cfff] selection:text-white overflow-x-hidden">
@@ -1330,6 +1338,9 @@
         let runesTranslated = false;
         let isDarkMode = false;
         let updateRiverFn = null;
+        let rsvpReminderTimer = null;
+        let rsvpReminderDismissed = false;
+        let rsvpVisitRegistered = false;
 
         function toggleThemeAndRunes() {
             isDarkMode = !isDarkMode;
@@ -2108,8 +2119,89 @@
                     fullWebsite.style.opacity = '1';
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                     if (updateRiverFn) updateRiverFn();
+                    startRsvpReminderTracking();
                 }, 50);
             }, 700);
+        }
+
+        function hasRsvpActivity() {
+            return rsvpReminderDismissed || hasConfirmedRsvp();
+        }
+
+        function hasConfirmedRsvp() {
+            try {
+                return localStorage.getItem('ireneNachoRsvpCompleted') === 'true';
+            } catch (_) {
+                return false;
+            }
+        }
+
+        function markRsvpActivity() {
+            rsvpReminderDismissed = true;
+            try { localStorage.setItem('ireneNachoRsvpReminderDismissed', 'true'); } catch (_) {}
+            clearTimeout(rsvpReminderTimer);
+            document.getElementById('rsvp-reminder-modal')?.classList.add('hidden');
+        }
+
+        function markRsvpConfirmed() {
+            try { localStorage.setItem('ireneNachoRsvpCompleted', 'true'); } catch (_) {}
+            markRsvpActivity();
+        }
+
+        function startRsvpReminderTracking() {
+            try {
+                rsvpReminderDismissed = localStorage.getItem('ireneNachoRsvpReminderDismissed') === 'true';
+            } catch (_) {}
+            if (hasConfirmedRsvp() || rsvpReminderDismissed) return;
+
+            let visitCount = 0;
+            try {
+                if (!rsvpVisitRegistered) {
+                    visitCount = Number(localStorage.getItem('ireneNachoRsvpVisitCount') || 0) + 1;
+                    localStorage.setItem('ireneNachoRsvpVisitCount', String(visitCount));
+                    rsvpVisitRegistered = true;
+                } else {
+                    visitCount = Number(localStorage.getItem('ireneNachoRsvpVisitCount') || 1);
+                }
+            } catch (_) {
+                visitCount = rsvpVisitRegistered ? 1 : 2;
+                rsvpVisitRegistered = true;
+            }
+
+            clearTimeout(rsvpReminderTimer);
+            rsvpReminderTimer = setTimeout(() => {
+                if (hasConfirmedRsvp() || rsvpReminderDismissed) return;
+                document.getElementById('rsvp-reminder-modal')?.classList.remove('hidden');
+            }, 60 * 1000);
+        }
+
+        function closeRsvpReminder() {
+            markRsvpActivity();
+        }
+
+        function goToRsvpForm() {
+            document.getElementById('rsvp-reminder-modal')?.classList.add('hidden');
+            if (hasConfirmedRsvp() || rsvpReminderDismissed) return;
+            clearTimeout(rsvpReminderTimer);
+            rsvpReminderTimer = setTimeout(() => {
+                if (!hasConfirmedRsvp() && !rsvpReminderDismissed) {
+                    document.getElementById('rsvp-reminder-modal')?.classList.remove('hidden');
+                }
+            }, 60 * 1000);
+            document.getElementById('sec-rsvp')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => document.getElementById('guest-search-input')?.focus({ preventScroll: true }), 450);
+        }
+
+        function remindAboutRsvpLater() {
+            document.getElementById('rsvp-reminder-modal')?.classList.add('hidden');
+            if (hasConfirmedRsvp()) return;
+            rsvpReminderDismissed = false;
+            clearTimeout(rsvpReminderTimer);
+            rsvpReminderTimer = setTimeout(() => {
+                if (!hasConfirmedRsvp()) {
+                    document.getElementById('rsvp-reminder-modal')?.classList.remove('hidden');
+                }
+            }, 60 * 1000);
         }
 
         function toggleMobileNav() {
@@ -2766,6 +2858,7 @@
                     throw new Error(result.error || 'Error al guardar en el servidor');
                 }
 
+                markRsvpConfirmed();
                 const allStatuses = group.members.map(m => m.status);
                 if (group.extraPlusOne && group.extraPlusOne.name) {
                     allStatuses.push(group.extraPlusOne.status);
@@ -2853,6 +2946,20 @@
             }, 2000);
         }
     </script>
+
+    <!-- AVISO RSVP TRAS 10 MINUTOS SIN ACTIVIDAD -->
+    <div id="rsvp-reminder-modal" onclick="if(event.target === this) closeRsvpReminder()" class="hidden fixed inset-0 z-[105] bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="rsvp-reminder-title">
+        <div id="rsvp-reminder-panel" class="w-full max-w-md rounded-2xl bg-white paper-shadow border border-slate-200 p-6 sm:p-8 text-center">
+            <div class="text-3xl mb-3" aria-hidden="true">🧙‍♂️</div>
+            <h2 id="rsvp-reminder-title" class="font-cinzel text-xl sm:text-2xl font-bold text-slate-900 mb-3">¡Alto ahí, insensato!</h2>
+            <p class="text-sm sm:text-base text-slate-600 leading-relaxed mb-5">¿Te vas sin decirnos si vienes a brindar? Solo te llevará 45 segundos y nos ayudas muchísimo a organizar el banquete.</p>
+            <div class="space-y-2.5">
+                <button type="button" onclick="goToRsvpForm()" class="w-full py-3.5 rounded-xl bg-[#35a7cc] hover:bg-[#288eb0] text-white font-cinzel text-xs sm:text-sm tracking-wider shadow-md transition-colors">Sí, voy a rellenarlo ahora</button>
+                <button type="button" onclick="remindAboutRsvpLater()" class="w-full py-3 rounded-xl border border-[#35a7cc] text-[#288eb0] hover:bg-[#35a7cc]/10 font-cinzel text-xs tracking-wider transition-colors">Avísame más tarde</button>
+                <button type="button" onclick="closeRsvpReminder()" class="w-full py-3 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-50 font-cinzel text-xs tracking-wider transition-colors">Ya lo rellené antes / Cerrar</button>
+            </div>
+        </div>
+    </div>
 
     <!-- BOTTOM SHEET DE CONFIRMACIÓN RSVP -->
     <div id="rsvp-bottom-sheet" onclick="closeRsvpBottomSheet(event)" class="hidden fixed inset-0 z-[110] bg-slate-900/55 backdrop-blur-[2px] flex items-end justify-center" role="dialog" aria-modal="true" aria-labelledby="sheet-status-title">
